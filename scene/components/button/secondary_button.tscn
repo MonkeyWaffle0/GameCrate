@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfxe4e06s1xb6"]
+
+[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_1ln4a"]
+
+[node name="SecondaryButton" type="Button"]
+custom_minimum_size = Vector2(128, 128)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+theme = ExtResource("1_1ln4a")
+theme_override_font_sizes/font_size = 48
+text = "button"
