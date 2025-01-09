@@ -7,6 +7,7 @@ extends Control
 @onready var year: Label = %Year
 @onready var playtime: Label = %Playtime
 @onready var weight: Label = %Weight
+@onready var url_texture_rect: UrlTextureRect = %UrlTextureRect
 
 var board_game: BoardGame
 
@@ -32,3 +33,5 @@ func _on_changed() -> void:
 		playtime.text = "%s min" % [board_game.playtime]
 	if board_game.weight != 0:
 		weight.text = "%0.2f" % [board_game.weight]
+	if not board_game.image_url.is_empty():
+		url_texture_rect.load_image(board_game.image_url)

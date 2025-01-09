@@ -42,5 +42,8 @@ func _http_request_completed(_result, response_code: int, _headers, body: Packed
 				game.playtime = attributes_dict["value"]
 			elif node_name == "averageweight":
 				game.weight = attributes_dict["value"]
+			elif node_name == "thumbnail":
+				parser.read()
+				game.image_url = parser.get_node_data()
 	completed.emit(game)
 	queue_free()

@@ -6,3 +6,4 @@ var min_player: int
 var max_player: int
 var playtime: int
 var weight: float
+var image_url: String
