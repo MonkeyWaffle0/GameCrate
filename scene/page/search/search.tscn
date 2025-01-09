@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpadkvsejcq3p"]
+
+[ext_resource type="PackedScene" uid="uid://bi681m1oapw3i" path="res://scene/components/text/line_edit.tscn" id="1_hjalu"]
+[ext_resource type="Script" path="res://scene/page/search/search.gd" id="1_tsotc"]
+[ext_resource type="PackedScene" uid="uid://bksodxgfra0sr" path="res://scene/components/button/main_button.tscn" id="2_44fgj"]
+[ext_resource type="PackedScene" uid="uid://xn0nhcleo38w" path="res://scene/components/board-game/board_game_info.tscn" id="2_xf4at"]
+[ext_resource type="Script" path="res://scene/page/search/scroll_container.gd" id="5_t1gxl"]
+
+[node name="Search" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tsotc")
+board_game_info_scene = ExtResource("2_xf4at")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="GameName" parent="VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_hjalu")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SearchButton" parent="VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_44fgj")]
+layout_mode = 2
+text = "search"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+script = ExtResource("5_t1gxl")
+
+[node name="SearchResultContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/SearchButton" to="." method="_on_search_button_pressed"]
