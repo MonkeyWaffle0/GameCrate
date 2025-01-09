@@ -35,3 +35,4 @@ func _on_game_request_completed(game_dto: GameDto, board_game: BoardGame) -> voi
 	board_game.max_player = game_dto.max_player
 	board_game.weight = game_dto.weight
 	board_game.playtime = game_dto.playtime
+	board_game.image_url = game_dto.image_url

@@ -30,6 +30,10 @@ var weight: float:
 	set(value):
 		weight = round(value * 100) / 100.0
 		changed.emit()
+var image_url: String:
+	set(value):
+		image_url = value
+		changed.emit()
 
 
 func _to_string() -> String:

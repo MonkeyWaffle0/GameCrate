@@ -14,17 +14,12 @@ func _ready() -> void:
 
 func search_by_name(game_name: String) -> void:
 	var error = request(SEARCH_URL % [game_name.uri_encode()])
-	print(SEARCH_URL % [game_name.uri_encode()])
 	if error != OK:
 		printerr("An error occurred in the HTTP request search_by_name.")
 
 
-func _http_request_completed(_result, response_code: int, _headers, body: PackedByteArray):
+func _http_request_completed(_result, response_code: int, _headers, body: PackedByteArray) -> void:
 	if response_code != 200:
-		print(response_code)
-		print(_result)
-		print(_headers)
-		print(body)
 		failed.emit(response_code)
 		queue_free()
 		return
