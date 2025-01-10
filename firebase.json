@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "boardgames-d1e57",
+  "private_key_id": "54e2942d00e1bc1c00cb74899c2d0c9eb1b7e3c7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDGKtGIygZkE1Ul\nLQxnMFGAlq7WqlG38OROgvJnE0bmAP1XraPKXzOJXeC/q8CLRu3uP4CWCzccDaIi\nu2xxoN6DOSImwrT5sbbYxRxPFkq79oZLVo51rA6GBclSkWCAjrWafoCdg1mnFN8u\n2eJfmaRpuDsrtL2j4FP4Z4Pbn7Txb7lWuqp/qOWNcsZS7ITGsp5qCja1BBms402x\nDF8eEChFAf8/GY1olakT+M4TlljzExX54sT5oyh/XlpKnuYgAfuj15tDm82ADZ16\nDjJfWdknneB//GFMOwFiHITDDLSSOq8QIV+s+lUH6xvyL0BTVX80yDg9+D1+N+bO\n+myjzD0FAgMBAAECggEASiUxOxYj6APXws4lKuLIS+2VQ1p8su8d7UZPfkOXLm3G\nXKzqcMjIFqiac/zGURZb5d26telCWGu9c3Ne8vD28HBLF+eYISjeOiMeIXU8xzFJ\nNB0RtnOHB5xYpF0il1dOGZ0lcEn6HGrRyszZR13MR4YYFZVNs2g24uWQT3dlE0RK\nUcD5vvVBBC0K2HFc5wYbzM4893F1VmmLnnil3xdddsomC8wQj2y1IwqJnA8+cxeh\np1caFaBUuEzy+d4LSZLHsJz2nmPy1zcnhk2rs7+UXUAJv1N9s81VUNzAsrjGsrdN\nMEUQckRvTPpLSWDcp977n1ivNE0B0rG5YiD7QirFDQKBgQDwixFlF3hf00B7zOGz\nxl5pzoDZYO4pie/lRwDnR+NwZp5vYqjCVqnNmvK/8E7gc51qY7HWt5nZ2r7aP74L\nDSX+1cGRKqB2Rw8BLNlG6sVIZP1X3cbGa5gr9Etafj7cx3zlMhSmoJVGKuzZ/mdx\npfB4S74wD/ty3n2Sy5zA0ElS1wKBgQDS5qqfg/3IuhoUmITYqQTSQ2wdLYQKd7bz\nBr8zOjq+bGX0ViY6EDTTx/Qkzqy5JkUFuei2asTegrJHZZTEZuPzVPGPPvzvhSTq\n8QpDAEkv8PH/T+XPwNCB8s0r0cKq77r7LhyVjy2i7g5yhdBo2Rmyb8O7xOqymBco\n/cbUX63PgwKBgDl5UQexiu6CgFbURl15GVf4omrOMTm1np9OztV0JNDXhCWjEiWV\nJW9eBYB8/6u7lDI2beia5+TY0l89ecAUPS7djimMYNjB88DZIXVDZS3+C1ZyRCtm\ny+48qcCOh6Ci/aGZzLtfhStF2F/h3H+YIZPsrR24w+DXbnOjuOmNGufzAoGAceIn\nDn4aw5Ji1O5LBie2t8e6kMLsQy7D9tWU15fA8uTb5SXD/KSVsiqOFnYX5N7adK4g\nEKj05+aRWGZs/+VDgDlFO4Ha2Yf/GHLShL2Zx66HLsO5KAdJUHKJAfmB8gYD5PDQ\ndJ5dGVcNLCBAGu3op2ccvb8msQvZrcPj4vhLhfsCgYBGgWU33a4uBMJosGgNOyA4\nk7X8p47sLP722afXRA4VdRhBcw3ps+7ERKXrKOrqvvCFXSX5Cqc7D/aAuURC4Nl4\nBOtk/BctChfHF9n3QHIJRgVrVhlbtRnS96Srq7DR/vAUD//i5SBEizlsy+0FRSX3\n2jh6tekiP7KyABMuqRCjEA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-hkila@boardgames-d1e57.iam.gserviceaccount.com",
+  "client_id": "117880566251387776963",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-hkila%40boardgames-d1e57.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

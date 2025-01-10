@@ -8,6 +8,9 @@ class_name FirestoreCollection
 extends Node
 
 signal error(error_result)
+signal get_doc_error
+signal update_doc_error
+signal update_doc_success
 
 const _AUTHORIZATION_HEADER : String = "Authorization: Bearer "
 
@@ -52,6 +55,9 @@ func get_doc(document_id : String, from_cache : bool = false, is_listener : bool
 	else:
 		print("get_document returned null for %s %s" % [collection_name, document_id])
 		
+	if len(task.error.keys()) != 0:
+		get_doc_error.emit()
+		
 	return result
 
 ## @args document_id, fields
@@ -74,6 +80,11 @@ func add(document_id : String, data : Dictionary = {}) -> FirestoreDocument:
 			
 		result.collection_name = collection_name
 		add_child(result, true)
+	if len(task.error.keys()) != 0:
+		update_doc_error.emit()
+	else:
+		update_doc_success.emit()
+	
 	return result
 	
 ## @args document
@@ -97,6 +108,11 @@ func update(document : FirestoreDocument) -> FirestoreDocument:
 	if document._transforms != null:
 		temp_transforms = document._transforms
 		document._transforms = null
+		
+	if len(task.error.keys()) != 0:
+		update_doc_error.emit()
+	else:
+		update_doc_success.emit()
 	
 	var body = JSON.stringify({"fields": document.document})
 
