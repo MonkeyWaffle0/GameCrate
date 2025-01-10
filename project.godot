@@ -12,13 +12,19 @@ config_version=5
 
 config/name="BoardGames"
 run/main_scene="res://scene/page/authentication/authentication.tscn"
-config/features=PackedStringArray("4.3", "Mobile")
+config/features=PackedStringArray("4.3", "C#", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
+FireBaseConf="*res://script/singleton/FireBaseConf.cs"
 Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
 BggService="*res://scene/singleton/bgg-service/bgg_service.tscn"
+RealTimeUserService="*res://script/singleton/RealTimeUserService.cs"
+UserService="*res://script/singleton/user_service.gd"
+AppData="*res://script/singleton/app_data.gd"
+Signals="*res://script/singleton/signals.gd"
+Notifications="*res://scene/singleton/notifications/notifications.tscn"
 
 [display]
 
@@ -29,6 +35,10 @@ window/size/window_height_override=860
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
+
+[dotnet]
+
+project/assembly_name="BoardGames"
 
 [editor_plugins]
 

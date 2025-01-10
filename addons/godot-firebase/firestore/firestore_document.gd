@@ -114,7 +114,7 @@ func remove_field(field_path : String) -> void:
 func _erase(field_path : String) -> void:
 	document.erase(field_path)
 
-func add_or_update_field(field_path : String, value : Variant) -> void:		
+func add_or_update_field(field_path : String, value : Variant) -> void:
 	var changes = {
 		"added": [], "removed": [], "updated": [], "is_listener": false
 	}

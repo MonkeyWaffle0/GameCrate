@@ -35,6 +35,7 @@ func _on_login_success(auth: Dictionary) -> void:
 	auth_information.theme_type_variation = "AccentLabel"
 	auth_information.text = LOGIN_SUCCESS_MESSAGE
 	Firebase.Auth.save_auth(auth)
+	FireBaseConf.userId = Firebase.Auth.auth["localid"]
 	get_tree().change_scene_to_packed(search_scene)
 
 

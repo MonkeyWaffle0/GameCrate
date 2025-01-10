@@ -9,16 +9,27 @@ extends Control
 @onready var weight: Label = %Weight
 @onready var url_texture_rect: UrlTextureRect = %UrlTextureRect
 
-var board_game: BoardGame
+var board_game: BoardGame:
+	set(value):
+		board_game = value
+		if not is_node_ready():
+			return
+		init_fields()
+		board_game.changed.connect(_on_changed)
 
 
 func _ready() -> void:
+	if not board_game:
+		return
+	init_fields()
+
+
+func init_fields() -> void:
 	players.text = ""
 	playtime.text = ""
 	weight.text = ""
 	game_name.text = board_game.game_name
 	year.text = board_game.year_published
-	board_game.changed.connect(_on_changed)
 
 
 func _on_changed() -> void:

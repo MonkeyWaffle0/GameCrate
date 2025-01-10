@@ -43,7 +43,7 @@ const TASK_MAP = {
 	Task.TASK_PATCH: "UPDATE DOCUMENT",
 	Task.TASK_DELETE: "DELETE DOCUMENT",
 	Task.TASK_QUERY: "QUERY COLLECTION",
-	Task.TASK_LIST: "LIST DOCUMENTS", 
+	Task.TASK_LIST: "LIST DOCUMENTS",
 	Task.TASK_COMMIT: "COMMIT DOCUMENT",
 	Task.TASK_AGG_QUERY: "AGG QUERY COLLECTION"
 }
@@ -70,7 +70,7 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 	var bod = body.get_string_from_utf8()
 	if bod != "":
 		bod = Utilities.get_json_data(bod)
-	
+
 	var failed: bool = bod is Dictionary and bod.has("error") and response_code != HTTPClient.RESPONSE_OK
 	# Probably going to regret this...
 	if response_code == HTTPClient.RESPONSE_OK:
@@ -113,26 +113,26 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 
 		Firebase._printerr("Action in error was: " + str(action) + " " + description)
 		build_error(bod, action, description)
-	
+
 	task_finished.emit()
-		
+
 func build_error(_error, action, description) -> void:
 	if _error:
 		if _error is Array and _error.size() > 0 and _error[0].has("error"):
 			_error = _error[0].error
 		elif _error is Dictionary and _error.keys().size() > 0 and _error.has("error"):
 			_error = _error.error
-		
+
 		error = _error
 	else:
 		#error.code, error.status, error.message
 		error = { "error": {
-				 "code": 0,
-				 "status": "Unknown Error",
-				 "message": "Error: %s - %s" % [action, description]
+			"code": 0,
+			"status": "Unknown Error",
+			"message": "Error: %s - %s" % [action, description]
 			}
 		}
-	
+
 	data = null
 
 func set_action(value : int) -> void:
