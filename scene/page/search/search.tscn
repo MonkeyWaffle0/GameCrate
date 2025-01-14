@@ -27,7 +27,6 @@ grow_vertical = 2
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 128
-theme_override_constants/margin_top = 64
 theme_override_constants/margin_right = 128
 theme_override_constants/margin_bottom = 64
 
@@ -38,10 +37,11 @@ theme_override_constants/separation = 32
 [node name="GameName" parent="VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_hjalu")]
 unique_name_in_owner = true
 layout_mode = 2
+placeholder_text = "Search for a game"
 
 [node name="SearchButton" parent="VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_44fgj")]
 layout_mode = 2
-text = "search"
+text = "Search"
 
 [node name="SelectionScrollContainer" parent="VBoxContainer" instance=ExtResource("5_0oi54")]
 unique_name_in_owner = true
