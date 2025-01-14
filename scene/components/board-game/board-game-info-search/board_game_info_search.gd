@@ -1,17 +1,17 @@
 class_name BoardGameInfoSearch
-extends Control
+extends ScrollElement
 
 
 @onready var add_button: IconButton = %AddButton
 @onready var board_game_info: BoardGameInfo = %BoardGameInfo
 
-var is_selected := false
 var tween: Tween
 var initial_x: int
 var board_game: BoardGame
 
 
 func _ready() -> void:
+	super._ready()
 	initial_x = add_button.position.x
 	add_button.position.x += 200
 	if board_game:
@@ -23,12 +23,12 @@ func _on_add_button_pressed() -> void:
 	UserService.add_game(board_game)
 
 
-func _on_button_pressed() -> void:
-	is_selected = not is_selected
-	if is_selected:
+func set_selected(value: bool) -> void:
+	if value and not is_selected:
 		slide_in()
-	else:
+	elif not value and is_selected:
 		slide_out()
+	is_selected = value
 
 
 func slide_in() -> void:

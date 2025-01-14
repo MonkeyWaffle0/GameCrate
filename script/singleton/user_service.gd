@@ -12,6 +12,7 @@ func _ready() -> void:
 	RealTimeUserService.UserDataChanged.connect(_on_user_data_changed)
 
 
+
 func save_game_list(games: Array[BoardGame]) -> void:
 	var games_dict := games.map(func(bg: BoardGame): return bg.to_dict())
 	if "localid" not in Firebase.Auth.auth:
@@ -55,6 +56,8 @@ func get_user_data() -> UserData:
 
 	var user_id: String = Firebase.Auth.auth["localid"]
 	var user_document = await user_collection.get_doc(user_id)
+	if user_document == null:
+		return UserData.new()
 	var data_dict := user_document.get_unsafe_document()
 	return UserData.from_dict(data_dict)
 
@@ -76,6 +79,10 @@ func show_error_notification() -> void:
 func _on_login(auth: Dictionary) -> void:
 	var user_id: String = Firebase.Auth.auth["localid"]
 	user_collection = Firebase.Firestore.collection(USER_COLLECTION)
+	var user_document = await user_collection.get_doc(user_id)
+	if user_document == null:
+		var data = {GAMES_OWNED_FIELD: []}
+		await user_collection.add(user_id, data)
 	user_collection.update_doc_error.connect(show_error_notification)
 	user_collection.get_doc_error.connect(show_error_notification)
 	user_collection.update_doc_success.connect(show_success_notification)

@@ -31,7 +31,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4c5ia"]
 bg_color = Color(0.305882, 0.65098, 0.6, 1)
 
-[node name="BoardGameInfoSearch" type="Control"]
+[node name="BoardGameInfoSearch" type="Control" node_paths=PackedStringArray("button")]
 custom_minimum_size = Vector2(256, 200)
 layout_mode = 3
 anchors_preset = 15
@@ -40,6 +40,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d0o3p")
+button = NodePath("Button")
 
 [node name="BoardGameInfo" parent="." instance=ExtResource("1_ye5co")]
 unique_name_in_owner = true
