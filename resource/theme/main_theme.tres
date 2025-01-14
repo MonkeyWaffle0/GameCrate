@@ -1,14 +1,26 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cbq3hxgptt55t"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://cbq3hxgptt55t"]
 
 [ext_resource type="StyleBox" uid="uid://cgxbgvmx0jgfp" path="res://resource/theme/style-box/secondary_button.tres" id="1_0d45i"]
 [ext_resource type="StyleBox" uid="uid://43i3y02wdsyg" path="res://resource/theme/style-box/background.tres" id="1_u7cbh"]
 [ext_resource type="StyleBox" uid="uid://kdss4a5axl6n" path="res://resource/theme/style-box/main_button.tres" id="2_fidjl"]
+[ext_resource type="FontFile" uid="uid://3mgbrqtdrimr" path="res://asset/font/Rubik-Medium.ttf" id="3_jty2s"]
 [ext_resource type="StyleBox" uid="uid://cwgyabrwaxx4h" path="res://resource/theme/style-box/text_edit.tres" id="4_3j2mn"]
 [ext_resource type="StyleBox" uid="uid://biv7cnokc4eru" path="res://resource/theme/style-box/panel.tres" id="4_qo11d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_epl41"]
+bg_color = Color(0.121569, 0.121569, 0.121569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66ldn"]
+bg_color = Color(0.121569, 0.121569, 0.121569, 1)
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.129412, 0.545098, 0.396078, 1)
 
 [resource]
 AccentLabel/base_type = &"Label"
 AccentLabel/colors/font_color = Color(0.917647, 0.85098, 0.298039, 1)
+BackgroundPanel/base_type = &"Panel"
+BackgroundPanel/styles/panel = ExtResource("1_u7cbh")
 Button/font_sizes/font_size = 48
 Button/styles/disabled = ExtResource("1_0d45i")
 Button/styles/hover = ExtResource("1_0d45i")
@@ -16,9 +28,14 @@ Button/styles/normal = ExtResource("1_0d45i")
 Button/styles/pressed = ExtResource("1_0d45i")
 ErrorLabel/base_type = &"Label"
 ErrorLabel/colors/font_color = Color(0.996078, 0.498039, 0.176471, 1)
+FooterButtonPanel/base_type = &"Panel"
+FooterButtonPanel/styles/panel = SubResource("StyleBoxFlat_epl41")
 Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("3_jty2s")
 LineEdit/font_sizes/font_size = 48
 LineEdit/styles/normal = ExtResource("4_3j2mn")
+ListItemPanel/base_type = &"Panel"
+ListItemPanel/styles/panel = SubResource("StyleBoxFlat_66ldn")
 MainButton/base_type = &"Button"
 MainButton/styles/disabled = ExtResource("2_fidjl")
 MainButton/styles/focus = ExtResource("2_fidjl")

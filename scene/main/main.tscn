@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://cb5jeonybqlun"]
+
+[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_86b0q"]
+[ext_resource type="PackedScene" uid="uid://dbx34ftr66s83" path="res://scene/components/footer/footer.tscn" id="1_nba26"]
+[ext_resource type="PackedScene" uid="uid://dpadkvsejcq3p" path="res://scene/page/search/search.tscn" id="1_tp1sk"]
+[ext_resource type="PackedScene" path="res://scene/state-machine/StateMachine.tscn" id="2_ckigp"]
+[ext_resource type="PackedScene" uid="uid://dyl2lw7gdtd46" path="res://scene/components/header/header.tscn" id="2_jif4r"]
+[ext_resource type="Script" path="res://scene/state-machine/ui-states/search_state.gd" id="3_rupdd"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_86b0q")
+theme_type_variation = &"BackgroundPanel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" parent="UI/VBoxContainer" instance=ExtResource("2_jif4r")]
+layout_mode = 2
+
+[node name="MainContainer" type="Control" parent="UI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Search" parent="UI/VBoxContainer/MainContainer" instance=ExtResource("1_tp1sk")]
+layout_mode = 1
+
+[node name="Footer" parent="UI/VBoxContainer" instance=ExtResource("1_nba26")]
+layout_mode = 2
+
+[node name="StateMachine" parent="UI" node_paths=PackedStringArray("origin") instance=ExtResource("2_ckigp")]
+origin = NodePath("../VBoxContainer/MainContainer")
+
+[node name="SearchState" type="Node" parent="UI/StateMachine"]
+script = ExtResource("3_rupdd")
