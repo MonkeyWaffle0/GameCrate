@@ -10,7 +10,7 @@ extends Control
 
 func _ready() -> void:
 	BggService.search_completed.connect(_on_search_completed)
-
+	
 
 func _on_search_button_pressed() -> void:
 	selection_scroll_container.clear()
@@ -23,3 +23,7 @@ func _on_search_completed(result: Array[BoardGame]) -> void:
 		board_game_info.board_game = bg
 		selection_scroll_container.add_element(board_game_info)
 		BggService.fill_game_info(bg)
+
+
+func _on_game_name_text_submitted(_new_text: String) -> void:
+	_on_search_button_pressed()

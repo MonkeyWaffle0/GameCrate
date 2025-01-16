@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://cbq3hxgptt55t"]
+[gd_resource type="Theme" load_steps=21 format=3 uid="uid://cbq3hxgptt55t"]
 
 [ext_resource type="StyleBox" uid="uid://cgxbgvmx0jgfp" path="res://resource/theme/style-box/secondary_button.tres" id="1_0d45i"]
 [ext_resource type="StyleBox" uid="uid://43i3y02wdsyg" path="res://resource/theme/style-box/background.tres" id="1_u7cbh"]
@@ -7,18 +7,49 @@
 [ext_resource type="StyleBox" uid="uid://cwgyabrwaxx4h" path="res://resource/theme/style-box/text_edit.tres" id="4_3j2mn"]
 [ext_resource type="StyleBox" uid="uid://biv7cnokc4eru" path="res://resource/theme/style-box/panel.tres" id="4_qo11d"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2epre"]
+bg_color = Color(0.129412, 0.545098, 0.396078, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_epl41"]
 bg_color = Color(0.121569, 0.121569, 0.121569, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mfov3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_86jr5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f1yvc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wv8cy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ypg14"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_scvhn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_reyc8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5068w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ahjt8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dcmp1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mrs83"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66ldn"]
-bg_color = Color(0.121569, 0.121569, 0.121569, 1)
+bg_color = Color(0.0823529, 0.0823529, 0.0823529, 1)
 border_width_top = 2
 border_width_bottom = 2
-border_color = Color(0.129412, 0.545098, 0.396078, 1)
+border_color = Color(0.698039, 0.698039, 0.698039, 1)
 
 [resource]
 AccentLabel/base_type = &"Label"
 AccentLabel/colors/font_color = Color(0.917647, 0.85098, 0.298039, 1)
+AccentPanel/base_type = &"Panel"
+AccentPanel/styles/panel = SubResource("StyleBoxFlat_2epre")
 BackgroundPanel/base_type = &"Panel"
 BackgroundPanel/styles/panel = ExtResource("1_u7cbh")
 Button/font_sizes/font_size = 48
@@ -30,6 +61,18 @@ ErrorLabel/base_type = &"Label"
 ErrorLabel/colors/font_color = Color(0.996078, 0.498039, 0.176471, 1)
 FooterButtonPanel/base_type = &"Panel"
 FooterButtonPanel/styles/panel = SubResource("StyleBoxFlat_epl41")
+InvisibleButton/base_type = &"Button"
+InvisibleButton/styles/disabled = SubResource("StyleBoxEmpty_mfov3")
+InvisibleButton/styles/disabled_mirrored = SubResource("StyleBoxEmpty_86jr5")
+InvisibleButton/styles/focus = SubResource("StyleBoxEmpty_f1yvc")
+InvisibleButton/styles/hover = SubResource("StyleBoxEmpty_wv8cy")
+InvisibleButton/styles/hover_mirrored = SubResource("StyleBoxEmpty_ypg14")
+InvisibleButton/styles/hover_pressed = SubResource("StyleBoxEmpty_scvhn")
+InvisibleButton/styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_reyc8")
+InvisibleButton/styles/normal = SubResource("StyleBoxEmpty_5068w")
+InvisibleButton/styles/normal_mirrored = SubResource("StyleBoxEmpty_ahjt8")
+InvisibleButton/styles/pressed = SubResource("StyleBoxEmpty_dcmp1")
+InvisibleButton/styles/pressed_mirrored = SubResource("StyleBoxEmpty_mrs83")
 Label/font_sizes/font_size = 24
 Label/fonts/font = ExtResource("3_jty2s")
 LineEdit/font_sizes/font_size = 48

@@ -5,3 +5,5 @@ signal game_add_succeeded
 signal game_add_failed
 signal game_remove_succeeded
 signal game_remove_failed
+
+signal footer_changed(type: Footer.TabType)

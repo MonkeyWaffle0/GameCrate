@@ -32,11 +32,11 @@ func _ready() -> void:
 
 	position.y += 64
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(self, "position:y", position.y - 128, 0.2)
+	tween.tween_property(self, "position:y", position.y - 254, 0.2)
 	await tween.finished
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(1.2).timeout
 	tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(self, "position:y", position.y + 128, 0.2)
+	tween.tween_property(self, "position:y", position.y + 254, 0.2)
 	await tween.finished
 	finished.emit()
 	queue_free()

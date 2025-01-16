@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c3i23biev6rd4"]
 
 [ext_resource type="Script" path="res://scene/page/authentication/authentication.gd" id="1_g3sga"]
-[ext_resource type="PackedScene" uid="uid://dpadkvsejcq3p" path="res://scene/page/search/search.tscn" id="2_qdruo"]
+[ext_resource type="PackedScene" uid="uid://cb5jeonybqlun" path="res://scene/main/main.tscn" id="2_f372f"]
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_yw2hk"]
 [ext_resource type="PackedScene" uid="uid://bi681m1oapw3i" path="res://scene/components/text/line_edit.tscn" id="3_rilch"]
 [ext_resource type="PackedScene" uid="uid://bksodxgfra0sr" path="res://scene/components/button/main_button.tscn" id="4_lhbhh"]
@@ -15,7 +15,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_g3sga")
-search_scene = ExtResource("2_qdruo")
+main_scene = ExtResource("2_f372f")
 
 [node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 1
