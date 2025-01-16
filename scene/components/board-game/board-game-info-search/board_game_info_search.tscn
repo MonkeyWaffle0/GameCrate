@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://be88hfg8whswb"]
+[gd_scene load_steps=7 format=3 uid="uid://be88hfg8whswb"]
 
 [ext_resource type="Script" path="res://scene/components/board-game/board-game-info-search/board_game_info_search.gd" id="1_d0o3p"]
 [ext_resource type="PackedScene" uid="uid://xn0nhcleo38w" path="res://scene/components/board-game/board_game_info.tscn" id="1_ye5co"]
@@ -6,32 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://crc7i3to3i23b" path="res://scene/components/button/icon-button/icon-button.tscn" id="4_8lu27"]
 [ext_resource type="Texture2D" uid="uid://58vkd3whymiv" path="res://asset/icon/add.svg" id="5_845rr"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kcf2b"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bf73g"]
+bg_color = Color(0.129412, 0.545098, 0.396078, 1)
+corner_radius_top_left = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3qa0t"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nfu2x"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_86m2s"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_46xcw"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xpf7t"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_buoy1"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2rqst"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dvx2x"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rn8xb"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nugvm"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4c5ia"]
-bg_color = Color(0.305882, 0.65098, 0.6, 1)
-
-[node name="BoardGameInfoSearch" type="Control" node_paths=PackedStringArray("button")]
+[node name="BoardGameInfoSearch" type="Control" node_paths=PackedStringArray("buttons", "invisible_button")]
 custom_minimum_size = Vector2(256, 200)
 layout_mode = 3
 anchors_preset = 15
@@ -40,7 +22,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d0o3p")
-button = NodePath("Button")
+buttons = NodePath("AddButton")
+buttons_width = 200
+invisible_button = NodePath("Button")
 
 [node name="BoardGameInfo" parent="." instance=ExtResource("1_ye5co")]
 unique_name_in_owner = true
@@ -54,17 +38,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_7tma8")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_kcf2b")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_3qa0t")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_nfu2x")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_86m2s")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_46xcw")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_xpf7t")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_buoy1")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_2rqst")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_dvx2x")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_rn8xb")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_nugvm")
+theme_type_variation = &"InvisibleButton"
 
 [node name="AddButton" parent="." instance=ExtResource("4_8lu27")]
 unique_name_in_owner = true
@@ -82,9 +56,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Panel" parent="AddButton" index="0"]
-theme_override_styles/panel = SubResource("StyleBoxFlat_4c5ia")
+theme_override_styles/panel = SubResource("StyleBoxFlat_bf73g")
 
 [node name="MarginContainer" parent="AddButton" index="1"]
+offset_left = 0.0
+offset_right = 0.0
 theme_override_constants/margin_left = 48
 theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
@@ -93,7 +69,6 @@ theme_override_constants/margin_bottom = 48
 [node name="Icon" parent="AddButton/MarginContainer" index="0"]
 texture = ExtResource("5_845rr")
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="AddButton" to="." method="_on_add_button_pressed"]
 
 [editable path="AddButton"]

@@ -12,7 +12,6 @@ func _ready() -> void:
 	RealTimeUserService.UserDataChanged.connect(_on_user_data_changed)
 
 
-
 func save_game_list(games: Array[BoardGame]) -> void:
 	var games_dict := games.map(func(bg: BoardGame): return bg.to_dict())
 	if "localid" not in Firebase.Auth.auth:
@@ -33,8 +32,9 @@ func add_game(board_game: BoardGame) -> void:
 	if len(AppData.user_data.games_owned.filter(func(bg:BoardGame): return bg.id == board_game.id)) > 0:
 		printerr("Error adding game from games owned: Game is already in the list. %s" % [board_game])
 		return
-	AppData.user_data.games_owned.append(board_game)
-	save_game_list(AppData.user_data.games_owned)
+	var new_collection := AppData.user_data.games_owned.duplicate()
+	new_collection.append(board_game)
+	save_game_list(new_collection)
 
 
 func remove_game(board_game: BoardGame) -> void:
@@ -42,11 +42,12 @@ func remove_game(board_game: BoardGame) -> void:
 		printerr("Error removing game from games owned: Game not in the list. %s" % [board_game])
 		return
 
-	for bg in AppData.user_data.games_owned:
+	var new_collection := AppData.user_data.games_owned.duplicate()
+	for bg in new_collection:
 		if bg.id == board_game.id:
-			AppData.user_data.games_owned.erase(bg)
+			new_collection.erase(bg)
 			break
-	save_game_list(AppData.user_data.games_owned)
+	save_game_list(new_collection)
 
 
 func get_user_data() -> UserData:
@@ -89,4 +90,8 @@ func _on_login(auth: Dictionary) -> void:
 
 
 func _on_user_data_changed(data: Dictionary) -> void:
-	AppData.user_data = UserData.from_dict(data)
+	var new_data := UserData.from_dict(data)
+	if len(new_data.games_owned) != len(AppData.user_data.games_owned):
+		AppData.user_data.games_owned = new_data.games_owned
+	if len(new_data.friends) != len(AppData.user_data.friends):
+		AppData.user_data.friends = new_data.friends

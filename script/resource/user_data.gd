@@ -2,8 +2,17 @@ class_name UserData
 extends Resource
 
 
-var games_owned: Array[BoardGame] = []
-var friends: Array[String] = []
+signal games_owned_changed
+signal friends_changed
+
+var games_owned: Array[BoardGame] = []:
+	set(value):
+		games_owned = value
+		games_owned_changed.emit()
+var friends: Array[String] = []:
+	set(value):
+		friends = value
+		friends_changed.emit()
 
 
 func to_dict() -> Dictionary:

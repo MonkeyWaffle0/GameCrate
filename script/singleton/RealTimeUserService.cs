@@ -15,22 +15,22 @@ public partial class RealTimeUserService : Node
     {
         conf = GetNode<FireBaseConf>("/root/FireBaseConf");
         gdFireBase = GetNode<Node>("/root/Firebase");
-        var auth = (Node) gdFireBase.Get("Auth");
+        var auth = (Node)gdFireBase.Get("Auth");
         auth.Connect("login_succeeded", Callable.From((Variant args) => OnAuthSucceeded(args)));
     }
 
     private async void OnAuthSucceeded(Variant arg)
     {
         CollectionReference collection = conf.db.Collection("users");
-        var auth = (Node) gdFireBase.Get("Auth");
+        var auth = (Node)gdFireBase.Get("Auth");
         var authDict = (Dictionary)auth.Get("auth");
         var userId = (string)authDict["localid"];
         var document = collection.Document(userId);
         DocumentSnapshot snapshot = await document.GetSnapshotAsync();
         FirestoreChangeListener listener = document.Listen(snapshot =>
         {
-        if (snapshot.Exists)
-        {
+            if (snapshot.Exists)
+            {
                 CallDeferred("Emit", DictionaryConverter.ConvertToGodotDictionary(snapshot.ToDictionary()));
             }
             else

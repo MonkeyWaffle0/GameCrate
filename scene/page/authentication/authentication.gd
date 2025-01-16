@@ -6,7 +6,7 @@ const LOGIN_ERROR_MESSAGE = "Login failed: %s"
 const SIGNUP_SUCCESS_MESSAGE = "Signup sucessful! You can now login."
 const SIGNUP_ERROR_MESSAGE = "Signup failed: %s"
 
-@export var search_scene: PackedScene
+@export var main_scene: PackedScene
 
 @onready var email: LineEdit = %Email
 @onready var password: LineEdit = %Password
@@ -30,13 +30,13 @@ func _on_login_pressed() -> void:
 
 
 func _on_login_success(auth: Dictionary) -> void:
-	print("Login sucessful")
+	print("Login successful")
 	auth_information.visible = true
 	auth_information.theme_type_variation = "AccentLabel"
 	auth_information.text = LOGIN_SUCCESS_MESSAGE
 	Firebase.Auth.save_auth(auth)
 	FireBaseConf.userId = Firebase.Auth.auth["localid"]
-	get_tree().change_scene_to_packed(search_scene)
+	get_tree().change_scene_to_packed(main_scene)
 
 
 func _on_login_failed(error_code: int, message: String) -> void:

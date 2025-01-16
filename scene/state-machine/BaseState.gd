@@ -2,7 +2,7 @@ class_name BaseState
 extends Node
 
 
-signal stage_change_requested(new_state: BaseState)
+signal state_change_requested(new_state: BaseState)
 
 var origin: Node
 

@@ -1,24 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://dbx34ftr66s83"]
+[gd_scene load_steps=11 format=3 uid="uid://dbx34ftr66s83"]
 
 [ext_resource type="Script" path="res://scene/components/footer/footer.gd" id="1_hmqjr"]
-[ext_resource type="Script" path="res://scene/components/button/icon-button/icon_button.gd" id="2_sbtv5"]
+[ext_resource type="PackedScene" uid="uid://bm1hai5h1026p" path="res://scene/components/footer/footer_button.tscn" id="2_8arri"]
 [ext_resource type="Texture2D" uid="uid://cymc4nh2bmowt" path="res://asset/icon/search-grey.svg" id="3_01cr1"]
-[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="3_hiu56"]
+[ext_resource type="Texture2D" uid="uid://csx6q42tgne88" path="res://asset/icon/search-green.svg" id="3_arpna"]
 [ext_resource type="Texture2D" uid="uid://ckiwheed76727" path="res://asset/icon/collection-grey.svg" id="4_sjqr0"]
 [ext_resource type="Texture2D" uid="uid://gkvhiw7wkbtl" path="res://asset/icon/session-grey.svg" id="5_fxifo"]
+[ext_resource type="Texture2D" uid="uid://dtdt6w71gpgmu" path="res://asset/icon/collection-green.svg" id="5_h5gyj"]
 [ext_resource type="Texture2D" uid="uid://bnqhgj7knhwwp" path="res://asset/icon/group-grey.svg" id="6_rchbg"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2iql4"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e7ron"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_75j4a"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_84yk7"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrnfg"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xp82t"]
+[ext_resource type="Texture2D" uid="uid://bnf2hd44l0rcf" path="res://asset/icon/session-green.svg" id="7_16ciq"]
+[ext_resource type="Texture2D" uid="uid://bccpbvyeyi1dl" path="res://asset/icon/group-green.svg" id="9_7tmiy"]
 
 [node name="Footer" type="Control"]
 custom_minimum_size = Vector2(0, 128)
@@ -31,6 +22,7 @@ grow_vertical = 2
 script = ExtResource("1_hmqjr")
 
 [node name="Container" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,268 +32,48 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="SearchButton" type="Control" parent="Container"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("2_sbtv5")
-
-[node name="Panel" type="Panel" parent="Container/SearchButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("3_hiu56")
-theme_type_variation = &"FooterButtonPanel"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Container/SearchButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="Container/SearchButton/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-
-[node name="Icon" type="TextureRect" parent="Container/SearchButton/VBoxContainer/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("3_01cr1")
-expand_mode = 2
-stretch_mode = 5
-
-[node name="MarginContainer2" type="MarginContainer" parent="Container/SearchButton/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_bottom = 16
-
-[node name="Label" type="Label" parent="Container/SearchButton/VBoxContainer/MarginContainer2"]
-layout_mode = 2
-theme = ExtResource("3_hiu56")
-theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
-text = "Search"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="Container/SearchButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("3_hiu56")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_2iql4")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7ron")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_75j4a")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_84yk7")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_wrnfg")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_xp82t")
-
-[node name="CollectionButton" type="Control" parent="Container"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("2_sbtv5")
-
-[node name="Panel" type="Panel" parent="Container/CollectionButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("3_hiu56")
-theme_type_variation = &"FooterButtonPanel"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Container/CollectionButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Container/CollectionButton/VBoxContainer"]
+[node name="SearchButton" parent="Container" instance=ExtResource("2_8arri")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
+selected_icon = ExtResource("3_arpna")
+unselected_icon = ExtResource("3_01cr1")
 
-[node name="Icon" type="TextureRect" parent="Container/CollectionButton/VBoxContainer/MarginContainer"]
+[node name="CollectionButton" parent="Container" instance=ExtResource("2_8arri")]
 unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("4_sjqr0")
-expand_mode = 2
-stretch_mode = 5
+type = 1
+selected_icon = ExtResource("5_h5gyj")
+unselected_icon = ExtResource("4_sjqr0")
 
-[node name="MarginContainer2" type="MarginContainer" parent="Container/CollectionButton/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_bottom = 16
+[node name="MarginContainer" parent="Container/CollectionButton/VBoxContainer" index="0"]
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
 
-[node name="Label" type="Label" parent="Container/CollectionButton/VBoxContainer/MarginContainer2"]
-layout_mode = 2
-theme = ExtResource("3_hiu56")
-theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
-text = "Collection"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="Container/CollectionButton"]
+[node name="SessionsButton" parent="Container" instance=ExtResource("2_8arri")]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("3_hiu56")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_2iql4")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7ron")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_75j4a")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_84yk7")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_wrnfg")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_xp82t")
-
-[node name="SessionButton" type="Control" parent="Container"]
 layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("2_sbtv5")
+type = 2
+selected_icon = ExtResource("7_16ciq")
+unselected_icon = ExtResource("5_fxifo")
 
-[node name="Panel" type="Panel" parent="Container/SessionButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("3_hiu56")
-theme_type_variation = &"FooterButtonPanel"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Container/SessionButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="Container/SessionButton/VBoxContainer"]
+[node name="FriendsButton" parent="Container" instance=ExtResource("2_8arri")]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
+type = 3
+selected_icon = ExtResource("9_7tmiy")
+unselected_icon = ExtResource("6_rchbg")
 
-[node name="Icon" type="TextureRect" parent="Container/SessionButton/VBoxContainer/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("5_fxifo")
-expand_mode = 2
-stretch_mode = 5
-
-[node name="MarginContainer2" type="MarginContainer" parent="Container/SessionButton/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_bottom = 16
-
-[node name="Label" type="Label" parent="Container/SessionButton/VBoxContainer/MarginContainer2"]
-layout_mode = 2
-theme = ExtResource("3_hiu56")
-theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
-text = "Sessions"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="Container/SessionButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("3_hiu56")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_2iql4")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7ron")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_75j4a")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_84yk7")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_wrnfg")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_xp82t")
-
-[node name="FriendsButton" type="Control" parent="Container"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("2_sbtv5")
-
-[node name="Panel" type="Panel" parent="Container/FriendsButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("3_hiu56")
-theme_type_variation = &"FooterButtonPanel"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Container/FriendsButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Container/FriendsButton/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-
-[node name="Icon" type="TextureRect" parent="Container/FriendsButton/VBoxContainer/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("6_rchbg")
-expand_mode = 2
-stretch_mode = 5
-
-[node name="MarginContainer2" type="MarginContainer" parent="Container/FriendsButton/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_bottom = 16
-
-[node name="Label" type="Label" parent="Container/FriendsButton/VBoxContainer/MarginContainer2"]
-layout_mode = 2
-theme = ExtResource("3_hiu56")
-theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
-text = "Friends"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="Container/FriendsButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("3_hiu56")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_2iql4")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7ron")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_75j4a")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_84yk7")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_wrnfg")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_xp82t")
+[node name="MarginContainer" parent="Container/FriendsButton/VBoxContainer" index="0"]
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
 
 [connection signal="pressed" from="Container/SearchButton" to="." method="_on_search_button_pressed"]
-[connection signal="pressed" from="Container/SearchButton/Button" to="Container/SearchButton" method="_on_button_pressed"]
 [connection signal="pressed" from="Container/CollectionButton" to="." method="_on_collection_button_pressed"]
-[connection signal="pressed" from="Container/CollectionButton/Button" to="Container/CollectionButton" method="_on_button_pressed"]
-[connection signal="pressed" from="Container/SessionButton" to="." method="_on_session_button_pressed"]
-[connection signal="pressed" from="Container/SessionButton/Button" to="Container/SessionButton" method="_on_button_pressed"]
+[connection signal="pressed" from="Container/SessionsButton" to="." method="_on_sessions_button_pressed"]
 [connection signal="pressed" from="Container/FriendsButton" to="." method="_on_friends_button_pressed"]
-[connection signal="pressed" from="Container/FriendsButton/Button" to="Container/FriendsButton" method="_on_button_pressed"]
+
+[editable path="Container/CollectionButton"]
+[editable path="Container/FriendsButton"]

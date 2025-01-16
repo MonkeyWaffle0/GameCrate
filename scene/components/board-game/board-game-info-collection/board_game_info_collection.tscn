@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://bopl4iqu6pt33"]
+
+[ext_resource type="Script" path="res://scene/components/board-game/board-game-info-collection/board_game_info_collection.gd" id="1_1mxap"]
+[ext_resource type="PackedScene" uid="uid://xn0nhcleo38w" path="res://scene/components/board-game/board_game_info.tscn" id="1_tr5mu"]
+[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_khcat"]
+[ext_resource type="PackedScene" uid="uid://crc7i3to3i23b" path="res://scene/components/button/icon-button/icon-button.tscn" id="3_v53nw"]
+[ext_resource type="Texture2D" uid="uid://bwl2oqjw5e60q" path="res://asset/icon/bin.svg" id="4_bhwhl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n88f5"]
+bg_color = Color(0.898039, 0.270588, 0.294118, 1)
+corner_radius_top_left = 16
+corner_radius_bottom_left = 16
+
+[node name="BoardGameInfoCollection" type="Control" node_paths=PackedStringArray("buttons", "invisible_button")]
+custom_minimum_size = Vector2(256, 200)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1mxap")
+buttons = NodePath("RemoveButton")
+buttons_width = 200
+invisible_button = NodePath("Button")
+
+[node name="BoardGameInfo" parent="." instance=ExtResource("1_tr5mu")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_khcat")
+theme_type_variation = &"InvisibleButton"
+
+[node name="RemoveButton" parent="." instance=ExtResource("3_v53nw")]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 0
+
+[node name="Panel" parent="RemoveButton" index="0"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_n88f5")
+
+[node name="MarginContainer" parent="RemoveButton" index="1"]
+offset_left = 0.0
+offset_right = 0.0
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="Icon" parent="RemoveButton/MarginContainer" index="0"]
+texture = ExtResource("4_bhwhl")
+
+[connection signal="pressed" from="RemoveButton" to="." method="_on_remove_button_pressed"]
+
+[editable path="RemoveButton"]

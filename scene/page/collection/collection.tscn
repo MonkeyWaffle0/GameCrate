@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://plfxmfwvtux1"]
+
+[ext_resource type="Script" path="res://scene/page/collection/collection.gd" id="1_lossn"]
+[ext_resource type="PackedScene" uid="uid://52xwphfqp44l" path="res://scene/components/selection-scroll-container/selection_scroll_container.tscn" id="2_adpk2"]
+[ext_resource type="PackedScene" uid="uid://bopl4iqu6pt33" path="res://scene/components/board-game/board-game-info-collection/board_game_info_collection.tscn" id="2_xxvtl"]
+
+[node name="Collection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_lossn")
+board_game_info_collection_scene = ExtResource("2_xxvtl")
+
+[node name="SelectionScrollContainer" parent="." instance=ExtResource("2_adpk2")]
+unique_name_in_owner = true
+layout_mode = 1

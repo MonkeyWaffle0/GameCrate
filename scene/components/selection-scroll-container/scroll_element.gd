@@ -4,7 +4,7 @@ extends Control
 
 signal selected(element: ScrollElement)
 
-@export var button: Control
+@export var invisible_button: Control
 
 
 var initial_y: float
@@ -13,7 +13,7 @@ var is_selected := false
 
 
 func _ready() -> void:
-	button.pressed.connect(_on_pressed)
+	invisible_button.pressed.connect(_on_pressed)
 
 
 func _input(event: InputEvent) -> void:

@@ -14,25 +14,17 @@ var board_game: BoardGame:
 		board_game = value
 		if not is_node_ready():
 			return
-		init_fields()
+		fill()
 		board_game.changed.connect(_on_changed)
 
 
 func _ready() -> void:
 	if not board_game:
 		return
-	init_fields()
+	fill()
 
 
-func init_fields() -> void:
-	players.text = ""
-	playtime.text = ""
-	weight.text = ""
-	game_name.text = board_game.game_name
-	year.text = board_game.year_published
-
-
-func _on_changed() -> void:
+func fill() -> void:
 	game_name.text = board_game.game_name
 	year.text = board_game.year_published
 	if board_game.max_player != 0:
@@ -46,3 +38,7 @@ func _on_changed() -> void:
 		weight.text = "%0.2f" % [board_game.weight]
 	if not board_game.image_url.is_empty():
 		url_texture_rect.load_image(board_game.image_url)
+
+
+func _on_changed() -> void:
+	fill()
