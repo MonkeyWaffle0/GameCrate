@@ -2,6 +2,7 @@
 using Godot;
 using Godot.Collections;
 using Google.Cloud.Firestore;
+using System;
 
 
 public partial class RealTimeUserService : Node
@@ -16,19 +17,29 @@ public partial class RealTimeUserService : Node
         conf = GetNode<FireBaseConf>("/root/FireBaseConf");
         gdFireBase = GetNode<Node>("/root/Firebase");
         var auth = (Node)gdFireBase.Get("Auth");
-        auth.Connect("login_succeeded", Callable.From((Variant args) => OnAuthSucceeded(args)));
+        conf.Connect("FirebaseConfigured", Callable.From(OnFirebaseConfigured));
     }
 
-    private async void OnAuthSucceeded(Variant arg)
+    private async void OnFirebaseConfigured()
     {
         CollectionReference collection = conf.db.Collection("users");
         var auth = (Node)gdFireBase.Get("Auth");
         var authDict = (Dictionary)auth.Get("auth");
         var userId = (string)authDict["localid"];
         var document = collection.Document(userId);
-        DocumentSnapshot snapshot = await document.GetSnapshotAsync();
+        try
+        {
+            DocumentSnapshot snapshot = await document.GetSnapshotAsync();
+            GD.Print("Got snapshot successfully.");
+        }
+        catch (Exception e)
+        {
+            GD.PrintErr("Firestore error: ", e.ToString());
+        }
+        GD.Print("snapshot ok");
         FirestoreChangeListener listener = document.Listen(snapshot =>
         {
+            GD.Print("inside snapshot");
             if (snapshot.Exists)
             {
                 CallDeferred("Emit", DictionaryConverter.ConvertToGodotDictionary(snapshot.ToDictionary()));
