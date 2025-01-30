@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dyl2lw7gdtd46"]
+[gd_scene load_steps=3 format=3 uid="uid://dyl2lw7gdtd46"]
 
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_0o1vn"]
+[ext_resource type="Script" uid="uid://ka278eqhrcn3" path="res://scene/components/header/header.gd" id="1_qi41x"]
 
 [node name="Header" type="Control"]
 custom_minimum_size = Vector2(0, 128)
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_qi41x")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -21,6 +23,7 @@ grow_vertical = 2
 theme_override_constants/margin_left = 32
 
 [node name="Label" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_0o1vn")
 theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)

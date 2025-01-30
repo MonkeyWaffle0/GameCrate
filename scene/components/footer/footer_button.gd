@@ -7,7 +7,7 @@ signal pressed
 const SELECTED_COLOR = Color("218b65")
 const UNSELECTED_COLOR = Color("b2b2b2")
 
-@export var type: Footer.TabType
+@export var type: Enums.Page
 @export var selected_icon: Texture2D
 @export var unselected_icon: Texture2D
 
@@ -16,15 +16,7 @@ const UNSELECTED_COLOR = Color("b2b2b2")
 
 
 func _ready() -> void:
-	match type:
-		Footer.TabType.SEARCH:
-			label.text = "Search"
-		Footer.TabType.COLLECTION:
-			label.text = "Collection"
-		Footer.TabType.SESSIONS:
-			label.text = "Sessions"
-		Footer.TabType.FRIENDS:
-			label.text = "Friends"
+	label.text = Enums.page_to_string(type)
 	icon.texture = unselected_icon
 
 

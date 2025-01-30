@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b4qn5ukljf45g" path="res://asset/icon/checkmark.svg" id="1_d05ab"]
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_earit"]
-[ext_resource type="Script" path="res://scene/components/notification/notification.gd" id="2_rqlk4"]
+[ext_resource type="Script" uid="uid://nq1aj5ifnu" path="res://scene/components/notification/notification.gd" id="2_rqlk4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gdhlw"]
 bg_color = Color(1, 1, 1, 1)

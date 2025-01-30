@@ -15,6 +15,7 @@ var tween: Tween
 func add_element(element: ScrollElement) -> void:
 	container.call_deferred("add_child", element)
 	element.selected.connect(_on_element_selected)
+	element.unselected.connect(_on_element_unselected)
 
 
 func clear() -> void:
@@ -22,9 +23,13 @@ func clear() -> void:
 		child.queue_free()
 
 
-func _on_element_selected(element: ScrollElement) -> void:
+func _on_element_selected(element: ScrollElementWithButton) -> void:
 	for child: ScrollElement in container.get_children():
 		child.set_selected(child == element)
+
+
+func _on_element_unselected(element: ScrollElementWithButton) -> void:
+	element.set_selected(false)
 
 
 func _input(ev):

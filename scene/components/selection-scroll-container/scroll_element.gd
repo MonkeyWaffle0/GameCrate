@@ -3,6 +3,7 @@ extends Control
 
 
 signal selected(element: ScrollElement)
+signal unselected(element: ScrollElement)
 
 @export var invisible_button: Control
 
@@ -25,12 +26,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_pressed() -> void:
+	await get_tree().process_frame
 	if abs(initial_y - end_y) < 50:
 		if not is_selected:
 			selected.emit(self)
 		else:
-			set_selected(false)
-
-
-func set_selected(value: bool) -> void:
-	pass
+			unselected.emit(self)

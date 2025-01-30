@@ -1,0 +1,92 @@
+[gd_scene load_steps=5 format=3 uid="uid://i6dbia18gxr5"]
+
+[ext_resource type="Script" uid="uid://clxncq4hgemwo" path="res://scene/page/authentication/signup/signup.gd" id="1_jqsks"]
+[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_pgfc6"]
+[ext_resource type="PackedScene" uid="uid://bi681m1oapw3i" path="res://scene/components/text/line_edit.tscn" id="2_p7qrn"]
+[ext_resource type="StyleBox" uid="uid://fl8vrpp1qhqo" path="res://resource/theme/style-box/lineedit_panel.tres" id="3_p7qrn"]
+
+[node name="Signup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jqsks")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_pgfc6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Username" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_p7qrn")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/focus = ExtResource("3_p7qrn")
+theme_override_styles/read_only = ExtResource("3_p7qrn")
+theme_override_styles/normal = ExtResource("3_p7qrn")
+placeholder_text = "Username"
+max_length = 24
+
+[node name="Email" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_p7qrn")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/focus = ExtResource("3_p7qrn")
+theme_override_styles/read_only = ExtResource("3_p7qrn")
+theme_override_styles/normal = ExtResource("3_p7qrn")
+placeholder_text = "Email"
+max_length = 64
+
+[node name="Password" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_p7qrn")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/focus = ExtResource("3_p7qrn")
+theme_override_styles/read_only = ExtResource("3_p7qrn")
+theme_override_styles/normal = ExtResource("3_p7qrn")
+placeholder_text = "Password"
+max_length = 32
+secret = true
+
+[node name="SignupButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+theme = ExtResource("1_pgfc6")
+theme_type_variation = &"MainButton"
+text = "Signup"
+
+[node name="AuthInformation" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme = ExtResource("1_pgfc6")
+theme_override_font_sizes/font_size = 32
+text = "authentication information"
+autowrap_mode = 2
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SignupButton" to="." method="_on_signup_button_pressed"]
