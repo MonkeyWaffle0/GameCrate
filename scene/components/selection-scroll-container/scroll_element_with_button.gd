@@ -23,7 +23,6 @@ func _ready() -> void:
 
 
 func set_selected(value: bool) -> void:
-	print("set selected ", value)
 	if value and not is_selected:
 		slide_in()
 	elif not value and is_selected:

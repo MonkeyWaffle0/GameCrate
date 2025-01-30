@@ -9,10 +9,13 @@ extends BaseState
 
 
 func enter() -> void:
+	header.hide()
+	footer.hide()
 	Firebase.Auth.login_succeded.connect(_on_login_succeeded)
-	
+
 
 func exit() -> void:
+	Firebase.Auth.login_succeded.disconnect(_on_login_succeeded)
 	header.show()
 	footer.show()
 
