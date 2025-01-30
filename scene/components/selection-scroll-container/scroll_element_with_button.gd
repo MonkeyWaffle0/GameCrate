@@ -22,12 +22,8 @@ func _ready() -> void:
 	buttons.position.x += buttons_width
 
 
-func _on_add_button_pressed() -> void:
-	buttons.enable(false)
-	UserService.add_game(board_game)
-
-
 func set_selected(value: bool) -> void:
+	print("set selected ", value)
 	if value and not is_selected:
 		slide_in()
 	elif not value and is_selected:

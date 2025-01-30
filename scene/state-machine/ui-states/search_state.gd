@@ -17,8 +17,9 @@ func exit() -> void:
 	search.hide()
 
 
-func _on_footer_changed(type: Footer.TabType) -> void:
+func _on_footer_changed(type: Enums.Page) -> void:
 	footer.do_selection(type)
 	match type:
-		Footer.TabType.COLLECTION:
+		Enums.Page.COLLECTION:
 			state_change_requested.emit(collection_state)
+			Signals.page_changed.emit(Enums.Page.COLLECTION)

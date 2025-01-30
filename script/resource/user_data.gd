@@ -5,6 +5,7 @@ extends Resource
 signal games_owned_changed
 signal friends_changed
 
+var username: String
 var games_owned: Array[BoardGame] = []:
 	set(value):
 		games_owned = value
@@ -29,5 +30,7 @@ static func from_dict(dict_data: Dictionary) -> UserData:
 		for bg in bgs:
 			user_data.games_owned.append(bg)
 	if "friends" in dict_data:
-		user_data.friends = dict_data["friends"]
+		var friends = dict_data["friends"]
+		for friend in friends:
+			user_data.friends.append(friend)
 	return user_data

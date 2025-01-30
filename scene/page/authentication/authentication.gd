@@ -1,4 +1,9 @@
+class_name Authentication
 extends Control
+
+
+signal signup_pressed
+signal login_pressed
 
 
 const LOGIN_SUCCESS_MESSAGE = "Login successful!"
@@ -8,6 +13,7 @@ const SIGNUP_ERROR_MESSAGE = "Signup failed: %s"
 
 @export var main_scene: PackedScene
 
+@onready var username: LineEdit = %Username
 @onready var email: LineEdit = %Email
 @onready var password: LineEdit = %Password
 @onready var auth_information: Label = %AuthInformation
@@ -22,7 +28,9 @@ func _ready() -> void:
 
 
 func _on_signup_pressed() -> void:
-	Firebase.Auth.signup_with_email_and_password(email.text, password.text)
+	if await UserService.is_username_available(username.text):
+		AppData.user_data.username = username.text
+		Firebase.Auth.signup_with_email_and_password(email.text, password.text)
 
 
 func _on_login_pressed() -> void:

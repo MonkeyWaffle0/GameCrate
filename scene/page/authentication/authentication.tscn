@@ -1,9 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3i23biev6rd4"]
+[gd_scene load_steps=6 format=3 uid="uid://c3i23biev6rd4"]
 
-[ext_resource type="Script" path="res://scene/page/authentication/authentication.gd" id="1_g3sga"]
-[ext_resource type="PackedScene" uid="uid://cb5jeonybqlun" path="res://scene/main/main.tscn" id="2_f372f"]
+[ext_resource type="Script" uid="uid://d2e6p7hndboyn" path="res://scene/page/authentication/authentication.gd" id="1_g3sga"]
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_yw2hk"]
-[ext_resource type="PackedScene" uid="uid://bi681m1oapw3i" path="res://scene/components/text/line_edit.tscn" id="3_rilch"]
 [ext_resource type="PackedScene" uid="uid://bksodxgfra0sr" path="res://scene/components/button/main_button.tscn" id="4_lhbhh"]
 [ext_resource type="PackedScene" uid="uid://cfxe4e06s1xb6" path="res://scene/components/button/secondary_button.tscn" id="5_jyig0"]
 
@@ -15,7 +13,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_g3sga")
-main_scene = ExtResource("2_f372f")
 
 [node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -56,23 +53,6 @@ autowrap_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 64
 alignment = 1
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 32
-
-[node name="Email" parent="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer2" instance=ExtResource("3_rilch")]
-unique_name_in_owner = true
-layout_mode = 2
-placeholder_text = "email"
-max_length = 64
-
-[node name="Password" parent="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer2" instance=ExtResource("3_rilch")]
-unique_name_in_owner = true
-layout_mode = 2
-placeholder_text = "password"
-max_length = 32
-secret = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://w27f8xpnoolq"]
 
-[ext_resource type="Script" path="res://scene/singleton/notifications/notifications.gd" id="1_a7jct"]
+[ext_resource type="Script" uid="uid://brasanjy5esrh" path="res://scene/singleton/notifications/notifications.gd" id="1_a7jct"]
 [ext_resource type="PackedScene" uid="uid://dfnv0lngfqvmb" path="res://scene/components/notification/notification.tscn" id="2_y7lny"]
 
 [node name="Notifications" type="CanvasLayer"]

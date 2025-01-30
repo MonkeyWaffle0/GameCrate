@@ -3,6 +3,8 @@ extends Node
 
 const USER_COLLECTION := "users"
 const GAMES_OWNED_FIELD := "games_owned"
+const FRIENDS_FIELD := "friends"
+const USERNAME_FIELD := "username"
 
 var user_collection: FirestoreCollection
 
@@ -63,6 +65,14 @@ func get_user_data() -> UserData:
 	return UserData.from_dict(data_dict)
 
 
+func is_username_available(username: String) -> bool:
+	var query := FirestoreQuery.new()
+	query.from(USER_COLLECTION)
+	var users: Array = await Firebase.Firestore.query(query)
+	var usernames := users.map(func(user_doc): return user_doc.document["username"]["stringValue"])
+	return username not in usernames
+
+
 func show_success_notification() -> void:
 	var notification_data := NotificationData.new()
 	notification_data.type = NotificationData.NotificationType.SUCCESS
@@ -82,7 +92,7 @@ func _on_login(auth: Dictionary) -> void:
 	user_collection = Firebase.Firestore.collection(USER_COLLECTION)
 	var user_document = await user_collection.get_doc(user_id)
 	if user_document == null:
-		var data = {GAMES_OWNED_FIELD: []}
+		var data = {GAMES_OWNED_FIELD: [], FRIENDS_FIELD: [], USERNAME_FIELD: AppData.user_data.username}
 		await user_collection.add(user_id, data)
 	user_collection.update_doc_error.connect(show_error_notification)
 	user_collection.get_doc_error.connect(show_error_notification)
