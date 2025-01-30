@@ -8,6 +8,7 @@ extends BaseState
 
 
 func enter() -> void:
+	footer.do_selection(Enums.Page.SEARCH)
 	footer.footer_changed.connect(_on_footer_changed)
 	search.show()
 

@@ -2,7 +2,6 @@ class_name Signup
 extends Control
 
 
-const SIGNUP_SUCCESS_MESSAGE := "Signup sucessful! You can now login."
 const SIGNUP_ERROR_MESSAGE := "Signup failed: %s"
 const USERNAME_TOO_SHORT_MESSAGE := "Username must be at least 3 characters."
 const USERNAME_ALREADY_USED_MESSAGE := "Username is already used."

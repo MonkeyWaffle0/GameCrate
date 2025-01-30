@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cb5jeonybqlun"]
+[gd_scene load_steps=14 format=3 uid="uid://cb5jeonybqlun"]
 
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_86b0q"]
 [ext_resource type="Script" uid="uid://hpu0dwwp6tx4" path="res://scene/main/main.gd" id="1_717n3"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bjse61i3o2evp" path="res://scene/state-machine/ui-states/collection_state.gd" id="8_u3xiq"]
 [ext_resource type="Script" uid="uid://cn18arqfn3g31" path="res://scene/state-machine/ui-states/authentication_state.gd" id="11_snrr3"]
 [ext_resource type="Script" uid="uid://rlhhaon02p04" path="res://scene/state-machine/ui-states/signup_state.gd" id="12_36wa8"]
+[ext_resource type="Script" uid="uid://8g7mqbuixl40" path="res://scene/state-machine/ui-states/login_state.gd" id="13_n5o2v"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -79,10 +80,12 @@ collection = NodePath("../../VBoxContainer/MainContainer/Collection")
 search_state = NodePath("../SearchState")
 footer = NodePath("../../VBoxContainer/Footer")
 
-[node name="AuthenticationState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("authentication", "signup_state", "footer", "header")]
+[node name="AuthenticationState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("authentication", "signup_state", "login_state", "search_state", "footer", "header")]
 script = ExtResource("11_snrr3")
 authentication = NodePath("../../VBoxContainer/MainContainer/Authentication")
 signup_state = NodePath("../SignupState")
+login_state = NodePath("../LoginState")
+search_state = NodePath("../SearchState")
 footer = NodePath("../../VBoxContainer/Footer")
 header = NodePath("../../VBoxContainer/Header")
 
@@ -92,3 +95,6 @@ header = NodePath("../../VBoxContainer/Header")
 footer = NodePath("../../VBoxContainer/Footer")
 authentication_state = NodePath("../AuthenticationState")
 search_state = NodePath("../SearchState")
+
+[node name="LoginState" type="Node" parent="UI/StateMachine"]
+script = ExtResource("13_n5o2v")
