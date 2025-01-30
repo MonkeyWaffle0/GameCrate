@@ -34,9 +34,9 @@ func add_game(board_game: BoardGame) -> void:
 	if len(AppData.user_data.games_owned.filter(func(bg:BoardGame): return bg.id == board_game.id)) > 0:
 		printerr("Error adding game from games owned: Game is already in the list. %s" % [board_game])
 		return
-	var new_collection := AppData.user_data.games_owned.duplicate()
-	new_collection.append(board_game)
-	save_game_list(new_collection)
+	var new_game_collection: Array[BoardGame] = AppData.user_data.games_owned
+	new_game_collection.append(board_game)
+	save_game_list(new_game_collection)
 
 
 func remove_game(board_game: BoardGame) -> void:
@@ -52,9 +52,26 @@ func remove_game(board_game: BoardGame) -> void:
 	save_game_list(new_collection)
 
 
+func save_username(username: String) -> void:
+	var user_id: String = Firebase.Auth.auth["localid"]
+	var user_document = await user_collection.get_doc(user_id)
+	user_document.add_or_update_field(USERNAME_FIELD, username)
+	await user_collection.update(user_document)
+
+
+func is_first_login() -> bool:
+	if "localid" not in Firebase.Auth.auth:
+		printerr("Error checking if first login. User is not authenticated.")
+		return false
+
+	var user_id: String = Firebase.Auth.auth["localid"]
+	var user_document = await user_collection.get_doc(user_id)
+	return user_document.get_value("username") == ""
+
+
 func get_user_data() -> UserData:
 	if "localid" not in Firebase.Auth.auth:
-		printerr("Error saving game list. User is not authenticated.")
+		printerr("Error getting user data. User is not authenticated.")
 		return
 
 	var user_id: String = Firebase.Auth.auth["localid"]
@@ -69,8 +86,8 @@ func is_username_available(username: String) -> bool:
 	var query := FirestoreQuery.new()
 	query.from(USER_COLLECTION)
 	var users: Array = await Firebase.Firestore.query(query)
-	var usernames := users.map(func(user_doc): return user_doc.document["username"]["stringValue"])
-	return username not in usernames
+	var usernames := users.map(func(user_doc): return user_doc.document["username"]["stringValue"].to_lower())
+	return username.to_lower() not in usernames
 
 
 func show_success_notification() -> void:
@@ -92,7 +109,7 @@ func _on_login(auth: Dictionary) -> void:
 	user_collection = Firebase.Firestore.collection(USER_COLLECTION)
 	var user_document = await user_collection.get_doc(user_id)
 	if user_document == null:
-		var data = {GAMES_OWNED_FIELD: [], FRIENDS_FIELD: [], USERNAME_FIELD: AppData.user_data.username}
+		var data = {GAMES_OWNED_FIELD: [], FRIENDS_FIELD: [], USERNAME_FIELD: ""}
 		await user_collection.add(user_id, data)
 	user_collection.update_doc_error.connect(show_error_notification)
 	user_collection.get_doc_error.connect(show_error_notification)

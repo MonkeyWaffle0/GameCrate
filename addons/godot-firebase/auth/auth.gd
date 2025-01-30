@@ -216,6 +216,7 @@ func is_logged_in() -> bool:
 # Called with Firebase.Auth.signup_with_email_and_password(email, password)
 # You must pass in the email and password to this function for it to work correctly
 func signup_with_email_and_password(email : String, password : String) -> void:
+	print("signup")
 	if _is_ready():
 		is_busy = true
 		_login_request_body.email = email

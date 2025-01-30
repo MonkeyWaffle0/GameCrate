@@ -11,23 +11,17 @@ const LOGIN_ERROR_MESSAGE := "Login failed: %s"
 
 
 func _ready() -> void:
-	Firebase.Auth.login_succeeded.connect(_on_login_success)
 	Firebase.Auth.login_failed.connect(_on_login_failed)
-	Firebase.Auth.check_auth_file()
 
 
 func _on_login_button_pressed() -> void:
+	login_button.disabled = true
 	Firebase.Auth.login_with_email_and_password(email.text, password.text)
 
 
-func _on_login_success(auth: Dictionary) -> void:
-	print("Login successful")
-	Firebase.Auth.save_auth(auth)
-	FireBaseConf.userId = Firebase.Auth.auth["localid"]
-
-
 func _on_login_failed(error_code: int, message: String) -> void:
+	login_button.disabled = false
 	printerr("Login failed with error code %s: %s" % [error_code, message])
-	auth_information.visible = true
 	auth_information.theme_type_variation = "ErrorLabel"
 	auth_information.text = LOGIN_ERROR_MESSAGE % [message]
+	

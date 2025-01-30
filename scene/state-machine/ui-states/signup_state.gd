@@ -4,18 +4,23 @@ extends BaseState
 
 @export var header: Header
 @export var footer: Footer
+@export var signup: Signup
 @export var authentication_state: UiAuthenticationState
-@export var search_state: UiSearchState
+@export var first_login_state: UiFirstLoginState
 
 
 func enter() -> void:
 	header.hide()
 	footer.hide()
-	Firebase.Auth.login_succeded.connect(_on_login_succeeded)
+	signup.show()
+	Firebase.Auth.login_succeeded.connect(_on_login_succeeded)
+	Firebase.Auth.signup_succeeded.connect(_on_signup_succeeded)
 
 
 func exit() -> void:
-	Firebase.Auth.login_succeded.disconnect(_on_login_succeeded)
+	signup.hide()
+	Firebase.Auth.login_succeeded.disconnect(_on_login_succeeded)
+	Firebase.Auth.signup_succeeded.disconnect(_on_signup_succeeded)
 	header.show()
 	footer.show()
 
@@ -23,4 +28,9 @@ func exit() -> void:
 func _on_login_succeeded(auth: Dictionary) -> void:
 	Firebase.Auth.save_auth(auth)
 	FireBaseConf.userId = Firebase.Auth.auth["localid"]
-	state_change_requested.emit(search_state)
+	FireBaseConf.Init(auth)
+	state_change_requested.emit(first_login_state)
+
+
+func _on_signup_succeeded(auth: Dictionary) -> void:
+	signup.login()

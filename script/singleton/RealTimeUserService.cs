@@ -16,12 +16,12 @@ public partial class RealTimeUserService : Node
     {
         conf = GetNode<FireBaseConf>("/root/FireBaseConf");
         gdFireBase = GetNode<Node>("/root/Firebase");
-        var auth = (Node)gdFireBase.Get("Auth");
         conf.Connect("FirebaseConfigured", Callable.From(OnFirebaseConfigured));
     }
 
     private async void OnFirebaseConfigured()
     {
+        GD.Print("OnFirebaseConfigured");
         CollectionReference collection = conf.db.Collection("users");
         var auth = (Node)gdFireBase.Get("Auth");
         var authDict = (Dictionary)auth.Get("auth");

@@ -22,6 +22,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_5u8th")
+theme_type_variation = &"BackgroundPanel"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -73,11 +74,9 @@ text = "Login"
 
 [node name="AuthInformation" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme = ExtResource("1_5u8th")
 theme_override_font_sizes/font_size = 32
-text = "authentication information"
 autowrap_mode = 2
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]
