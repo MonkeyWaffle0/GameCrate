@@ -5,22 +5,15 @@ extends BaseState
 @export var authentication_state: UiAuthenticationState
 @export var search_state: UiSearchState
 @export var first_login_state: UiFirstLoginState
-@export var login: Login
-@export var footer: Footer
-@export var header: Header
 
 
 func enter() -> void:
-	login.show()
-	footer.hide()
-	header.hide()
+	super.enter()
 	Firebase.Auth.login_succeeded.connect(_on_login_succeeded)
 
 
 func exit() -> void:
-	login.hide()
-	footer.show()
-	header.show()
+	super.exit()
 	Firebase.Auth.login_succeeded.disconnect(_on_login_succeeded)
 
 

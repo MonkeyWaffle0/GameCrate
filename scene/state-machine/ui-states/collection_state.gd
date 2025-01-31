@@ -5,22 +5,21 @@ extends BaseState
 
 @export var collection: Collection
 @export var search_state: UiSearchState
-@export var footer: Footer
 
 
 func enter() -> void:
-	footer.footer_changed.connect(_on_footer_changed)
-	collection.show()
+	super.enter()
+	AppData.footer.footer_changed.connect(_on_footer_changed)
 	collection.load_collection()
 
 
 func exit() -> void:
-	footer.footer_changed.disconnect(_on_footer_changed)
-	collection.hide()
+	super.exit()
+	AppData.footer.footer_changed.disconnect(_on_footer_changed)
 
 
 func _on_footer_changed(type: Enums.Page) -> void:
-	footer.do_selection(type)
+	AppData.footer.do_selection(type)
 	match type:
 		Enums.Page.SEARCH:
 			state_change_requested.emit(search_state)

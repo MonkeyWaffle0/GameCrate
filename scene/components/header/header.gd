@@ -6,6 +6,7 @@ extends Control
 
 
 func _ready() -> void:
+	AppData.header = self
 	Signals.page_changed.connect(_on_page_changed)
 	
 

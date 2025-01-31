@@ -10,6 +10,7 @@ var current_tab := Enums.Page.SEARCH
 
 
 func _ready() -> void:
+	AppData.footer = self
 	await get_tree().create_timer(0.25).timeout
 	footer_changed.emit(Enums.Page.SEARCH)
 
@@ -31,6 +32,7 @@ func _on_collection_button_pressed() -> void:
 
 
 func _on_friends_button_pressed() -> void:
+	print("friends")
 	if not current_tab == Enums.Page.FRIENDS:
 		footer_changed.emit(Enums.Page.FRIENDS)
 
