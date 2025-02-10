@@ -169,6 +169,11 @@ func delete(document : FirestoreDocument) -> bool:
 			if node.doc_name == doc_name:
 				node.free() # Should be only one
 				break
+				
+	if len(task.error.keys()) != 0:
+		update_doc_error.emit()
+	else:
+		update_doc_success.emit()
 	
 	return result
 

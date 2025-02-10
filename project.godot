@@ -25,6 +25,7 @@ UserService="*res://script/singleton/user_service.gd"
 AppData="*res://script/singleton/app_data.gd"
 Signals="*res://script/singleton/signals.gd"
 Notifications="*res://scene/singleton/notifications/notifications.tscn"
+BoardgameService="*res://script/singleton/boardgame_service.gd"
 
 [display]
 

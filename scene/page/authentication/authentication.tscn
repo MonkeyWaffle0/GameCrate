@@ -65,6 +65,7 @@ text = "Signup"
 
 [node name="Login" parent="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer" instance=ExtResource("5_jyig0")]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.129412, 0.545098, 0.396078, 1)
 text = "Login"
 
 [node name="AuthInformation" type="Label" parent="MarginContainer/VBoxContainer2"]

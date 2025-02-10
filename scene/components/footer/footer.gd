@@ -32,7 +32,6 @@ func _on_collection_button_pressed() -> void:
 
 
 func _on_friends_button_pressed() -> void:
-	print("friends")
 	if not current_tab == Enums.Page.FRIENDS:
 		footer_changed.emit(Enums.Page.FRIENDS)
 
