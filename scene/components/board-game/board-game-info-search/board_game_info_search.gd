@@ -4,4 +4,4 @@ extends ScrollElementWithButton
 
 func _on_add_button_pressed() -> void:
 	set_selected(false)
-	UserService.add_game(board_game)
+	BoardgameService.add_game(board_game)
