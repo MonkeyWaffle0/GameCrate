@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bawviwtj6m1br"]
+[gd_scene load_steps=3 format=3 uid="uid://bawviwtj6m1br"]
 
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_3mc3x"]
+[ext_resource type="Texture2D" uid="uid://1gxq5kkabcfx" path="res://asset/icon/Crate.png" id="2_x15rd"]
 
 [node name="FriendInfo" type="Control"]
 custom_minimum_size = Vector2(0, 100)
@@ -11,23 +12,52 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_3mc3x")
+theme_type_variation = &"ListItemPanel"
 
-[node name="FriendUsername" type="Label" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 228.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="FriendUsername" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_3mc3x")
 theme_override_font_sizes/font_size = 48
 text = "Username"
 
-[node name="GamesOwnedLabel" type="Label" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(0.823529, 0.823529, 0.823529, 1)
+layout_mode = 2
+texture = ExtResource("2_x15rd")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_3mc3x")
-theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
-theme_override_font_sizes/font_size = 32
-text = "45 games"
+theme_override_colors/font_color = Color(0.823529, 0.823529, 0.823529, 1)
+text = "45"

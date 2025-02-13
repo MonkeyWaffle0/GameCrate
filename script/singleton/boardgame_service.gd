@@ -1,6 +1,8 @@
 extends Node
 
 
+const PLACEHOLDER_ID := "PLACEHOLDER"
+
 var game_collection: FirestoreCollection
 
 
@@ -19,7 +21,7 @@ func remove_game(board_game: BoardGame) -> void:
 		printerr("Error removing game from games owned: Game not in the list. %s" % [board_game])
 		return
 	await game_collection.delete(game_document)
-	
+
 
 func show_success_notification() -> void:
 	var notification_data := NotificationData.new()
@@ -42,9 +44,14 @@ func _on_login(auth: Dictionary) -> void:
 	game_collection.update_doc_error.connect(show_error_notification)
 	game_collection.get_doc_error.connect(show_error_notification)
 	game_collection.update_doc_success.connect(show_success_notification)
+	var placeholder_bg := BoardGame.new()
+	placeholder_bg.id = PLACEHOLDER_ID
+	await add_game(placeholder_bg)
+	FireBaseConf.Init(auth)
 
 
 func _on_games_changed(data: Array[Dictionary]) -> void:
+	data = data.filter(func(bg_data: Dictionary): return bg_data["id"] != PLACEHOLDER_ID)
 	var games_owned: Array[BoardGame] = []
 	for game_data: Dictionary in data:
 		games_owned.append(BoardGame.from_dict(game_data))

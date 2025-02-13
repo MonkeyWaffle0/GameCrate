@@ -20,7 +20,6 @@ func exit() -> void:
 func _on_login_succeeded(auth: Dictionary) -> void:
 	Firebase.Auth.save_auth(auth)
 	FireBaseConf.userId = Firebase.Auth.auth["localid"]
-	FireBaseConf.Init(auth)
 	var is_first_login := await UserService.is_first_login()
 	if is_first_login:
 		state_change_requested.emit(first_login_state)

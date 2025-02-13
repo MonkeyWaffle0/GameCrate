@@ -22,9 +22,9 @@ func exit() -> void:
 func _on_login_succeeded(auth: Dictionary) -> void:
 	Firebase.Auth.save_auth(auth)
 	FireBaseConf.userId = Firebase.Auth.auth["localid"]
-	FireBaseConf.Init(auth)
 	state_change_requested.emit(first_login_state)
 
 
 func _on_signup_succeeded(auth: Dictionary) -> void:
-	signup.login()
+	Firebase.Auth.save_auth(auth)
+	Firebase.Auth.check_auth_file()

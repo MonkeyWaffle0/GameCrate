@@ -40,12 +40,53 @@ func get_user_data() -> UserData:
 	return UserData.from_dict(data_dict)
 
 
-func is_username_available(username: String) -> bool:
+func get_all_users() -> Array[UserData]:
 	var query := FirestoreQuery.new()
 	query.from(AppData.USER_COLLECTION)
 	var users: Array = await Firebase.Firestore.query(query)
-	var usernames := users.map(func(user_doc): return user_doc.document["username"]["stringValue"].to_lower())
-	return username.to_lower() not in usernames
+	var result: Array[UserData] = []
+	for user_doc in users:
+		result.append(UserData.from_dict(user_doc.get_unsafe_document()))
+	return result
+
+
+func find_user_by_id(user_id: String) -> UserData:
+	var user_document = await user_collection.get_doc(user_id)
+	if user_document == null:
+		return null
+	var data_dict := user_document.get_unsafe_document()
+	return UserData.from_dict(data_dict)
+
+
+func find_user_by_username(username: String) -> UserData:
+	var query := FirestoreQuery.new()
+	query.from(AppData.USER_COLLECTION, false)
+	var users: Array = await Firebase.Firestore.query(query)
+	var usernames := users.map(func(user): return user.get_unsafe_document()["username"])
+	
+	for user: FirestoreDocument in users:
+		var doc := user.get_unsafe_document()
+		if username.to_lower() == doc["username"].to_lower():
+			return UserData.from_dict(doc)
+	return null
+
+
+### Fetch all users and returns an Array[UserSearchData] that contains every user where the username
+### param is contained in their username
+func find_users_by_username(username: String) -> Array[UserSearchData]:
+	var query := FirestoreQuery.new()
+	query.from(AppData.USER_COLLECTION, false)
+	var users: Array = await Firebase.Firestore.query(query)
+	var result: Array[UserSearchData] = []
+	for user: FirestoreDocument in users:
+		var doc := user.get_unsafe_document()
+		if username.to_lower() in doc["username"].to_lower():
+			result.append(UserSearchData.new(user.doc_name, doc["username"]))
+	return result
+
+
+func is_username_available(username: String) -> bool:
+	return await find_user_by_username(username) == null
 
 
 func _on_login(auth: Dictionary) -> void:
