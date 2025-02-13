@@ -18,11 +18,11 @@ const _AUTH_PROVIDERS : String = "firebase/auth_providers"
 
 ## @type FirebaseAuth
 ## The Firebase Authentication API.
-@onready var Auth := $Auth
+@onready var Auth: FirebaseAuth = $Auth
 
 ## @type FirebaseFirestore
 ## The Firebase Firestore API.
-@onready var Firestore := $Firestore
+@onready var Firestore: FirebaseFirestore = $Firestore
 
 ## @type FirebaseDatabase
 ## The Firebase Realtime Database API.

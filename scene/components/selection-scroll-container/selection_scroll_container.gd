@@ -33,6 +33,8 @@ func _on_element_unselected(element: ScrollElementWithButton) -> void:
 
 
 func _input(ev):
+	if not is_visible_in_tree():
+		return
 	if ev is InputEventScreenTouch:
 		if tween and tween.is_running():
 			tween.kill()

@@ -18,7 +18,7 @@ public partial class FireBaseConf : Node
 
     public void Init(Dictionary auth)
     {
-        GD.Print("Init");
+        GD.Print("Initializing real time Firestore updates.");
         Variant accessToken;
         auth.TryGetValue("accesstoken", out accessToken);
 
@@ -29,7 +29,7 @@ public partial class FireBaseConf : Node
             ProjectId = "boardgames-d1e57",
             Credential = googleCredential
         }.Build();
-
+        GD.Print("Real time Firestore updates successfully initialized.");
         EmitSignal("FirebaseConfigured");
     }
 }

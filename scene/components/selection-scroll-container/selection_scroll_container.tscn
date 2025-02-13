@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://52xwphfqp44l"]
 
-[ext_resource type="Script" path="res://scene/components/selection-scroll-container/selection_scroll_container.gd" id="1_m3bl4"]
+[ext_resource type="Script" uid="uid://31mehdg8yyym" path="res://scene/components/selection-scroll-container/selection_scroll_container.gd" id="1_m3bl4"]
 
 [node name="SelectionScrollContainer" type="ScrollContainer"]
 anchors_preset = 15

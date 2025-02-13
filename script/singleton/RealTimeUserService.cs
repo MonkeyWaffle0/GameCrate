@@ -25,21 +25,13 @@ public partial class RealTimeUserService : Node
 
     private async void OnFirebaseConfigured()
     {
-        var collection = conf.db.Collection("users");
-        var auth = (Node)gdFireBase.Get("Auth");
-        var authDict = (Dictionary)auth.Get("auth");
-        var userId = (string)authDict["localid"];
-        var document = collection.Document(userId);
-        try
-        {
-            DocumentSnapshot snapshot = await document.GetSnapshotAsync();
-        }
-        catch (Exception e)
-        {
-            GD.PrintErr("Firestore error: ", e.ToString());
-        }
+        GD.Print("Listening to user changes...");
+        var userCollection = conf.db.Collection("users"); ;
+        var document = userCollection.Document(conf.userId);
+
         FirestoreChangeListener listener = document.Listen(snapshot =>
         {
+            GD.Print("User data changed.");
             if (snapshot.Exists)
             {
                 CallDeferred("EmitUserDataChanged", DictionaryConverter.ConvertToGodotDictionary(snapshot.ToDictionary()));
@@ -50,10 +42,11 @@ public partial class RealTimeUserService : Node
             }
         });
 
-
-        var gamesCollection = conf.db.Collection("users/" + userId  + "/games");
+        GD.Print("Listening to games changes...");
+        var gamesCollection = conf.db.Collection("users/" + conf.userId + "/games");
         gamesCollection.Listen(snapshot =>
         {
+            GD.Print("Game collection data changed.");
             var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
                 .ToArray()
                 .Select(element => DictionaryConverter.ConvertToGodotDictionary(element.ToDictionary())));
