@@ -17,10 +17,6 @@ func _ready() -> void:
 	Firebase.Auth.signup_failed.connect(_on_signup_failed)
 
 
-func login() -> void:
-	Firebase.Auth.login_with_email_and_password(email.text, password.text)
-
-
 func _on_signup_button_pressed() -> void:
 	if password.text != password_confirm.text:
 		show_message("ErrorLabel", PASSWORDS_DONT_MATCH_MESSAGE)

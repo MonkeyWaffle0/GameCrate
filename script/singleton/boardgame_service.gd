@@ -23,30 +23,26 @@ func remove_game(board_game: BoardGame) -> void:
 	await game_collection.delete(game_document)
 
 
-func show_success_notification() -> void:
-	var notification_data := NotificationData.new()
-	notification_data.type = NotificationData.NotificationType.SUCCESS
-	notification_data.text = "Collection updated!"
-	Notifications.add_notification(notification_data)
+func add_placeholder() -> void:
+	var placeholder_bg := BoardGame.new()
+	placeholder_bg.id = PLACEHOLDER_ID
+	await add_game(placeholder_bg)
 
 
-func show_error_notification() -> void:
-	var notification_data := NotificationData.new()
-	notification_data.type = NotificationData.NotificationType.ERROR
-	notification_data.text = "Error updating collection."
-	Notifications.add_notification(notification_data)
+func connect_signals() -> void:
+	game_collection.update_doc_error.connect(_show_error_notification)
+	game_collection.get_doc_error.connect(_show_error_notification)
+	game_collection.update_doc_success.connect(_show_success_notification)
 
 
 func _on_login(auth: Dictionary) -> void:
 	var user_id: String = Firebase.Auth.auth["localid"]
 	var game_collection_name := "%s/%s/%s" % [AppData.USER_COLLECTION, user_id, AppData.GAME_COLLECTION]
 	game_collection = Firebase.Firestore.collection(game_collection_name)
-	game_collection.update_doc_error.connect(show_error_notification)
-	game_collection.get_doc_error.connect(show_error_notification)
-	game_collection.update_doc_success.connect(show_success_notification)
-	var placeholder_bg := BoardGame.new()
-	placeholder_bg.id = PLACEHOLDER_ID
-	await add_game(placeholder_bg)
+	var placeholder_doc := await game_collection.get_doc(PLACEHOLDER_ID)
+	if placeholder_doc == null:
+		await add_placeholder()
+	connect_signals()
 	FireBaseConf.Init(auth)
 
 
@@ -56,3 +52,17 @@ func _on_games_changed(data: Array[Dictionary]) -> void:
 	for game_data: Dictionary in data:
 		games_owned.append(BoardGame.from_dict(game_data))
 	AppData.user_data.games_owned = games_owned
+
+
+func _show_success_notification() -> void:
+	var notification_data := NotificationData.new()
+	notification_data.type = NotificationData.NotificationType.SUCCESS
+	notification_data.text = "Collection updated!"
+	Notifications.add_notification(notification_data)
+
+
+func _show_error_notification() -> void:
+	var notification_data := NotificationData.new()
+	notification_data.type = NotificationData.NotificationType.ERROR
+	notification_data.text = "Error updating collection."
+	Notifications.add_notification(notification_data)

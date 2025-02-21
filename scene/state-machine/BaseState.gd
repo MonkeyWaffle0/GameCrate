@@ -6,6 +6,7 @@ signal state_change_requested(new_state: BaseState)
 
 @export var show_footer := true
 @export var show_header := true
+@export var show_back_button := false
 @export var show_animated_background := false
 @export var visible_components: Array[Node] = []
 
@@ -15,6 +16,7 @@ var origin: Node
 func enter() -> void:
 	AppData.footer.visible = show_footer
 	AppData.header.visible = show_header
+	AppData.header.show_back_button(show_back_button)
 	%AnimatedBackground.visible = show_animated_background
 	for component in visible_components:
 		component.show()

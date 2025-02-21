@@ -1,21 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dpadkvsejcq3p"]
+[gd_scene load_steps=5 format=3 uid="uid://dpadkvsejcq3p"]
 
-[ext_resource type="PackedScene" uid="uid://bi681m1oapw3i" path="res://scene/components/text/line_edit.tscn" id="1_hjalu"]
 [ext_resource type="Script" uid="uid://hi2bj2jxyh57" path="res://scene/page/search/search.gd" id="1_tsotc"]
 [ext_resource type="PackedScene" uid="uid://be88hfg8whswb" path="res://scene/components/board-game/board-game-info-search/board_game_info_search.tscn" id="2_hx6fw"]
-[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="3_65en5"]
-[ext_resource type="PackedScene" uid="uid://crc7i3to3i23b" path="res://scene/components/button/icon-button/icon-button.tscn" id="4_dj65q"]
-[ext_resource type="StyleBox" uid="uid://fl8vrpp1qhqo" path="res://resource/theme/style-box/lineedit_panel.tres" id="4_j3hgo"]
+[ext_resource type="PackedScene" uid="uid://dbngkkrv78khk" path="res://scene/components/search-bar/search_bar.tscn" id="3_y5qre"]
 [ext_resource type="PackedScene" uid="uid://52xwphfqp44l" path="res://scene/components/selection-scroll-container/selection_scroll_container.tscn" id="5_0oi54"]
-[ext_resource type="Texture2D" uid="uid://cymc4nh2bmowt" path="res://asset/icon/search-grey.svg" id="5_ec1et"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o1tvh"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wbs4t"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_djakv"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q3txe"]
 
 [node name="Search" type="Control"]
 layout_mode = 3
@@ -45,56 +33,14 @@ theme_override_constants/margin_right = 32
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Panel" type="Panel" parent="VBoxContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("3_65en5")
-theme_override_styles/panel = ExtResource("4_j3hgo")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 16
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/Panel/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 24
-
-[node name="SearchButton" parent="VBoxContainer/MarginContainer/VBoxContainer/Panel/HBoxContainer/MarginContainer" instance=ExtResource("4_dj65q")]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="Panel" parent="VBoxContainer/MarginContainer/VBoxContainer/Panel/HBoxContainer/MarginContainer/SearchButton" index="0"]
-theme_type_variation = &"AccentPanel"
-theme_override_styles/panel = SubResource("StyleBoxEmpty_o1tvh")
-
-[node name="Icon" parent="VBoxContainer/MarginContainer/VBoxContainer/Panel/HBoxContainer/MarginContainer/SearchButton/MarginContainer" index="0"]
-texture = ExtResource("5_ec1et")
-
-[node name="GameName" parent="VBoxContainer/MarginContainer/VBoxContainer/Panel/HBoxContainer" instance=ExtResource("1_hjalu")]
+[node name="SearchBar" parent="VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_y5qre")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 48
-theme_override_styles/focus = SubResource("StyleBoxEmpty_wbs4t")
-theme_override_styles/read_only = SubResource("StyleBoxEmpty_djakv")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_q3txe")
-placeholder_text = "Search for a game"
+placeholder_value = "Search for a game"
 
 [node name="SelectionScrollContainer" parent="VBoxContainer" instance=ExtResource("5_0oi54")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/Panel/HBoxContainer/MarginContainer/SearchButton" to="." method="_on_search_button_pressed"]
-[connection signal="text_submitted" from="VBoxContainer/MarginContainer/VBoxContainer/Panel/HBoxContainer/GameName" to="." method="_on_game_name_text_submitted"]
-
-[editable path="VBoxContainer/MarginContainer/VBoxContainer/Panel/HBoxContainer/MarginContainer/SearchButton"]
+[connection signal="search_requested" from="VBoxContainer/MarginContainer/VBoxContainer/SearchBar" to="." method="_on_search_requested"]

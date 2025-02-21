@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cb5jeonybqlun"]
+[gd_scene load_steps=23 format=3 uid="uid://cb5jeonybqlun"]
 
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_86b0q"]
 [ext_resource type="Script" uid="uid://hpu0dwwp6tx4" path="res://scene/main/main.gd" id="1_717n3"]
@@ -15,9 +15,13 @@
 [ext_resource type="Script" uid="uid://bjse61i3o2evp" path="res://scene/state-machine/ui-states/collection_state.gd" id="8_u3xiq"]
 [ext_resource type="PackedScene" uid="uid://dadso1oio1uv5" path="res://scene/page/first-login/first_login.tscn" id="9_mm1ql"]
 [ext_resource type="Script" uid="uid://cn18arqfn3g31" path="res://scene/state-machine/ui-states/authentication_state.gd" id="11_snrr3"]
+[ext_resource type="PackedScene" uid="uid://4gd3dnllj4c7" path="res://scene/page/friends/friends.tscn" id="11_tyv27"]
 [ext_resource type="Script" uid="uid://rlhhaon02p04" path="res://scene/state-machine/ui-states/signup_state.gd" id="12_36wa8"]
+[ext_resource type="PackedScene" uid="uid://dovil6hap1wr1" path="res://scene/page/friends/add-friends/add_friends.tscn" id="12_52l20"]
 [ext_resource type="Script" uid="uid://8g7mqbuixl40" path="res://scene/state-machine/ui-states/login_state.gd" id="13_n5o2v"]
 [ext_resource type="Script" uid="uid://d2art1sutdfls" path="res://scene/state-machine/ui-states/first_login.gd" id="17_q2oic"]
+[ext_resource type="Script" uid="uid://dxrg8jp3lltcq" path="res://scene/state-machine/ui-states/friends_state.gd" id="20_676lm"]
+[ext_resource type="Script" uid="uid://pld671gkohng" path="res://scene/state-machine/ui-states/add_friends_state.gd" id="22_mafln"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -81,6 +85,14 @@ layout_mode = 1
 visible = false
 layout_mode = 1
 
+[node name="Friends" parent="UI/VBoxContainer/MainContainer" instance=ExtResource("11_tyv27")]
+visible = false
+layout_mode = 1
+
+[node name="AddFriends" parent="UI/VBoxContainer/MainContainer" instance=ExtResource("12_52l20")]
+visible = false
+layout_mode = 1
+
 [node name="Footer" parent="UI/VBoxContainer" instance=ExtResource("1_nba26")]
 layout_mode = 2
 
@@ -88,16 +100,26 @@ layout_mode = 2
 origin = NodePath("../VBoxContainer/MainContainer")
 initial_state = NodePath("AuthenticationState")
 
-[node name="SearchState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("collection_state", "visible_components")]
+[node name="SearchState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("collection_state", "friends_state", "visible_components")]
 script = ExtResource("3_rupdd")
 collection_state = NodePath("../CollectionState")
+friends_state = NodePath("../FriendsState")
 visible_components = [NodePath("../../VBoxContainer/MainContainer/Search")]
 
-[node name="CollectionState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("collection", "search_state", "visible_components")]
+[node name="CollectionState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("collection", "search_state", "friends_state", "visible_components")]
 script = ExtResource("8_u3xiq")
 collection = NodePath("../../VBoxContainer/MainContainer/Collection")
 search_state = NodePath("../SearchState")
+friends_state = NodePath("../FriendsState")
 visible_components = [NodePath("../../VBoxContainer/MainContainer/Collection")]
+
+[node name="FriendsState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("friends", "search_state", "collection_state", "add_friends_state", "visible_components")]
+script = ExtResource("20_676lm")
+friends = NodePath("../../VBoxContainer/MainContainer/Friends")
+search_state = NodePath("../SearchState")
+collection_state = NodePath("../CollectionState")
+add_friends_state = NodePath("../AddFriendsState")
+visible_components = [NodePath("../../VBoxContainer/MainContainer/Friends")]
 
 [node name="AuthenticationState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("authentication", "signup_state", "login_state", "search_state", "first_login_state", "visible_components")]
 script = ExtResource("11_snrr3")
@@ -139,3 +161,9 @@ show_footer = false
 show_header = false
 show_animated_background = true
 visible_components = [NodePath("../../VBoxContainer/MainContainer/FirstLogin")]
+
+[node name="AddFriendsState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("visible_components")]
+script = ExtResource("22_mafln")
+show_footer = false
+show_back_button = true
+visible_components = [NodePath("../../VBoxContainer/MainContainer/AddFriends")]

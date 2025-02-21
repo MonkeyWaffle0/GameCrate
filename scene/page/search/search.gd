@@ -4,17 +4,12 @@ extends Control
 
 @export var board_game_info_search_scene: PackedScene
 
-@onready var game_name: LineEdit = %GameName
+@onready var search_bar: SearchBar = %SearchBar
 @onready var selection_scroll_container: SelectionScrollContainer = %SelectionScrollContainer
 
 
 func _ready() -> void:
 	BggService.search_completed.connect(_on_search_completed)
-	
-
-func _on_search_button_pressed() -> void:
-	selection_scroll_container.clear()
-	BggService.search_by_name(game_name.text)
 
 
 func _on_search_completed(result: Array[BoardGame]) -> void:
@@ -25,5 +20,6 @@ func _on_search_completed(result: Array[BoardGame]) -> void:
 		BggService.fill_game_info(bg)
 
 
-func _on_game_name_text_submitted(_new_text: String) -> void:
-	_on_search_button_pressed()
+func _on_search_requested(value: String) -> void:
+	selection_scroll_container.clear()
+	BggService.search_by_name(value)

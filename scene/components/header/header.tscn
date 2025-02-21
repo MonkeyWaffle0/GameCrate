@@ -1,16 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://dyl2lw7gdtd46"]
+[gd_scene load_steps=6 format=3 uid="uid://dyl2lw7gdtd46"]
 
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_0o1vn"]
 [ext_resource type="Script" uid="uid://ka278eqhrcn3" path="res://scene/components/header/header.gd" id="1_qi41x"]
+[ext_resource type="PackedScene" uid="uid://crc7i3to3i23b" path="res://scene/components/button/icon-button/icon-button.tscn" id="2_dig4c"]
+[ext_resource type="Texture2D" uid="uid://c1knm6kb16c7t" path="res://asset/icon/arrow-left-white.svg" id="3_euy8n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dig4c"]
 
 [node name="Header" type="Control"]
 custom_minimum_size = Vector2(0, 128)
 layout_mode = 3
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 2
 script = ExtResource("1_qi41x")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -20,14 +22,40 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 32
+theme_override_constants/margin_left = 16
 
-[node name="Label" type="Label" parent="MarginContainer"]
+[node name="BackButton" parent="MarginContainer" instance=ExtResource("2_dig4c")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Panel" parent="MarginContainer/BackButton" index="0"]
+theme_override_styles/panel = SubResource("StyleBoxEmpty_dig4c")
+
+[node name="MarginContainer" parent="MarginContainer/BackButton" index="1"]
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Icon" parent="MarginContainer/BackButton/MarginContainer" index="0"]
+texture = ExtResource("3_euy8n")
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
 theme = ExtResource("1_0o1vn")
 theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
 theme_override_font_sizes/font_size = 48
 text = "Search"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[editable path="MarginContainer/BackButton"]

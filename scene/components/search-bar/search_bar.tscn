@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://dbngkkrv78khk"]
+
+[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_q5q4k"]
+[ext_resource type="StyleBox" uid="uid://fl8vrpp1qhqo" path="res://resource/theme/style-box/lineedit_panel.tres" id="2_0slfh"]
+[ext_resource type="Script" uid="uid://d3ihq8pfg3ryc" path="res://scene/components/search-bar/search_bar.gd" id="3_0slfh"]
+[ext_resource type="PackedScene" uid="uid://crc7i3to3i23b" path="res://scene/components/button/icon-button/icon-button.tscn" id="3_sdadu"]
+[ext_resource type="Texture2D" uid="uid://cymc4nh2bmowt" path="res://asset/icon/search-grey.svg" id="4_e6myo"]
+[ext_resource type="PackedScene" uid="uid://bi681m1oapw3i" path="res://scene/components/text/line_edit.tscn" id="5_fd3et"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o1tvh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wbs4t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_djakv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q3txe"]
+
+[node name="SearchBar" type="Panel"]
+custom_minimum_size = Vector2(128, 128)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_q5q4k")
+theme_override_styles/panel = ExtResource("2_0slfh")
+script = ExtResource("3_0slfh")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="SearchButton" parent="HBoxContainer/MarginContainer" instance=ExtResource("3_sdadu")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Panel" parent="HBoxContainer/MarginContainer/SearchButton" index="0"]
+theme_type_variation = &"AccentPanel"
+theme_override_styles/panel = SubResource("StyleBoxEmpty_o1tvh")
+
+[node name="Icon" parent="HBoxContainer/MarginContainer/SearchButton/MarginContainer" index="0"]
+texture = ExtResource("4_e6myo")
+
+[node name="SearchValue" parent="HBoxContainer" instance=ExtResource("5_fd3et")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wbs4t")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_djakv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_q3txe")
+placeholder_text = "Search..."
+
+[connection signal="pressed" from="HBoxContainer/MarginContainer/SearchButton" to="." method="_on_search_button_pressed"]
+[connection signal="text_submitted" from="HBoxContainer/SearchValue" to="." method="_on_search_value_text_submitted"]
+
+[editable path="HBoxContainer/MarginContainer/SearchButton"]
