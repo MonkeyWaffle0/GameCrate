@@ -3,6 +3,7 @@ extends BaseState
 
 
 @export var collection_state: UiCollectionState
+@export var friends_state: UiFriendsState
 
 
 func enter() -> void:
@@ -22,3 +23,6 @@ func _on_footer_changed(type: Enums.Page) -> void:
 		Enums.Page.COLLECTION:
 			state_change_requested.emit(collection_state)
 			Signals.page_changed.emit(Enums.Page.COLLECTION)
+		Enums.Page.FRIENDS:
+			state_change_requested.emit(friends_state)
+			Signals.page_changed.emit(Enums.Page.FRIENDS)

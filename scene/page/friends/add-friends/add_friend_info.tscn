@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cee8f7m3rxrue"]
+
+[ext_resource type="Script" uid="uid://bgihsmu3lnn2t" path="res://scene/page/friends/add-friends/add_friend_info.gd" id="1_180ie"]
+[ext_resource type="PackedScene" uid="uid://bawviwtj6m1br" path="res://scene/page/friends/friend-info/friend_info.tscn" id="1_oqxyh"]
+[ext_resource type="PackedScene" uid="uid://crc7i3to3i23b" path="res://scene/components/button/icon-button/icon-button.tscn" id="2_180ie"]
+[ext_resource type="Texture2D" uid="uid://58vkd3whymiv" path="res://asset/icon/add.svg" id="3_kkm8g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oqxyh"]
+
+[node name="AddFriendInfo" type="Control" node_paths=PackedStringArray("invisible_button")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_180ie")
+invisible_button = NodePath("")
+
+[node name="FriendInfo" parent="." instance=ExtResource("1_oqxyh")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="Icon-button" parent="." instance=ExtResource("2_180ie")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 0
+
+[node name="Panel" parent="Icon-button" index="0"]
+theme_override_styles/panel = SubResource("StyleBoxEmpty_oqxyh")
+
+[node name="Icon" parent="Icon-button/MarginContainer" index="0"]
+texture = ExtResource("3_kkm8g")
+
+[editable path="Icon-button"]

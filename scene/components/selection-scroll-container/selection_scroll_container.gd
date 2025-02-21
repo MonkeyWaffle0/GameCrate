@@ -13,6 +13,7 @@ var tween: Tween
 
 
 func add_element(element: ScrollElement) -> void:
+	print(element)
 	container.call_deferred("add_child", element)
 	element.selected.connect(_on_element_selected)
 	element.unselected.connect(_on_element_unselected)
