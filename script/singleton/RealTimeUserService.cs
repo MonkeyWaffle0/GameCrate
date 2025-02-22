@@ -26,7 +26,7 @@ public partial class RealTimeUserService : Node
     private async void OnFirebaseConfigured()
     {
         GD.Print("Listening to user changes...");
-        var userCollection = conf.db.Collection("users"); ;
+        var userCollection = conf.db.Collection("users");
         var document = userCollection.Document(conf.userId);
 
         FirestoreChangeListener listener = document.Listen(snapshot =>
