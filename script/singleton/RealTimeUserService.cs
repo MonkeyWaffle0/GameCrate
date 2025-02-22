@@ -13,6 +13,12 @@ public partial class RealTimeUserService : Node
     public delegate void UserDataChangedEventHandler(Dictionary newData);
     [Signal]
     public delegate void GamesOwnedChangedEventHandler(Variant newData);
+    [Signal]
+    public delegate void FriendsChangedEventHandler(Variant newData);
+    [Signal]
+    public delegate void FriendsSentChangedEventHandler(Variant newData);
+    [Signal]
+    public delegate void FriendsReceivedChangedEventHandler(Variant newData);
 
     FireBaseConf conf;
     Node gdFireBase;
@@ -53,6 +59,42 @@ public partial class RealTimeUserService : Node
 
             CallDeferred("EmitGamesOwnedChanged", content);
         });
+
+        GD.Print("Listening to friends...");
+        var friendsCollection = conf.db.Collection("users/" + conf.userId + "/friends");
+        friendsCollection.Listen(snapshot =>
+        {
+            GD.Print("Friends data changed.");
+            var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
+                .ToArray()
+                .Select(element => DictionaryConverter.ConvertToGodotDictionary(element.ToDictionary())));
+
+            CallDeferred("EmitFriendsChanged", content);
+        });
+
+        GD.Print("Listening to sent friends requests...");
+        var friendsSentCollection = conf.db.Collection("users/" + conf.userId + "/friends_sent");
+        friendsSentCollection.Listen(snapshot =>
+        {
+            GD.Print("Friends sent requests data changed.");
+            var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
+                .ToArray()
+                .Select(element => DictionaryConverter.ConvertToGodotDictionary(element.ToDictionary())));
+
+            CallDeferred("EmitFriendsSentChanged", content);
+        });
+
+        GD.Print("Listening to received friends requests...");
+        var friendsReceivedCollection = conf.db.Collection("users/" + conf.userId + "/friends_received");
+        friendsReceivedCollection.Listen(snapshot =>
+        {
+            GD.Print("Friends received requests data changed.");
+            var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
+                .ToArray()
+                .Select(element => DictionaryConverter.ConvertToGodotDictionary(element.ToDictionary())));
+
+            CallDeferred("EmitFriendsReceivedChanged", content);
+        });
     }
 
     private void EmitUserDataChanged(Dictionary dict)
@@ -63,5 +105,20 @@ public partial class RealTimeUserService : Node
     private void EmitGamesOwnedChanged(Variant data)
     {
         EmitSignal("GamesOwnedChanged", data);
+    }
+
+    private void EmitFriendsChanged(Variant data)
+    {
+        EmitSignal("FriendsChanged", data);
+    }
+
+    private void EmitFriendsSentChanged(Variant data)
+    {
+        EmitSignal("FriendsSentChanged", data);
+    }
+
+    private void EmitFriendsReceivedChanged(Variant data)
+    {
+        EmitSignal("FriendsReceivedChanged", data);
     }
 }

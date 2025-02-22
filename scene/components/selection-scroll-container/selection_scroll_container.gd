@@ -2,6 +2,9 @@ class_name SelectionScrollContainer
 extends ScrollContainer
 
 
+@export var single_default_container := true
+@export var containers: Array[PackedScene] = []
+
 @onready var container: VBoxContainer = %Container
 
 var swiping = false
@@ -12,8 +15,17 @@ var swipe_mouse_positions = []
 var tween: Tween
 
 
-func add_element(element: ScrollElement) -> void:
-	container.call_deferred("add_child", element)
+func _ready() -> void:
+	if not single_default_container:
+		for container_scene: PackedScene in containers:
+			NodeUtil.instance_scene(container_scene, container)
+
+
+func add_element(element: ScrollElement, index := 0) -> void:
+	if single_default_container:
+		container.call_deferred("add_child", element)
+	else:
+		container.get_child(index).add_element(element)
 	element.selected.connect(_on_element_selected)
 	element.unselected.connect(_on_element_unselected)
 
