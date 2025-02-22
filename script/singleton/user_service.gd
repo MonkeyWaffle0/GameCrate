@@ -8,6 +8,7 @@ var user_collection: FirestoreCollection
 
 func _ready() -> void:
 	Firebase.Auth.login_succeeded.connect(_on_login)
+	RealTimeUserService.UserDataChanged.connect(_on_user_data_changed)
 
 
 func save_username(username: String) -> void:
@@ -96,3 +97,8 @@ func _on_login(auth: Dictionary) -> void:
 	if user_document == null:
 		var data = {USERNAME_FIELD: ""}
 		await user_collection.add(user_id, data)
+		
+
+func _on_user_data_changed(data: Dictionary) -> void:
+	print("yo")
+	AppData.user_data.username = data["username"]

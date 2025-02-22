@@ -7,7 +7,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oqxyh"]
 
-[node name="AddFriendInfo" type="Control" node_paths=PackedStringArray("invisible_button")]
+[node name="AddFriendInfo" type="Control"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 3
 anchors_preset = 15
@@ -16,13 +16,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_180ie")
-invisible_button = NodePath("")
 
 [node name="FriendInfo" parent="." instance=ExtResource("1_oqxyh")]
 unique_name_in_owner = true
 layout_mode = 1
 
-[node name="Icon-button" parent="." instance=ExtResource("2_180ie")]
+[node name="AddButton" parent="." instance=ExtResource("2_180ie")]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 6
@@ -31,10 +30,12 @@ anchor_top = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 0
 
-[node name="Panel" parent="Icon-button" index="0"]
+[node name="Panel" parent="AddButton" index="0"]
 theme_override_styles/panel = SubResource("StyleBoxEmpty_oqxyh")
 
-[node name="Icon" parent="Icon-button/MarginContainer" index="0"]
+[node name="Icon" parent="AddButton/MarginContainer" index="0"]
 texture = ExtResource("3_kkm8g")
 
-[editable path="Icon-button"]
+[connection signal="pressed" from="AddButton" to="." method="_on_add_button_pressed"]
+
+[editable path="AddButton"]

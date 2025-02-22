@@ -4,6 +4,8 @@ extends Node
 const USER_COLLECTION := "users"
 const GAME_COLLECTION := "games"
 const FRIEND_COLLECTION := "friends"
+const FRIEND_SENT_COLLECTION := "friends_sent"
+const FRIEND_RECEIVED_COLLECTION := "friends_received"
 const SESSION_COLLECTION := "sessions"
 
 
