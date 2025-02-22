@@ -32,7 +32,6 @@ func _on_login(auth: Dictionary) -> void:
 	var game_collection_name := "%s/%s/%s" % [AppData.USER_COLLECTION, user_id, AppData.GAME_COLLECTION]
 	game_collection = Firebase.Firestore.collection(game_collection_name)
 	connect_signals()
-	FireBaseConf.Init(auth)
 
 
 func _on_games_changed(data: Array[Dictionary]) -> void:

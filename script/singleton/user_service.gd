@@ -64,7 +64,7 @@ func find_user_by_username(username: String) -> UserData:
 	query.from(AppData.USER_COLLECTION, false)
 	var users: Array = await Firebase.Firestore.query(query)
 	var usernames := users.map(func(user): return user.get_unsafe_document()["username"])
-	
+
 	for user: FirestoreDocument in users:
 		var doc := user.get_unsafe_document()
 		if username.to_lower() == doc["username"].to_lower():
@@ -97,8 +97,7 @@ func _on_login(auth: Dictionary) -> void:
 	if user_document == null:
 		var data = {USERNAME_FIELD: ""}
 		await user_collection.add(user_id, data)
-		
+
 
 func _on_user_data_changed(data: Dictionary) -> void:
-	print("yo")
 	AppData.user_data.username = data["username"]
