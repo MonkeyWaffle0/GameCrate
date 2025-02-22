@@ -13,6 +13,7 @@ func _on_search_requested(value: String) -> void:
 
 
 func fill(users: Array[UserSearchData]) -> void:
+	search_result_container.clear()
 	for user: UserSearchData in users:
 		var add_friend_info := add_friend_info_scene.instantiate()
 		add_friend_info.user_search_data = user

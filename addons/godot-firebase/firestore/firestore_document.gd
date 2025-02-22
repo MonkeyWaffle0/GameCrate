@@ -16,6 +16,7 @@ var doc_name : String           # only .name
 var create_time : String        # createTime
 var collection_name : String    # Name of the collection to which it belongs
 var _transforms : FieldTransformArray     # The transforms to apply
+var errors: Dictionary          # When returned by an add / remove function, says if the document has errors
 signal changed(changes)
 
 func _init(doc : Dictionary = {}):

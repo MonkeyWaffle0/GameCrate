@@ -3,6 +3,7 @@ extends TextureProgressBar
 
 
 func _ready() -> void:
+	await get_tree().process_frame
 	pivot_offset = size / 2
 	while true:
 		await animation()
@@ -21,3 +22,9 @@ func animation() -> void:
 
 func _process(delta: float) -> void:
 	rotation += delta * 3.0
+
+
+func _on_visibility_changed() -> void:
+	if visible:
+		await get_tree().process_frame
+		pivot_offset = size / 2
