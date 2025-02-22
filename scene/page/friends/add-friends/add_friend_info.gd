@@ -14,3 +14,7 @@ var user_search_data: UserSearchData:
 func _ready() -> void:
 	if user_search_data:
 		friend_info.user_search_data = user_search_data
+
+
+func _on_add_button_pressed() -> void:
+	FriendService.send_friend_request(user_search_data)

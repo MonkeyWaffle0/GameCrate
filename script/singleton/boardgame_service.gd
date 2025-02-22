@@ -1,8 +1,6 @@
 extends Node
 
 
-const PLACEHOLDER_ID := "PLACEHOLDER"
-
 var game_collection: FirestoreCollection
 
 
@@ -23,12 +21,6 @@ func remove_game(board_game: BoardGame) -> void:
 	await game_collection.delete(game_document)
 
 
-func add_placeholder() -> void:
-	var placeholder_bg := BoardGame.new()
-	placeholder_bg.id = PLACEHOLDER_ID
-	await add_game(placeholder_bg)
-
-
 func connect_signals() -> void:
 	game_collection.update_doc_error.connect(_show_error_notification)
 	game_collection.get_doc_error.connect(_show_error_notification)
@@ -39,15 +31,11 @@ func _on_login(auth: Dictionary) -> void:
 	var user_id: String = Firebase.Auth.auth["localid"]
 	var game_collection_name := "%s/%s/%s" % [AppData.USER_COLLECTION, user_id, AppData.GAME_COLLECTION]
 	game_collection = Firebase.Firestore.collection(game_collection_name)
-	var placeholder_doc := await game_collection.get_doc(PLACEHOLDER_ID)
-	if placeholder_doc == null:
-		await add_placeholder()
 	connect_signals()
 	FireBaseConf.Init(auth)
 
 
 func _on_games_changed(data: Array[Dictionary]) -> void:
-	data = data.filter(func(bg_data: Dictionary): return bg_data["id"] != PLACEHOLDER_ID)
 	var games_owned: Array[BoardGame] = []
 	for game_data: Dictionary in data:
 		games_owned.append(BoardGame.from_dict(game_data))
