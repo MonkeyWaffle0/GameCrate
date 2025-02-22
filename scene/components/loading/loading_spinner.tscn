@@ -12,3 +12,5 @@ grow_vertical = 2
 fill_mode = 4
 texture_progress = ExtResource("1_mvqjn")
 script = ExtResource("2_lda8b")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

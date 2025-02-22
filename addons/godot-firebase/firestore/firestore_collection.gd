@@ -38,7 +38,7 @@ func get_doc(document_id : String, from_cache : bool = false, is_listener : bool
 		for child in get_children():
 			if child.doc_name == document_id:
 				return child
-		
+
 	var task : FirestoreTask = FirestoreTask.new()
 	task.action = FirestoreTask.Task.TASK_GET
 	task.data = collection_name + "/" + document_id
@@ -54,10 +54,10 @@ func get_doc(document_id : String, from_cache : bool = false, is_listener : bool
 				break
 	else:
 		print("get_document returned null for %s %s" % [collection_name, document_id])
-		
+
 	if len(task.error.keys()) != 0:
 		get_doc_error.emit()
-		
+
 	return result
 
 ## @args document_id, fields
@@ -77,16 +77,18 @@ func add(document_id : String, data : Dictionary = {}) -> FirestoreDocument:
 			if child.doc_name == document_id:
 				child.free() # Consider throwing an error for this since it shouldn't already exist
 				break
-			
+
 		result.collection_name = collection_name
 		add_child(result, true)
 	if len(task.error.keys()) != 0:
 		update_doc_error.emit()
+		if result:
+			result.errors = task.error
 	else:
 		update_doc_success.emit()
 	
 	return result
-	
+
 ## @args document
 ## @return FirestoreDocument
 # used to UPDATE a document, specify the document
@@ -97,23 +99,23 @@ func update(document : FirestoreDocument) -> FirestoreDocument:
 	var url = _get_request_url() + _separator + document.doc_name.replace(" ", "%20") + "?"
 	for key in document.keys():
 		url+="updateMask.fieldPaths={key}&".format({key = key})
-			
+
 	url = url.rstrip("&")
-	
+
 	for key in document.keys():
 		if document.get_value(key) == null:
 			document._erase(key)
-	
+
 	var temp_transforms
 	if document._transforms != null:
 		temp_transforms = document._transforms
 		document._transforms = null
-		
+
 	if len(task.error.keys()) != 0:
 		update_doc_error.emit()
 	else:
 		update_doc_success.emit()
-	
+
 	var body = JSON.stringify({"fields": document.document})
 
 	_process_request(task, document.doc_name, url, body)
@@ -123,10 +125,10 @@ func update(document : FirestoreDocument) -> FirestoreDocument:
 			if child.doc_name == result.doc_name:
 				child.replace(result, true)
 				break
-	
+
 		if temp_transforms != null:
 			result._transforms = temp_transforms
-	
+
 	return result
 
 
@@ -137,18 +139,18 @@ func commit(document : FirestoreDocument) -> Dictionary:
 	var task : FirestoreTask = FirestoreTask.new()
 	task.action = FirestoreTask.Task.TASK_COMMIT
 	var url = get_database_url("commit")
-	
+
 	document._transforms.set_config(
 		{
-		  "extended_url": _extended_url,
-		  "collection_name": collection_name
+			"extended_url": _extended_url,
+			"collection_name": collection_name
 		}
 	) # Only place we can set this is here, oofness
-	
+
 	var body = document._transforms.serialize()
 	document.clear_field_transforms()
 	_process_request(task, document.doc_name, url, JSON.stringify(body))
-	
+
 	return await Firebase.Firestore._handle_task_finished(task) # Not implementing the follow-up get here as user may have a listener that's already listening for changes, but user should call get if they don't
 
 ## @args document_id
@@ -162,19 +164,19 @@ func delete(document : FirestoreDocument) -> bool:
 	var url = _get_request_url() + _separator + doc_name.replace(" ", "%20")
 	_process_request(task, doc_name, url)
 	var result = await Firebase.Firestore._handle_task_finished(task)
-	
+
 	# Clean up the cache
 	if result:
 		for node in get_children():
 			if node.doc_name == doc_name:
 				node.free() # Should be only one
 				break
-				
+
 	if len(task.error.keys()) != 0:
 		update_doc_error.emit()
 	else:
 		update_doc_success.emit()
-	
+
 	return result
 
 func _get_request_url() -> String:
