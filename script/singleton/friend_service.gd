@@ -71,10 +71,25 @@ func _on_login(auth: Dictionary) -> void:
 
 
 func _on_friendships_changed(data: Array[Dictionary]) -> void:
+	var user_data := AppData.user_data
 	var friendships: Array[Friendship] = []
 	for friendship_data: Dictionary in data:
 		var friendship := Friendship.from_dict(friendship_data)
 		if friendship.status == Friendship.Status.DELETED or friendship.status == Friendship.Status.REJECTED:
 			continue
 		friendships.append(Friendship.from_dict(friendship_data))
-	AppData.user_data.friendships = friendships
+
+	for friendship: Friendship in friendships:
+		var local_friendship := user_data.get_frienship(friendship.id)
+		if local_friendship == null:
+			user_data.friendships.append(friendship)
+		elif friendship.status != local_friendship.status:
+			user_data.friendships.append(friendship)
+			user_data.friendships.erase(local_friendship)
+
+	var friendship_ids := friendships.map(func(friendship: Friendship): return friendship.id)
+	for friendship: Friendship in user_data.friendships.duplicate():
+		if friendship.id not in friendship_ids:
+			user_data.friendships.erase(friendship)
+
+	user_data.friendships_changed.emit()
