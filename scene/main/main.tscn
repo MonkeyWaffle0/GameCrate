@@ -162,8 +162,9 @@ show_header = false
 show_animated_background = true
 visible_components = [NodePath("../../VBoxContainer/MainContainer/FirstLogin")]
 
-[node name="AddFriendsState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("visible_components")]
+[node name="AddFriendsState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("friends_state", "visible_components")]
 script = ExtResource("22_mafln")
+friends_state = NodePath("../FriendsState")
 show_footer = false
 show_back_button = true
 visible_components = [NodePath("../../VBoxContainer/MainContainer/AddFriends")]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://4gd3dnllj4c7"]
+[gd_scene load_steps=21 format=3 uid="uid://4gd3dnllj4c7"]
 
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_nhjic"]
 [ext_resource type="Script" uid="uid://cxmt2d07awdm6" path="res://scene/page/friends/friends.gd" id="1_yfedp"]
 [ext_resource type="Texture2D" uid="uid://58vkd3whymiv" path="res://asset/icon/add.svg" id="2_i4gkm"]
+[ext_resource type="PackedScene" uid="uid://41rsfctjfyrb" path="res://scene/page/friends/friend-info/action_friend_info.tscn" id="2_j61nd"]
 [ext_resource type="PackedScene" uid="uid://52xwphfqp44l" path="res://scene/components/selection-scroll-container/selection_scroll_container.tscn" id="2_sx5sa"]
 [ext_resource type="PackedScene" uid="uid://dfcfm3j1kylc7" path="res://scene/page/friends/add-friends/current_friends.tscn" id="3_j61nd"]
 [ext_resource type="PackedScene" uid="uid://booyw4u1dsjow" path="res://scene/page/friends/add-friends/received_requests.tscn" id="4_t3yvm"]
@@ -45,6 +46,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yfedp")
+action_friend_info_scene = ExtResource("2_j61nd")
 
 [node name="ScrollContainer" parent="." instance=ExtResource("2_sx5sa")]
 unique_name_in_owner = true

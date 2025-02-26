@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_0o1vn"]
 [ext_resource type="Script" uid="uid://ka278eqhrcn3" path="res://scene/components/header/header.gd" id="1_qi41x"]
 [ext_resource type="PackedScene" uid="uid://crc7i3to3i23b" path="res://scene/components/button/icon-button/icon-button.tscn" id="2_dig4c"]
-[ext_resource type="Texture2D" uid="uid://c1knm6kb16c7t" path="res://asset/icon/arrow-left-white.svg" id="3_euy8n"]
+[ext_resource type="Texture2D" uid="uid://ir7sjk41bqt3" path="res://asset/icon/arrow-left-grey.svg" id="3_dig4c"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dig4c"]
 
@@ -40,7 +40,7 @@ theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
 [node name="Icon" parent="MarginContainer/BackButton/MarginContainer" index="0"]
-texture = ExtResource("3_euy8n")
+texture = ExtResource("3_dig4c")
 
 [node name="Label" type="Label" parent="."]
 unique_name_in_owner = true
@@ -57,5 +57,7 @@ theme_override_font_sizes/font_size = 48
 text = "Search"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="pressed" from="MarginContainer/BackButton" to="." method="_on_back_button_pressed"]
 
 [editable path="MarginContainer/BackButton"]
