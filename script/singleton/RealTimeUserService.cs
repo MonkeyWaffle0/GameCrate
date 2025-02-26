@@ -67,7 +67,12 @@ public partial class RealTimeUserService : Node
             GD.Print("Friends data changed.");
             var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
                 .ToArray()
-                .Select(element => DictionaryConverter.ConvertToGodotDictionary(element.ToDictionary())));
+                .Select(element =>
+                {
+                    var dic = element.ToDictionary();
+                    dic.Add("id", element.Id);
+                    return DictionaryConverter.ConvertToGodotDictionary(dic);
+                }));
 
             CallDeferred("EmitFriendsChanged", content);
         });
@@ -79,8 +84,12 @@ public partial class RealTimeUserService : Node
             GD.Print("Friends sent requests data changed.");
             var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
                 .ToArray()
-                .Select(element => DictionaryConverter.ConvertToGodotDictionary(element.ToDictionary())));
-
+                .Select(element =>
+                {
+                    var dic = element.ToDictionary();
+                    dic.Add("id", element.Id);
+                    return DictionaryConverter.ConvertToGodotDictionary(dic);
+                }));
             CallDeferred("EmitFriendsSentChanged", content);
         });
 
@@ -91,8 +100,12 @@ public partial class RealTimeUserService : Node
             GD.Print("Friends received requests data changed.");
             var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
                 .ToArray()
-                .Select(element => DictionaryConverter.ConvertToGodotDictionary(element.ToDictionary())));
-
+                .Select(element =>
+                {
+                var dic = element.ToDictionary();
+                dic.Add("id", element.Id);
+                return DictionaryConverter.ConvertToGodotDictionary(dic);
+                }));
             CallDeferred("EmitFriendsReceivedChanged", content);
         });
     }

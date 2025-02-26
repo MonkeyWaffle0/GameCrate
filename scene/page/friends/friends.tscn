@@ -46,7 +46,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yfedp")
 
-[node name="SelectionScrollContainer" parent="." instance=ExtResource("2_sx5sa")]
+[node name="ScrollContainer" parent="." instance=ExtResource("2_sx5sa")]
+unique_name_in_owner = true
 layout_mode = 1
 single_default_container = false
 containers = Array[PackedScene]([ExtResource("3_j61nd"), ExtResource("4_t3yvm"), ExtResource("5_y8x88")])

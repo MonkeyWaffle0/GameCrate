@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://bopl4iqu6pt33"]
 
-[ext_resource type="Script" path="res://scene/components/board-game/board-game-info-collection/board_game_info_collection.gd" id="1_1mxap"]
+[ext_resource type="Script" uid="uid://bjxu5fludsfpu" path="res://scene/components/board-game/board-game-info-collection/board_game_info_collection.gd" id="1_1mxap"]
 [ext_resource type="PackedScene" uid="uid://xn0nhcleo38w" path="res://scene/components/board-game/board_game_info.tscn" id="1_tr5mu"]
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_khcat"]
 [ext_resource type="PackedScene" uid="uid://crc7i3to3i23b" path="res://scene/components/button/icon-button/icon-button.tscn" id="3_v53nw"]
-[ext_resource type="Texture2D" uid="uid://bwl2oqjw5e60q" path="res://asset/icon/bin.svg" id="4_bhwhl"]
+[ext_resource type="Texture2D" uid="uid://dmj1jbjriu558" path="res://asset/icon/bin-white.svg" id="5_hrg0r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n88f5"]
 bg_color = Color(0.898039, 0.270588, 0.294118, 1)
@@ -51,15 +51,13 @@ grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_n88f5")
 
 [node name="MarginContainer" parent="RemoveButton" index="1"]
-offset_left = 0.0
-offset_right = 0.0
 theme_override_constants/margin_left = 64
 theme_override_constants/margin_top = 64
 theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 64
 
 [node name="Icon" parent="RemoveButton/MarginContainer" index="0"]
-texture = ExtResource("4_bhwhl")
+texture = ExtResource("5_hrg0r")
 
 [connection signal="pressed" from="RemoveButton" to="." method="_on_remove_button_pressed"]
 

@@ -4,16 +4,26 @@ extends Resource
 
 signal games_owned_changed
 signal friends_changed
+signal friends_received_changed
+signal friends_sent_changed
 
 var username: String
 var games_owned: Array[BoardGame] = []:
 	set(value):
 		games_owned = value
 		games_owned_changed.emit()
-var friends: Array[String] = []:
+var friends: Array[UserSearchData] = []:
 	set(value):
 		friends = value
 		friends_changed.emit()
+var friends_received: Array[UserSearchData] = []:
+	set(value):
+		friends_received = value
+		friends_received_changed.emit()
+var friends_sent: Array[UserSearchData] = []:
+	set(value):
+		friends_sent = value
+		friends_sent_changed.emit()
 
 
 func to_dict() -> Dictionary:
