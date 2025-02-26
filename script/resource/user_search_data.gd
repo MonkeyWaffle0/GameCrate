@@ -13,3 +13,7 @@ func _init(_id: String, _username: String) -> void:
 
 func _to_string() -> String:
 	return "<UserSearchData> id: %s, username: %s" % [id, username]
+
+
+static func from_dict(data: Dictionary) -> UserSearchData:
+	return UserSearchData.new(data["id"], data["username"])
