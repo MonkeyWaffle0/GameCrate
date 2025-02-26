@@ -2,11 +2,23 @@ class_name SectionWithLabel
 extends VBoxContainer
 
 
+enum Type { SENT, RECEIVED, FRIENDS }
+
+@export var type: Type
+@export var action_friend_info_scene: PackedScene
+
 @onready var container: VBoxContainer = %Container
 
 
-func add_element(element: ScrollElement) -> void:
-	container.call_deferred("add_child", element)
+func _ready() -> void:
+	AppData.user_data.friendships_changed.connect(_on_friendships_changed)
+
+
+func add_element(friendship: Friendship, other_user_id: String) -> void:
+	var action_friend_info := action_friend_info_scene.instantiate() as ActionFriendInfo
+	action_friend_info.friendship = friendship
+	action_friend_info.user_search_data = await UserService.find_user_by_id(other_user_id)
+	container.call_deferred("add_child", action_friend_info)
 
 
 func clear() -> void:
@@ -16,3 +28,63 @@ func clear() -> void:
 
 func get_element_count() -> int:
 	return container.get_child_count()
+
+
+func _on_friendships_changed() -> void:
+	var friendships := AppData.user_data.friendships
+	var user_id: String = Firebase.Auth.auth["localid"]
+
+	if type == Type.SENT:
+		var sent_friendships := friendships.filter(func(frd: Friendship) -> bool: return is_sent_friendship(user_id, frd))
+		var friendships_to_add: Array[Friendship] = []
+		for friendship: Friendship in sent_friendships:
+			if not already_exists(friendship):
+				await add_element(friendship, friendship.receiver)
+		for child: ActionFriendInfo in container.get_children():
+			if is_not_in(child.friendship, sent_friendships):
+				child.queue_free()
+
+	elif type == Type.RECEIVED:
+		var received_friendships := friendships.filter(func(frd: Friendship) -> bool: return is_received_friendship(user_id, frd))
+		for friendship: Friendship in received_friendships:
+			if not already_exists(friendship):
+				await add_element(friendship, friendship.sender)
+		for child: ActionFriendInfo in container.get_children():
+			if is_not_in(child.friendship, received_friendships):
+				child.queue_free()
+
+	elif type == Type.FRIENDS:
+		var friends := friendships.filter(func(frd: Friendship) -> bool: return is_friend(frd))
+		for friendship: Friendship in friends:
+			if not already_exists(friendship):
+				var other_user_id := friendship.receiver if friendship.receiver != user_id else friendship.sender
+				await add_element(friendship, other_user_id)
+		for child: ActionFriendInfo in container.get_children():
+			if is_not_in(child.friendship, friends):
+				child.queue_free()
+
+	await get_tree().process_frame
+	visible = container.get_child_count() != 0
+
+
+func already_exists(friendship: Friendship) -> bool:
+	for child: ActionFriendInfo in container.get_children():
+		if child.friendship.id == friendship.id and friendship.status == child.friendship.status:
+			return true
+	return false
+
+
+func is_not_in(friendship: Friendship, friendships: Array[Friendship]) -> bool:
+	return friendship.id not in friendships.map(func(fr): return fr.id)
+
+
+func is_sent_friendship(user_id: String, friendship: Friendship) -> bool:
+	return friendship.status == Friendship.Status.PENDING and friendship.sender == user_id
+
+
+func is_received_friendship(user_id: String, friendship: Friendship) -> bool:
+	return friendship.status == Friendship.Status.PENDING and friendship.receiver == user_id
+
+
+func is_friend(friendship: Friendship) -> bool:
+	return friendship.status == Friendship.Status.ACCEPTED

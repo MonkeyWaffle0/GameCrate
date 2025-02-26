@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://booyw4u1dsjow"]
+[gd_scene load_steps=4 format=3 uid="uid://booyw4u1dsjow"]
 
 [ext_resource type="Script" uid="uid://dq4e31m5pptxo" path="res://scene/page/friends/add-friends/section_with_label.gd" id="1_alm6j"]
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_5om25"]
+[ext_resource type="PackedScene" uid="uid://41rsfctjfyrb" path="res://scene/page/friends/friend-info/action_friend_info.tscn" id="2_sdds4"]
 
 [node name="ReceivedRequests" type="VBoxContainer"]
 anchors_preset = 15
@@ -10,6 +11,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_alm6j")
+type = 1
+action_friend_info_scene = ExtResource("2_sdds4")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

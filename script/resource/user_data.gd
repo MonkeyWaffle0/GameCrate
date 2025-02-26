@@ -16,6 +16,13 @@ var friendships: Array[Friendship] = []:
 		friendships_changed.emit()
 
 
+func get_frienship(id: String) -> Friendship:
+	for friendship: Friendship in friendships:
+		if friendship.id == id:
+			return friendship
+	return null
+
+
 func to_dict() -> Dictionary:
 	return {"username": username}
 

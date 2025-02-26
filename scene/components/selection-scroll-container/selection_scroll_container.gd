@@ -30,11 +30,6 @@ func add_element(element: ScrollElement, index := 0) -> void:
 	element.unselected.connect(_on_element_unselected)
 
 
-func update_subcontainer_visibility() -> void:
-	for subcontainer in container.get_children():
-		subcontainer.visible = subcontainer.get_element_count() > 0
-
-
 func clear() -> void:
 	if single_default_container:
 		for child in container.get_children():

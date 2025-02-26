@@ -12,14 +12,11 @@ func enter() -> void:
 	super.enter()
 	AppData.footer.footer_changed.connect(_on_footer_changed)
 	friends.add_friends_pressed.connect(_on_add_friends)
-	AppData.user_data.friendships_changed.connect(_on_friendships_changed)
-	friends.update_friends(AppData.user_data.friendships)
 
 
 func exit() -> void:
 	super.exit()
 	AppData.footer.footer_changed.disconnect(_on_footer_changed)
-	AppData.user_data.friendships_changed.disconnect(_on_friendships_changed)
 	friends.add_friends_pressed.disconnect(_on_add_friends)
 
 
@@ -36,7 +33,3 @@ func _on_footer_changed(type: Enums.Page) -> void:
 		Enums.Page.SEARCH:
 			state_change_requested.emit(search_state)
 			Signals.page_changed.emit(Enums.Page.SEARCH)
-			
-
-func _on_friendships_changed() -> void:
-	friends.update_friends(AppData.user_data.friendships)
