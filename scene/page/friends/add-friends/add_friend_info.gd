@@ -35,7 +35,7 @@ func update_status() -> void:
 func _on_add_button_pressed() -> void:
 	spinner.show()
 	add_button.hide()
-	var success := await FriendService.send_friend_request(user_search_data)
+	var success := await FriendService.create_friendship(user_search_data)
 	spinner.hide()
 	if success:
 		check_mark.show()

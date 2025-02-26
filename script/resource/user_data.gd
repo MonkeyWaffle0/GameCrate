@@ -3,44 +3,24 @@ extends Resource
 
 
 signal games_owned_changed
-signal friends_changed
-signal friends_received_changed
-signal friends_sent_changed
+signal friendships_changed
 
 var username: String
 var games_owned: Array[BoardGame] = []:
 	set(value):
 		games_owned = value
 		games_owned_changed.emit()
-var friends: Array[UserSearchData] = []:
+var friendships: Array[Friendship] = []:
 	set(value):
-		friends = value
-		friends_changed.emit()
-var friends_received: Array[UserSearchData] = []:
-	set(value):
-		friends_received = value
-		friends_received_changed.emit()
-var friends_sent: Array[UserSearchData] = []:
-	set(value):
-		friends_sent = value
-		friends_sent_changed.emit()
+		friendships = value
+		friendships_changed.emit()
 
 
 func to_dict() -> Dictionary:
-	return {
-		"games_owned": games_owned.map(func(bg_dict: Dictionary): return BoardGame.from_dict(bg_dict)),
-		"friends": friends
-	}
+	return {"username": username}
 
 
 static func from_dict(dict_data: Dictionary) -> UserData:
 	var user_data := UserData.new()
-	if "games_owned" in dict_data:
-		var bgs = dict_data["games_owned"].map(func(bg_dict: Dictionary) -> BoardGame: return BoardGame.from_dict(bg_dict))
-		for bg in bgs:
-			user_data.games_owned.append(bg)
-	if "friends" in dict_data:
-		var friends = dict_data["friends"]
-		for friend in friends:
-			user_data.friends.append(friend)
+	user_data.username = dict_data["username"]
 	return user_data

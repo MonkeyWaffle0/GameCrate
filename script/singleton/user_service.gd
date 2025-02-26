@@ -51,15 +51,16 @@ func get_all_users() -> Array[UserData]:
 	return result
 
 
-func find_user_by_id(user_id: String) -> UserData:
+func find_user_by_id(user_id: String) -> UserSearchData:
 	var user_document = await user_collection.get_doc(user_id)
 	if user_document == null:
 		return null
 	var data_dict := user_document.get_unsafe_document()
-	return UserData.from_dict(data_dict)
+	data_dict["id"] = user_document.doc_name
+	return UserSearchData.from_dict(data_dict)
 
 
-func find_user_by_username(username: String) -> UserData:
+func find_user_by_username(username: String) -> UserSearchData:
 	var query := FirestoreQuery.new()
 	query.from(AppData.USER_COLLECTION, false)
 	var users: Array = await Firebase.Firestore.query(query)
@@ -68,7 +69,8 @@ func find_user_by_username(username: String) -> UserData:
 	for user: FirestoreDocument in users:
 		var doc := user.get_unsafe_document()
 		if username.to_lower() == doc["username"].to_lower():
-			return UserData.from_dict(doc)
+			doc["id"] = doc.doc_name
+			return UserSearchData.from_dict(doc)
 	return null
 
 

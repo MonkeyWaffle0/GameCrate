@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bawviwtj6m1br"]
+[gd_scene load_steps=4 format=3 uid="uid://bawviwtj6m1br"]
 
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_3mc3x"]
 [ext_resource type="Script" uid="uid://fwp53w6ken1k" path="res://scene/page/friends/friend-info/friend_info.gd" id="1_x15rd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x15rd"]
+bg_color = Color(0.0823529, 0.0823529, 0.0823529, 1)
 
 [node name="FriendInfo" type="Control"]
 custom_minimum_size = Vector2(0, 100)
@@ -22,6 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_3mc3x")
 theme_type_variation = &"ListItemPanel"
+theme_override_styles/panel = SubResource("StyleBoxFlat_x15rd")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
@@ -44,5 +48,6 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_3mc3x")
+theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
 theme_override_font_sizes/font_size = 48
 text = "Username"
