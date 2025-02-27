@@ -6,6 +6,7 @@ extends BaseState
 @export var search_state: UiSearchState
 @export var collection_state: UiCollectionState
 @export var add_friends_state: UiAddFriendsState
+@export var sessions_state: UiSessionsState
 
 
 func enter() -> void:
@@ -33,3 +34,6 @@ func _on_footer_changed(type: Enums.Page) -> void:
 		Enums.Page.SEARCH:
 			state_change_requested.emit(search_state)
 			Signals.page_changed.emit(Enums.Page.SEARCH)
+		Enums.Page.SESSIONS:
+			state_change_requested.emit(sessions_state)
+			Signals.page_changed.emit(Enums.Page.SESSIONS)

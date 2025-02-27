@@ -1,4 +1,4 @@
-class_name SectionWithLabel
+class_name FriendsSection
 extends VBoxContainer
 
 
