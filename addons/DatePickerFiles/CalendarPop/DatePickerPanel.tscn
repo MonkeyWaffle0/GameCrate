@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dubkw6fn2rh5c"]
+[gd_scene load_steps=36 format=3 uid="uid://dubkw6fn2rh5c"]
 
 [ext_resource type="Script" uid="uid://c1rgsn7fpdjxn" path="res://addons/DatePickerFiles/CalendarPop/test.gd" id="1_67bx5"]
 [ext_resource type="Texture2D" uid="uid://c7f23gmik4tr7" path="res://addons/DatePickerFiles/CalendarPop/Back.png" id="2_bdqrv"]
@@ -150,17 +150,6 @@ border_width_top = 1
 border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.317647)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hwnd"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.972549, 0.972549, 0.972549, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r3lgf"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5acgf"]
@@ -192,8 +181,6 @@ corner_radius_bottom_left = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -536.0
-offset_bottom = -556.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_mbgii")
@@ -210,7 +197,7 @@ layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_override_colors/font_disabled_color = Color(0.698039, 0.698039, 0.698039, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.698039, 0.698039, 0.698039, 1)
-theme_override_colors/font_hover_color = Color(0.309804, 0.356863, 0.427451, 1)
+theme_override_colors/font_hover_color = Color(0.698039, 0.698039, 0.698039, 1)
 theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
 theme_override_colors/font_focus_color = Color(0.698039, 0.698039, 0.698039, 1)
 theme_override_colors/font_pressed_color = Color(0.698039, 0.698039, 0.698039, 1)
@@ -622,26 +609,88 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox"]
-custom_minimum_size = Vector2(0, 90)
+[node name="LeftYear" type="Button" parent="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sd6xg")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_sd6xg")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_sd6xg")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_sd6xg")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sd6xg")
+flat = true
+
+[node name="Panel" type="Panel" parent="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox/LeftYear"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i8t15")
+
+[node name="Icon" type="TextureRect" parent="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox/LeftYear/Panel"]
+modulate = Color(0.458824, 0.490196, 0.541176, 1)
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bdqrv")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="CurrentYearLabel" type="Label" parent="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_4hwnd")
+theme_override_colors/font_color = Color(0.25098, 0.301961, 0.380392, 1)
+theme_override_font_sizes/font_size = 24
+text = "2025"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="YearScroll" type="ScrollContainer" parent="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox/PanelContainer"]
-unique_name_in_owner = true
-clip_contents = false
+[node name="RightYear" type="Button" parent="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-scroll_vertical_custom_step = 1.0
-horizontal_scroll_mode = 3
-vertical_scroll_mode = 3
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sd6xg")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_sd6xg")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_sd6xg")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_sd6xg")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sd6xg")
+flat = true
 
-[node name="YearCon" type="VBoxContainer" parent="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox/PanelContainer/YearScroll"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 0
+[node name="Panel" type="Panel" parent="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox/RightYear"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i8t15")
+
+[node name="Icon" type="TextureRect" parent="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox/RightYear/Panel"]
+modulate = Color(0.458824, 0.490196, 0.541176, 1)
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bdqrv")
+expand_mode = 2
+stretch_mode = 5
+flip_h = true
 
 [node name="MonthTable" type="VBoxContainer" parent="PopLayer/ChooseMonthYearPanel/VBoxContainer"]
 layout_mode = 2
@@ -958,9 +1007,8 @@ autostart = true
 [connection signal="pressed" from="PopLayer/DatePickerPanel/VBoxContainer/MonthYear/PanelContainer/HBoxContainer/RightMonth" to="." method="_on_right_month_pressed"]
 [connection signal="pressed" from="PopLayer/DatePickerPanel/VBoxContainer/DateShortCutsBox2/Cancel" to="." method="_on_cancel_pressed"]
 [connection signal="pressed" from="PopLayer/DatePickerPanel/VBoxContainer/DateShortCutsBox2/Confirm" to="." method="_on_confirm_pressed"]
-[connection signal="gui_input" from="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox/PanelContainer/YearScroll" to="." method="_on_year_scroll_gui_input"]
-[connection signal="scroll_ended" from="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox/PanelContainer/YearScroll" to="." method="_on_year_scroll_scroll_ended"]
-[connection signal="scroll_started" from="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox/PanelContainer/YearScroll" to="." method="_on_year_scroll_scroll_started"]
+[connection signal="pressed" from="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox/LeftYear" to="." method="_on_left_year_pressed"]
+[connection signal="pressed" from="PopLayer/ChooseMonthYearPanel/VBoxContainer/PanelContainer/YearBox/RightYear" to="." method="_on_right_year_pressed"]
 [connection signal="pressed" from="PopLayer/ChooseMonthYearPanel/VBoxContainer/DateShortCutsBox2/MonthYearCancel" to="." method="_on_month_year_cancel_pressed"]
 [connection signal="pressed" from="PopLayer/ChooseMonthYearPanel/VBoxContainer/DateShortCutsBox2/MonthYearConfirm" to="." method="_on_month_year_confirm_pressed"]
 [connection signal="timeout" from="TimerNode/RefreshTimeTimer" to="." method="_on_refresh_time_timer_timeout"]
