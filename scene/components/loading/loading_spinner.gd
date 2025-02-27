@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func animation() -> void:
 	fill_mode = FILL_CLOCKWISE
-	var in_tween := create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	var in_tween := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	in_tween.tween_property(self, "value", 100, 0.75)
 	await in_tween.finished
 	fill_mode = FILL_COUNTER_CLOCKWISE

@@ -8,6 +8,8 @@ extends Control
 
 
 func _on_search_requested(value: String) -> void:
+	if len(value) < 3:
+		return
 	var users := await UserService.find_users_by_username(value)
 	fill(users)
 

@@ -1,21 +1,28 @@
-class_name UiSearchState
+class_name UiSessionsState
 extends BaseState
 
 
+@export var sessions: Sessions
 @export var collection_state: UiCollectionState
 @export var friends_state: UiFriendsState
-@export var sessions_state: UiSessionsState
+@export var search_state: UiSearchState
+@export var create_session_state: UiCreateSessionState
 
 
 func enter() -> void:
 	super.enter()
-	AppData.footer.do_selection(Enums.Page.SEARCH)
+	sessions.create_session_pressed.connect(_on_create_session)
 	AppData.footer.footer_changed.connect(_on_footer_changed)
 
 
 func exit() -> void:
 	super.exit()
+	sessions.create_session_pressed.disconnect(_on_create_session)
 	AppData.footer.footer_changed.disconnect(_on_footer_changed)
+
+
+func _on_create_session() -> void:
+	state_change_requested.emit(create_session_state)
 
 
 func _on_footer_changed(type: Enums.Page) -> void:
@@ -24,9 +31,9 @@ func _on_footer_changed(type: Enums.Page) -> void:
 		Enums.Page.COLLECTION:
 			state_change_requested.emit(collection_state)
 			Signals.page_changed.emit(Enums.Page.COLLECTION)
+		Enums.Page.SEARCH:
+			state_change_requested.emit(search_state)
+			Signals.page_changed.emit(Enums.Page.SEARCH)
 		Enums.Page.FRIENDS:
 			state_change_requested.emit(friends_state)
 			Signals.page_changed.emit(Enums.Page.FRIENDS)
-		Enums.Page.SESSIONS:
-			state_change_requested.emit(sessions_state)
-			Signals.page_changed.emit(Enums.Page.SESSIONS)

@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://bat3j5ednhcm2"]
+
+[ext_resource type="Script" uid="uid://dpfldhnlvm8qs" path="res://scene/page/session/session_section.gd" id="1_l8k15"]
+[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_upmy8"]
+
+[node name="PassedSessionSection" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l8k15")
+type = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+
+[node name="Label" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_upmy8")
+theme_override_font_sizes/font_size = 56
+text = "Previous"
+
+[node name="Container" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
