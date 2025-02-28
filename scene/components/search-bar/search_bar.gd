@@ -3,6 +3,7 @@ extends Panel
 
 
 signal search_requested(value: String)
+signal text_changed(value: String)
 
 @export var placeholder_value: String
 
@@ -23,3 +24,7 @@ func _on_search_button_pressed() -> void:
 
 func _on_search_value_text_submitted(new_text: String) -> void:
 	search_requested.emit(get_value())
+
+
+func _on_search_value_text_changed(new_text: String) -> void:
+	text_changed.emit(new_text)

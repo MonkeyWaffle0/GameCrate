@@ -7,16 +7,15 @@ extends ScrollElement
 @onready var delete_button: IconButton = %DeleteButton
 @onready var accept_reject_container: HBoxContainer = %AcceptRejectContainer
 
-var user_search_data: UserSearchData:
-	set(value):
-		user_search_data = value
-		if friend_info:
-			friend_info.user_search_data = user_search_data
 var friendship: Friendship
+var user_search_data: UserSearchData
 
 
 func _ready() -> void:
-	if user_search_data:
+	if friendship:
+		var user_id: String = Firebase.Auth.auth["localid"]
+		var other_user_id := friendship.sender if friendship.sender != user_id else friendship.receiver
+		user_search_data = UserSearchData.new(other_user_id, friendship.other_username)
 		friend_info.user_search_data = user_search_data
 	accept_reject_container.visible = is_received_friendship()
 	delete_button.visible = is_friend() or is_sent_friendship()

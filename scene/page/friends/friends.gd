@@ -11,11 +11,3 @@ signal add_friends_pressed
 
 func _on_add_friend_button_pressed() -> void:
 	add_friends_pressed.emit()
-
-
-func is_sender(friendship: Friendship, user_id: String) -> bool:
-	return friendship.sender == user_id
-
-
-func is_receiver(friendship: Friendship, user_id: String) -> bool:
-	return friendship.receiver == user_id

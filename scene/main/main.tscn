@@ -193,8 +193,10 @@ search_state = NodePath("../SearchState")
 create_session_state = NodePath("../CreateSessionState")
 visible_components = [NodePath("../../VBoxContainer/MainContainer/Sessions")]
 
-[node name="CreateSessionState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("visible_components")]
+[node name="CreateSessionState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("create_session", "sessions_state", "visible_components")]
 script = ExtResource("25_5tth2")
+create_session = NodePath("../../VBoxContainer/MainContainer/CreateSession")
+sessions_state = NodePath("../SessionsState")
 show_footer = false
 show_back_button = true
 visible_components = [NodePath("../../VBoxContainer/MainContainer/CreateSession")]

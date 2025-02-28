@@ -217,7 +217,7 @@ layer = 2
 [node name="DatePickerPanel" type="PanelContainer" parent="PopLayer"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(500, 600)
+custom_minimum_size = Vector2(700, 700)
 offset_right = 500.0
 offset_bottom = 500.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_3vle2")
@@ -567,7 +567,7 @@ text = "Confirm"
 [node name="ChooseMonthYearPanel" type="PanelContainer" parent="PopLayer"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(500, 600)
+custom_minimum_size = Vector2(700, 700)
 offset_right = 201.0
 offset_bottom = 386.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_3vle2")

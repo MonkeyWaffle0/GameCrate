@@ -66,6 +66,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_q3txe")
 placeholder_text = "Search..."
 
 [connection signal="pressed" from="HBoxContainer/MarginContainer/SearchButton" to="." method="_on_search_button_pressed"]
+[connection signal="text_changed" from="HBoxContainer/SearchValue" to="." method="_on_search_value_text_changed"]
 [connection signal="text_submitted" from="HBoxContainer/SearchValue" to="." method="_on_search_value_text_submitted"]
 
 [editable path="HBoxContainer/MarginContainer/SearchButton"]

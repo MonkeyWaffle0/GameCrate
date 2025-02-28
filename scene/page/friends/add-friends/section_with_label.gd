@@ -17,7 +17,6 @@ func _ready() -> void:
 func add_element(friendship: Friendship, other_user_id: String) -> void:
 	var action_friend_info := action_friend_info_scene.instantiate() as ActionFriendInfo
 	action_friend_info.friendship = friendship
-	action_friend_info.user_search_data = await UserService.find_user_by_id(other_user_id)
 	container.call_deferred("add_child", action_friend_info)
 
 
