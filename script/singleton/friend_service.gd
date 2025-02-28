@@ -74,10 +74,10 @@ func _on_friendships_changed(data: Array[Dictionary]) -> void:
 	var user_data := AppData.user_data
 	var friendships: Array[Friendship] = []
 	for friendship_data: Dictionary in data:
-		var friendship := Friendship.from_dict(friendship_data)
+		var friendship := await Friendship.from_dict(friendship_data)
 		if friendship.status == Friendship.Status.DELETED or friendship.status == Friendship.Status.REJECTED:
 			continue
-		friendships.append(Friendship.from_dict(friendship_data))
+		friendships.append(friendship)
 
 	for friendship: Friendship in friendships:
 		var local_friendship := user_data.get_frienship(friendship.id)

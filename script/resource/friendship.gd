@@ -10,6 +10,8 @@ var receiver: String
 var participants: Array[String]
 var status: Status
 
+var other_username: String
+
 
 func _init(_id: String, _sender: String, _receiver: String, _status: Status) -> void:
 	self.id = _id
@@ -29,7 +31,12 @@ func to_dict() -> Dictionary:
 
 
 static func from_dict(data: Dictionary) -> Friendship:
-	return Friendship.new(data["id"], data["sender"], data["receiver"], string_to_status(data["status"]))
+	var user_id: String = Firebase.Auth.auth["localid"]
+	var friendship := Friendship.new(data["id"], data["sender"], data["receiver"], string_to_status(data["status"]))
+	var other_user_id := friendship.sender if friendship.sender != user_id else friendship.receiver
+	var user_search_data := await UserService.find_user_by_id(other_user_id)
+	friendship.other_username = user_search_data.username
+	return friendship
 
 
 static func status_to_string(_status: Status) -> String:
@@ -53,4 +60,4 @@ static func string_to_status(_status: String) -> Status:
 
 
 func _to_string() -> String:
-	return "<Friendship> id: %s, sender: %s, receiver: %s, status: %s" % [id, sender, receiver, status_to_string(status)]
+	return "<Friendship> id: %s, sender: %s, receiver: %s, status: %s, other_username: %s" % [id, sender, receiver, status_to_string(status), other_username]

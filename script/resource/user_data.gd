@@ -23,6 +23,20 @@ func get_frienship(id: String) -> Friendship:
 	return null
 
 
+## Returns the list of Friendship with the status ACCEPTED sorted with other_username in Alphabetical order
+func get_friends() -> Array[Friendship]:
+	var result := friendships \
+	.filter(func(friendship: Friendship) -> bool: return friendship.status == Friendship.Status.ACCEPTED)
+	result.sort_custom(_sort_by_other_username)
+	return result
+
+
+func _sort_by_other_username(a: Friendship, b: Friendship) -> bool:
+	if a.other_username < b.other_username:
+		return true
+	return false
+
+
 func to_dict() -> Dictionary:
 	return {"username": username}
 
