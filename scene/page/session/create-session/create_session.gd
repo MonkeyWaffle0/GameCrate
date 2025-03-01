@@ -2,10 +2,13 @@ class_name CreateSession
 extends Control
 
 
+signal session_created
+
 @export var create_session_friend_info_scene: PackedScene
 
 @onready var participants_container: VBoxContainer = %ParticipantsContainer
 @onready var friends_container: VBoxContainer = %FriendsContainer
+@onready var date_picker_panel: PanelContainer = %DatePickerPanel
 
 
 func fill() -> void:
@@ -76,3 +79,19 @@ func _on_removed(create_session_friend_info: CreateSessionFriendInfo) -> void:
 	create_session_friend_info.is_participant = false
 	sort_elements(participants_container)
 	sort_elements(friends_container)
+
+
+func _on_create_session_button_pressed() -> void:
+	var p := participants_container \
+		.get_children() \
+		.map(func(child: CreateSessionFriendInfo) -> String: return child.friendship.get_other_user_id())
+	p.append(AppData.get_user_id())
+	# Necessary to have an Array[String] and not an Array...
+	var participants: Array[String] = []
+	for prt in p:
+		participants.append(prt)
+	var likes: Array[Likes] = []
+	var session := Session.new(UUID.random_uuid(), AppData.get_user_id(), participants, date_picker_panel.get_date_string(), likes)
+	var success := await SessionService.create_session(session)
+	if success:
+		session_created.emit()
