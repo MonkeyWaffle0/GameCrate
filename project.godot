@@ -27,6 +27,7 @@ Signals="*res://script/singleton/signals.gd"
 Notifications="*res://scene/singleton/notifications/notifications.tscn"
 BoardgameService="*res://script/singleton/boardgame_service.gd"
 FriendService="*res://script/singleton/friend_service.gd"
+SessionService="*res://script/singleton/session_service.gd"
 
 [display]
 

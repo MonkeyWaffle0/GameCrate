@@ -39,6 +39,10 @@ static func from_dict(data: Dictionary) -> Friendship:
 	return friendship
 
 
+func get_other_user_id() -> String:
+	return sender if AppData.get_user_id() != sender else receiver
+
+
 static func status_to_string(_status: Status) -> String:
 	match _status:
 		Status.PENDING: return "PENDING"

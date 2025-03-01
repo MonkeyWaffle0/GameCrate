@@ -48,6 +48,11 @@ func get_date_data():
 	}
 
 	return merge_date_and_time
+	
+
+func get_date_string() -> String:
+	return "%s-%s-%s" % [final_date_data.day, final_date_data.month, final_date_data.year]
+
 
 func _ready():
 	var current_date_string = Time.get_datetime_dict_from_system(false)
