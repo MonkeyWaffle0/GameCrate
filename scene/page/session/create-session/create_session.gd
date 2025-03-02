@@ -2,7 +2,7 @@ class_name CreateSession
 extends Control
 
 
-signal session_created
+signal session_created(session: Session)
 
 @export var create_session_friend_info_scene: PackedScene
 
@@ -90,8 +90,7 @@ func _on_create_session_button_pressed() -> void:
 	var participants: Array[String] = []
 	for prt in p:
 		participants.append(prt)
-	var likes: Array[Likes] = []
-	var session := Session.new(UUID.random_uuid(), AppData.get_user_id(), participants, date_picker_panel.get_date_string(), likes)
+	var session := Session.new(UUID.random_uuid(), AppData.get_user_id(), participants, date_picker_panel.get_date_string())
 	var success := await SessionService.create_session(session)
 	if success:
-		session_created.emit()
+		session_created.emit(session)

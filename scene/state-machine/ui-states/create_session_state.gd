@@ -4,6 +4,7 @@ extends BaseState
 
 @export var create_session: CreateSession
 @export var sessions_state: UiSessionsState
+@export var session_details_state: UiSesstionDetailsState
 
 
 func enter() -> void:
@@ -22,5 +23,6 @@ func _on_back_pressed() -> void:
 	state_change_requested.emit(sessions_state)
 
 
-func _on_session_created() -> void:
-	print("session created")
+func _on_session_created(session: Session) -> void:
+	AppData.current_session = session
+	state_change_requested.emit(session_details_state)

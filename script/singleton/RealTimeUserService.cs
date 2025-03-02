@@ -1,8 +1,8 @@
 
+using System.Linq;
 using Godot;
 using Godot.Collections;
 using Google.Cloud.Firestore;
-using System.Linq;
 
 
 public partial class RealTimeUserService : Node
@@ -13,9 +13,15 @@ public partial class RealTimeUserService : Node
     public delegate void GamesOwnedChangedEventHandler(Variant newData);
     [Signal]
     public delegate void FriendshipsChangedEventHandler(Variant newData);
+    [Signal]
+    public delegate void SessionChangedEventHandler(Dictionary newData);
+    [Signal]
+    public delegate void LikesChangedEventHandler(Variant newData);
 
     FireBaseConf conf;
     Node gdFireBase;
+
+    private System.Collections.Generic.Dictionary<string, FirestoreChangeListener> likeListeners = new System.Collections.Generic.Dictionary<string, FirestoreChangeListener>();
     public override async void _Ready()
     {
         conf = GetNode<FireBaseConf>("/root/FireBaseConf");
@@ -29,7 +35,7 @@ public partial class RealTimeUserService : Node
         var userCollection = conf.db.Collection("users");
         var document = userCollection.Document(conf.userId);
 
-        FirestoreChangeListener listener = document.Listen(snapshot =>
+        var listener = document.Listen(snapshot =>
         {
             GD.Print("User data changed.");
             if (snapshot.Exists)
@@ -74,6 +80,56 @@ public partial class RealTimeUserService : Node
         });
     }
 
+    public async void ListenToSession(string sessionId)
+    {
+        GD.Print("Listening to session " + sessionId + "...");
+        var sessionCollection = conf.db.Collection("sessions");
+        var document = sessionCollection.Document(sessionId);
+        document.Listen(snapshot =>
+        {
+            GD.Print("Session data changed.");
+            if (snapshot.Exists)
+            {
+                CallDeferred("EmitSessionChanged", DictionaryConverter.ConvertToGodotDictionary(snapshot.ToDictionary()));
+            }
+            else
+            {
+                GD.Print("Document does not exist.");
+            }
+        });
+
+        var sessionLikesCollection = conf.db.Collection("sessions/" + sessionId + "/likes");
+        sessionLikesCollection.Listen(snapshot =>
+        {
+            GD.Print("Likes data changed.");
+            snapshot
+                .ToList()
+                .Where(element => !likeListeners.ContainsKey(element.Id))
+                .ToList()
+                .ForEach(element => likeListeners.Add(element.Id, listenToLikes(sessionId, element.Id)));
+        });
+    }
+
+    private FirestoreChangeListener listenToLikes(string sessionId, string gameId)
+    {
+        GD.Print("Listening to games likes for game " + gameId + "...");
+        var likesCollectionName = "sessions/" + sessionId + "/likes/" + gameId;
+        var collection = conf.db.Collection(likesCollectionName);
+        return collection.Listen(snapshot =>
+        {
+            var likes = new Godot.Collections.Array<string>();
+            snapshot
+                .ToList()
+                .ForEach(element => likes.Add(element.Id));
+            var content = new Dictionary<string, Variant>
+            {
+                { "id", gameId },
+                { "likes", likes }
+            };
+            CallDeferred("EmitLikesChanged", content);
+        });
+    }
+
     private void EmitUserDataChanged(Dictionary dict)
     {
         EmitSignal("UserDataChanged", dict);
@@ -87,5 +143,15 @@ public partial class RealTimeUserService : Node
     private void EmitFriendshipsChanged(Variant data)
     {
         EmitSignal("FriendshipsChanged", data);
+    }
+
+    private void EmitSessionChanged(Variant data)
+    {
+        EmitSignal("SessionChanged", data);
+    }
+
+    private void EmitLikesChanged(Variant data)
+    {
+        EmitSignal("LikesChanged", data);
     }
 }
