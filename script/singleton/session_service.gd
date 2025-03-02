@@ -50,6 +50,29 @@ func remove_like(session_id: String, game_id: String) -> bool:
 	return true
 
 
+func get_games(session: Session) -> Array[BoardGame]:
+	var games: Dictionary[String, BoardGame] = {}
+	for participant: String in session.participants:
+		var collection_name := "%s/%s/%s" % [AppData.USER_COLLECTION, participant, AppData.GAME_COLLECTION]
+		var query := FirestoreQuery.new()
+		query.from(collection_name)
+		var participant_games: Array[FirestoreDocument] = await Firebase.Firestore.query(query)
+		for paritcipant_game_doc: FirestoreDocument in participant_games:
+			var bg := BoardGame.from_dict(paritcipant_game_doc.get_unsafe_document())
+			games[bg.id] = bg
+	return games.values()
+
+
+func listen_to_session(session_id: String) -> void:
+	RealTimeUserService.ListenToSession(session_id)
+	RealTimeUserService.LikesChanged.connect(_on_likes_changed)
+
+
+func _on_likes_changed(data: Dictionary) -> void:
+	AppData.current_session.likes[data["id"]] = data["likes"]
+	AppData.current_session.likes_changed.emit()
+
+
 func show_error_notification() -> void:
 	var notification_data := NotificationData.new()
 	notification_data.type = NotificationData.NotificationType.ERROR
