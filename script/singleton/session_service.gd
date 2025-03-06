@@ -81,7 +81,7 @@ func show_error_notification() -> void:
 	Notifications.add_notification(notification_data)
 
 
-func _on_login(auth: Dictionary) -> void:
+func _on_login(_auth: Dictionary) -> void:
 	session_collection = Firebase.Firestore.collection(AppData.SESSION_COLLECTION)
 
 

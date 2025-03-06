@@ -31,14 +31,11 @@ func get_element_count() -> int:
 
 func _on_sessions_changed() -> void:
 	var sessions := AppData.user_data.sessions
-	var user_id := AppData.get_user_id()
-
 	if type == Type.PASSED:
 		var passed_sessions := sessions.filter(func(sess: Session) -> bool: return DateUtil.is_date_before_today(sess.date))
-		var sessions_to_add: Array[Session] = []
 		for session: Session in passed_sessions:
 			if not already_exists(session):
-				await add_element(session)
+				add_element(session)
 		for child: SessionInfo in container.get_children():
 			if is_not_in(child.session, passed_sessions):
 				child.queue_free()
@@ -47,7 +44,7 @@ func _on_sessions_changed() -> void:
 		var upcoming_sessions := sessions.filter(func(sess: Session) -> bool: return !DateUtil.is_date_before_today(sess.date))
 		for session: Session in upcoming_sessions:
 			if not already_exists(session):
-				await add_element(session)
+				add_element(session)
 		for child: SessionInfo in container.get_children():
 			if is_not_in(child.session, upcoming_sessions):
 				child.queue_free()

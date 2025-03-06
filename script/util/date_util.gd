@@ -25,11 +25,11 @@ static func prettify_date(date_str: String) -> String:
 	# Zeller's Congruence variables:
 	var q = day
 	var K = year % 100
-	var J = int(year / 100)
+	var J = int(year / 100.0)
 
 	# Compute the day of the week (h)
 	# h = (q + int((13*(month+1))/5) + K + int(K/4) + int(J/4) + 5*J) % 7
-	var h = (q + int((13 * (month + 1)) / 5) + K + int(K / 4) + int(J / 4) + 5 * J) % 7
+	var h = (q + int((13 * (month + 1)) / 5.0) + K + int(K / 4.0) + int(J / 4.0) + 5 * J) % 7
 
 	# Mapping from Zeller's output to weekday names:
 	# h = 0 -> Saturday, 1 -> Sunday, 2 -> Monday, 3 -> Tuesday, 4 -> Wednesday, 5 -> Thursday, 6 -> Friday

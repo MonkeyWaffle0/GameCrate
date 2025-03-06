@@ -64,7 +64,6 @@ func find_user_by_username(username: String) -> UserSearchData:
 	var query := FirestoreQuery.new()
 	query.from(AppData.USER_COLLECTION, false)
 	var users: Array = await Firebase.Firestore.query(query)
-	var usernames := users.map(func(user): return user.get_unsafe_document()["username"])
 
 	for user: FirestoreDocument in users:
 		var doc := user.get_unsafe_document()
