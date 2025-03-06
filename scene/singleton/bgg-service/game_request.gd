@@ -26,7 +26,6 @@ func _http_request_completed(_result, response_code: int, _headers, body: Packed
 
 	var parser := XMLParser.new()
 	parser.open_buffer(body)
-	var result = []
 	var game := GameDto.new()
 	while parser.read() != ERR_FILE_EOF:
 		if parser.get_node_type() == XMLParser.NODE_ELEMENT:

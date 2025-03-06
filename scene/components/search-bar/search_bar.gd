@@ -22,7 +22,7 @@ func _on_search_button_pressed() -> void:
 	search_requested.emit(get_value())
 
 
-func _on_search_value_text_submitted(new_text: String) -> void:
+func _on_search_value_text_submitted(_new_text: String) -> void:
 	search_requested.emit(get_value())
 
 

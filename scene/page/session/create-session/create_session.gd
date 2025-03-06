@@ -29,11 +29,11 @@ func clear_all() -> void:
 		child.queue_free()
 
 
-func change_visibility(is_visible: bool) -> void:
+func change_visibility(_visible: bool) -> void:
 	for child in participants_container.get_children():
-		child.visible = is_visible
+		child.visible = _visible
 	for child in friends_container.get_children():
-		child.visible = is_visible
+		child.visible = _visible
 
 
 func sort_elements(container: VBoxContainer) -> void:

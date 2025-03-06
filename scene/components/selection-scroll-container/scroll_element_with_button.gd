@@ -8,7 +8,7 @@ extends ScrollElement
 @onready var board_game_info: BoardGameInfo = %BoardGameInfo
 
 var tween: Tween
-var initial_x: int
+var initial_x: float
 var board_game: BoardGame
 var has_been_initialized := false
 

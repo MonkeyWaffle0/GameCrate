@@ -42,7 +42,7 @@ func _on_request_completed(_result, response_code: int, _headers, body: PackedBy
 		print("Unrecognized image type.")
 		error_texture.show()
 	if err == OK:
-		texture = ImageTexture.new().create_from_image(image)
+		texture = ImageTexture.create_from_image(image)
 	else:
 		error_texture.show()
 		print("Error loading image from buffer: ", err)

@@ -14,7 +14,7 @@ func _ready() -> void:
 	AppData.user_data.friendships_changed.connect(_on_friendships_changed)
 
 
-func add_element(friendship: Friendship, other_user_id: String) -> void:
+func add_element(friendship: Friendship) -> void:
 	var action_friend_info := action_friend_info_scene.instantiate() as ActionFriendInfo
 	action_friend_info.friendship = friendship
 	container.call_deferred("add_child", action_friend_info)
@@ -35,10 +35,9 @@ func _on_friendships_changed() -> void:
 
 	if type == Type.SENT:
 		var sent_friendships := friendships.filter(func(frd: Friendship) -> bool: return is_sent_friendship(user_id, frd))
-		var friendships_to_add: Array[Friendship] = []
 		for friendship: Friendship in sent_friendships:
 			if not already_exists(friendship):
-				await add_element(friendship, friendship.receiver)
+				add_element(friendship)
 		for child: ActionFriendInfo in container.get_children():
 			if is_not_in(child.friendship, sent_friendships):
 				child.queue_free()
@@ -47,7 +46,7 @@ func _on_friendships_changed() -> void:
 		var received_friendships := friendships.filter(func(frd: Friendship) -> bool: return is_received_friendship(user_id, frd))
 		for friendship: Friendship in received_friendships:
 			if not already_exists(friendship):
-				await add_element(friendship, friendship.sender)
+				add_element(friendship)
 		for child: ActionFriendInfo in container.get_children():
 			if is_not_in(child.friendship, received_friendships):
 				child.queue_free()
@@ -56,8 +55,7 @@ func _on_friendships_changed() -> void:
 		var friends := friendships.filter(func(frd: Friendship) -> bool: return is_friend(frd))
 		for friendship: Friendship in friends:
 			if not already_exists(friendship):
-				var other_user_id := friendship.receiver if friendship.receiver != user_id else friendship.sender
-				await add_element(friendship, other_user_id)
+				add_element(friendship)
 		for child: ActionFriendInfo in container.get_children():
 			if is_not_in(child.friendship, friends):
 				child.queue_free()
