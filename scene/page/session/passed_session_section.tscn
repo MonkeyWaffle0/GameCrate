@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bat3j5ednhcm2"]
+[gd_scene load_steps=4 format=3 uid="uid://bat3j5ednhcm2"]
 
 [ext_resource type="Script" uid="uid://dpfldhnlvm8qs" path="res://scene/page/session/session_section.gd" id="1_l8k15"]
+[ext_resource type="PackedScene" uid="uid://n4v6lawsjoqp" path="res://scene/page/session/session_info.tscn" id="2_hdfu7"]
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_upmy8"]
 
 [node name="PassedSessionSection" type="VBoxContainer"]
@@ -9,8 +10,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 32
 script = ExtResource("1_l8k15")
 type = 1
+session_info_scene = ExtResource("2_hdfu7")
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

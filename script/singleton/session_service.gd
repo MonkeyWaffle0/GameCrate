@@ -9,6 +9,7 @@ var session_collection: FirestoreCollection
 
 func _ready() -> void:
 	Firebase.Auth.login_succeeded.connect(_on_login)
+	RealTimeUserService.SessionsChanged.connect(_on_sessions_changed)
 
 
 func create_session(session: Session) -> bool:
@@ -82,3 +83,22 @@ func show_error_notification() -> void:
 
 func _on_login(auth: Dictionary) -> void:
 	session_collection = Firebase.Firestore.collection(AppData.SESSION_COLLECTION)
+
+
+func _on_sessions_changed(data: Array[Dictionary]) -> void:
+	var user_data := AppData.user_data
+	var sessions: Array[Session] = []
+	for session_data: Dictionary in data:
+		var session := await Session.from_dict(session_data)
+		sessions.append(session)
+
+	for session: Session in sessions:
+		var local_session := user_data.get_session(session.id)
+		if local_session == null:
+			user_data.sessions.append(session)
+
+	var session_ids := sessions.map(func(session: Session): return session.id)
+	for session: Session in user_data.sessions.duplicate():
+		if session.id not in session_ids:
+			user_data.sessions.erase(session)
+	user_data.sessions_changed.emit()

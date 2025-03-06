@@ -17,6 +17,8 @@ public partial class RealTimeUserService : Node
     public delegate void SessionChangedEventHandler(Dictionary newData);
     [Signal]
     public delegate void LikesChangedEventHandler(Variant newData);
+    [Signal]
+    public delegate void SessionsChangedEventHandler(Variant newData);
 
     FireBaseConf conf;
     Node gdFireBase;
@@ -77,6 +79,25 @@ public partial class RealTimeUserService : Node
                 }));
 
             CallDeferred("EmitFriendshipsChanged", content);
+        });
+
+        GD.Print("Listening to sessions...");
+        var sessionsCollection = conf.db.Collection("sessions");
+        sessionsCollection
+            .WhereArrayContains("participants", conf.userId)
+            .Listen(snapshot =>
+        {
+            GD.Print("Sessions data changed.");
+            var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
+                .ToArray()
+                .Select(element =>
+                {
+                    var dic = element.ToDictionary();
+                    dic.Add("id", element.Id);
+                    return DictionaryConverter.ConvertToGodotDictionary(dic);
+                }));
+
+            CallDeferred("EmitSessionsChanged", content);
         });
     }
 
@@ -143,6 +164,11 @@ public partial class RealTimeUserService : Node
     private void EmitFriendshipsChanged(Variant data)
     {
         EmitSignal("FriendshipsChanged", data);
+    }
+
+    private void EmitSessionsChanged(Variant data)
+    {
+        EmitSignal("SessionsChanged", data);
     }
 
     private void EmitSessionChanged(Variant data)
