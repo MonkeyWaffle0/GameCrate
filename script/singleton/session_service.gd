@@ -1,7 +1,7 @@
 extends Node
 
 
-const LIKES_COLLECTION_TEMPLATE := AppData.SESSION_COLLECTION + "/%s/" + AppData.LIKES_COLLECTION + "%s"
+const LIKES_COLLECTION_TEMPLATE := AppData.SESSION_COLLECTION + "/%s/" + AppData.LIKES_COLLECTION
 const ERROR_MESSAGE := "Error, try again later"
 
 var session_collection: FirestoreCollection
@@ -22,31 +22,31 @@ func create_session(session: Session) -> bool:
 	return true
 
 
-func add_like(session_id: String, game_id: String) -> bool:
+func add_like(session_id: String, like: Like) -> bool:
 	var user_id := AppData.get_user_id()
-	var likes_collection_name := LIKES_COLLECTION_TEMPLATE % [session_id, game_id]
+	var likes_collection_name := LIKES_COLLECTION_TEMPLATE % [session_id]
 	var likes_collection := Firebase.Firestore.collection(likes_collection_name)
-	var response := await likes_collection.add(user_id, {"likedAt": Time.get_datetime_string_from_system()})
+	var response := await likes_collection.add(like.id, like.to_dict())
 	if not response or len(response.errors) > 0:
 		show_error_notification()
-		printerr("Error adding like to session %s, game %s" % [session_id, game_id])
+		printerr("Error adding like to session %s, game %s" % [session_id, like.game_id])
 		return false
 	return true
 
 
-func remove_like(session_id: String, game_id: String) -> bool:
+func remove_like(session_id: String, like: Like) -> bool:
 	var user_id := AppData.get_user_id()
-	var likes_collection_name := LIKES_COLLECTION_TEMPLATE % [session_id, game_id]
+	var likes_collection_name := LIKES_COLLECTION_TEMPLATE % [session_id]
 	var likes_collection := Firebase.Firestore.collection(likes_collection_name)
-	var like_doc := await likes_collection.get_doc(user_id)
+	var like_doc := await likes_collection.get_doc(like.id)
 	if like_doc == null:
 		show_error_notification()
-		printerr("Error removing like from session %s, game %s, user id %s, not found" % [session_id, game_id, user_id])
+		printerr("Error removing like from session %s, game %s, user id %s, not found" % [session_id, like.game_id, user_id])
 		return false
 	var success := await likes_collection.delete(like_doc)
 	if not success:
 		show_error_notification()
-		printerr("Error removing like from session %s, game %s, user id %s" % [session_id, game_id, user_id])
+		printerr("Error removing like from session %s, game %s, user id %s" % [session_id, like.game_id, user_id])
 		return false
 	return true
 
@@ -55,12 +55,13 @@ func get_games(session: Session) -> Array[BoardGame]:
 	var games: Dictionary[String, BoardGame] = {}
 	for participant: String in session.participants:
 		var collection_name := "%s/%s/%s" % [AppData.USER_COLLECTION, participant, AppData.GAME_COLLECTION]
-		var query := FirestoreQuery.new()
-		query.from(collection_name)
-		var participant_games: Array[FirestoreDocument] = await Firebase.Firestore.query(query)
-		for paritcipant_game_doc: FirestoreDocument in participant_games:
-			var bg := BoardGame.from_dict(paritcipant_game_doc.get_unsafe_document())
-			games[bg.id] = bg
+		RealTimeUserService.GetCollectionDocuments(collection_name)
+		RealTimeUserService.CollectionDocumentsReceived.connect(func(data):
+			for game in data:
+				var bg := BoardGame.from_dict(game)
+				games[bg.id] = bg
+			)
+		await RealTimeUserService.CollectionDocumentsReceived
 	return games.values()
 
 
@@ -69,9 +70,24 @@ func listen_to_session(session_id: String) -> void:
 	RealTimeUserService.LikesChanged.connect(_on_likes_changed)
 
 
-func _on_likes_changed(data: Dictionary) -> void:
-	AppData.current_session.likes[data["id"]] = data["likes"]
-	AppData.current_session.likes_changed.emit()
+func _on_likes_changed(data: Array[Dictionary]) -> void:
+	var user_data := AppData.user_data
+	var session := AppData.current_session
+	var likes: Array[Like] = []
+	for like_data: Dictionary in data:
+		var like := await Like.from_dict(like_data)
+		likes.append(like)
+
+	for like: Like in likes:
+		var local_like := session.get_like(like.id)
+		if local_like == null:
+			session.likes.append(like)
+	var like_ids := likes.map(func(like: Like): return like.id)
+	for like: Like in session.likes.duplicate():
+		if like.id not in like_ids:
+			session.likes.erase(like)
+
+	session.likes_changed.emit()
 
 
 func show_error_notification() -> void:

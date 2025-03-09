@@ -73,7 +73,7 @@ func collection(path : String) -> FirestoreCollection:
 		if coll is FirestoreCollection:
 			if coll.collection_name == path:
 				return coll
-			
+
 	var coll : FirestoreCollection = FirestoreCollection.new()
 	coll._extended_url = _extended_url
 	coll._base_url = _base_url
@@ -101,18 +101,19 @@ func query(query : FirestoreQuery) -> Array:
 	if query.aggregations.size() > 0:
 		Firebase._printerr("Aggregation query sent with normal query call: " + str(query))
 		return []
-		
+
 	var task : FirestoreTask = FirestoreTask.new()
 	task.action = FirestoreTask.Task.TASK_QUERY
 	var body: Dictionary = { structuredQuery = query.query }
 	var url: String = _base_url + _extended_url + query.sub_collection_path + _query_suffix
-	
+
 	task.data = query
 	task._fields = JSON.stringify(body)
 	task._url = url
 	_pooled_request(task)
+
 	return await _handle_task_finished(task)
-	
+
 ## Issue an aggregation query (sum, average, count) against your Firestore database;
 ## cheaper than a normal query and counting (for instance) values directly.
 ##
@@ -131,10 +132,10 @@ func aggregation_query(query : FirestoreQuery) -> Variant:
 	if query.aggregations.size() == 0:
 		Firebase._printerr("Aggregation query sent with no aggregation values: " + str(query))
 		return 0
-		
+
 	var task : FirestoreTask = FirestoreTask.new()
 	task.action = FirestoreTask.Task.TASK_AGG_QUERY
-	
+
 	var body: Dictionary = { structuredAggregationQuery = { structuredQuery = query.query, aggregations = query.aggregations } }
 	var	url: String = _base_url + _extended_url + _agg_query_suffix
 
@@ -164,7 +165,7 @@ func list(path : String = "", page_size : int = 0, page_token : String = "", ord
 	task.data = [path, page_size, page_token, order_by]
 	task._url = url
 	_pooled_request(task)
-	
+
 	return await _handle_task_finished(task)
 
 
@@ -205,11 +206,11 @@ func _pooled_request(task : FirestoreTask) -> void:
 	Utilities.fix_http_request(http_request)
 	add_child(http_request)
 	http_request.request_completed.connect(
-		func(result, response_code, headers, body): 
+		func(result, response_code, headers, body):
 			task._on_request_completed(result, response_code, headers, body)
 			http_request.queue_free()
 	)
-	
+
 	http_request.request(task._url, task._headers, task._method, task._fields)
 
 func _on_FirebaseAuth_login_succeeded(auth_result : Dictionary) -> void:
@@ -236,8 +237,8 @@ func _check_auth_error(code : int, message : String) -> void:
 
 func _handle_task_finished(task : FirestoreTask):
 	await task.task_finished
-	
+
 	if task.error.keys().size() > 0:
 		error.emit(task.error)
-		
+		print(task.error)
 	return task.data

@@ -2,6 +2,8 @@ class_name SessionSection
 extends VBoxContainer
 
 
+signal session_selected(session: Session)
+
 enum Type { UPCOMING, PASSED }
 
 @export var type: Type
@@ -17,6 +19,7 @@ func _ready() -> void:
 func add_element(session: Session) -> void:
 	var session_info := session_info_scene.instantiate() as SessionInfo
 	session_info.session = session
+	session_info.selected.connect(_on_session_selected)
 	container.call_deferred("add_child", session_info)
 
 
@@ -74,3 +77,7 @@ func is_received_friendship(user_id: String, friendship: Friendship) -> bool:
 
 func is_friend(friendship: Friendship) -> bool:
 	return friendship.status == Friendship.Status.ACCEPTED
+	
+
+func _on_session_selected(session_info: SessionInfo) -> void:
+	session_selected.emit(session_info.session)

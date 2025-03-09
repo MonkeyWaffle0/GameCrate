@@ -1,22 +1,24 @@
-class_name Likes
+class_name Like
 extends Resource
 
-# the id of the element that has been liked
+
 var id: String
-# The id of every user that liked this element
-var likers: Array[String]
+var game_id: String
+var user_id: String
 
 
-func _init(_id: String, _likers: Array[String]) -> void:
+func _init(_id: String, _game_id: String, _user_id: String) -> void:
 	self.id = _id
-	self.likers = _likers
+	self.game_id = _game_id
+	self.user_id = _user_id
 
 
 func to_dict() -> Dictionary:
 	return {
-		"likers": likers
+		"game_id": game_id,
+		"user_id": user_id,
 	}
 
 
-static func from_dict(data: Dictionary) -> Likes:
-	return Likes.new(data["id"], data["likers"])
+static func from_dict(data: Dictionary) -> Like:
+	return Like.new(data["id"], data["game_id"], data["user_id"])

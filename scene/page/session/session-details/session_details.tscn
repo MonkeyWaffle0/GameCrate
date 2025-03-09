@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://1ystcodwtqdh"]
+[gd_scene load_steps=5 format=3 uid="uid://1ystcodwtqdh"]
 
 [ext_resource type="Script" uid="uid://g4hhdp54ysku" path="res://scene/page/session/session-details/session_details.gd" id="1_mnfno"]
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_4g0gh"]
+[ext_resource type="PackedScene" uid="uid://naowbprck41c" path="res://scene/page/session/session-details/session_details_game_info.tscn" id="2_h7fc6"]
 [ext_resource type="PackedScene" uid="uid://52xwphfqp44l" path="res://scene/components/selection-scroll-container/selection_scroll_container.tscn" id="3_xow2e"]
 
 [node name="SessionDetails" type="Control"]
@@ -12,6 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mnfno")
+session_details_game_info_scene = ExtResource("2_h7fc6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

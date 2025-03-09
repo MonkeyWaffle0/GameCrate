@@ -2,6 +2,9 @@ class_name SelectionScrollContainer
 extends ScrollContainer
 
 
+## Emitted when the containers have emitted their ready signal when not using single_default_container
+signal containers_initialized
+
 @export var single_default_container := true
 @export var containers: Array[PackedScene] = []
 
@@ -18,7 +21,9 @@ var tween: Tween
 func _ready() -> void:
 	if not single_default_container:
 		for container_scene: PackedScene in containers:
-			NodeUtil.instance_scene(container_scene, container)
+			var node := NodeUtil.instance_scene(container_scene, container)
+			await node.ready
+	containers_initialized.emit()
 
 
 func add_element(element: ScrollElement, index := 0) -> void:
