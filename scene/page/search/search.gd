@@ -6,6 +6,7 @@ extends Control
 
 @onready var search_bar: SearchBar = %SearchBar
 @onready var selection_scroll_container: SelectionScrollContainer = %SelectionScrollContainer
+@onready var empty_state: VBoxContainer = %EmptyState
 
 
 func _ready() -> void:
@@ -13,6 +14,10 @@ func _ready() -> void:
 
 
 func _on_search_completed(result: Array[BoardGame]) -> void:
+	var is_empty := result.is_empty()
+	empty_state.visible = is_empty
+	selection_scroll_container.visible = !is_empty
+
 	for bg in result:
 		var board_game_info := board_game_info_search_scene.instantiate()
 		board_game_info.board_game = bg
