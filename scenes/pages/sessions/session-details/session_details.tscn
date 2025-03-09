@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://1ystcodwtqdh"]
+
+[ext_resource type="Script" uid="uid://g4hhdp54ysku" path="res://scenes/pages/sessions/session-details/session_details.gd" id="1_mnfno"]
+[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_4g0gh"]
+[ext_resource type="PackedScene" uid="uid://naowbprck41c" path="res://scenes/pages/sessions/session-details/session_details_game_info.tscn" id="2_h7fc6"]
+[ext_resource type="PackedScene" uid="uid://52xwphfqp44l" path="res://scenes/components/selection-scroll-container/selection_scroll_container.tscn" id="3_xow2e"]
+
+[node name="SessionDetails" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mnfno")
+session_details_game_info_scene = ExtResource("2_h7fc6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 64
+
+[node name="SessionDate" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_4g0gh")
+theme_override_font_sizes/font_size = 64
+
+[node name="SelectionScrollContainer" parent="VBoxContainer" instance=ExtResource("3_xow2e")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3

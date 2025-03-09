@@ -1,0 +1,127 @@
+[gd_scene load_steps=9 format=3 uid="uid://41rsfctjfyrb"]
+
+[ext_resource type="Script" uid="uid://bitq2prknxil4" path="res://scenes/pages/friends/friend-info/action_friend_info.gd" id="1_ngk01"]
+[ext_resource type="PackedScene" uid="uid://bawviwtj6m1br" path="res://scenes/pages/friends/friend-info/friend_info.tscn" id="2_75osj"]
+[ext_resource type="PackedScene" uid="uid://crc7i3to3i23b" path="res://scenes/components/button/icon-button/icon_button.tscn" id="3_dbhft"]
+[ext_resource type="Texture2D" uid="uid://kdjp3uj3x26u" path="res://asset/icon/bin-grey.svg" id="4_g5tsb"]
+[ext_resource type="Texture2D" uid="uid://bhheqeaow87k" path="res://asset/icon/checkmark-grey.svg" id="5_dbhft"]
+[ext_resource type="PackedScene" uid="uid://bx5ptka143dq2" path="res://scenes/components/loading/loading_spinner.tscn" id="5_kt03y"]
+[ext_resource type="Texture2D" uid="uid://d2etf7wql7qnv" path="res://asset/icon/cancel-grey.svg" id="6_g5tsb"]
+[ext_resource type="Texture2D" uid="uid://d1s26bqrm73sq" path="res://asset/icon/circle-grey-64.svg" id="6_jwmhg"]
+
+[node name="ActionFriendInfo" type="Control"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ngk01")
+
+[node name="FriendInfo" parent="." instance=ExtResource("2_75osj")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="DeleteButton" parent="." instance=ExtResource("3_dbhft")]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_bottom = 50.0
+grow_horizontal = 0
+
+[node name="Panel" parent="DeleteButton" index="0"]
+visible = false
+
+[node name="MarginContainer" parent="DeleteButton" index="1"]
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Icon" parent="DeleteButton/MarginContainer" index="0"]
+texture = ExtResource("4_g5tsb")
+
+[node name="AcceptRejectContainer" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -50.0
+offset_bottom = 50.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="AcceptButton" parent="AcceptRejectContainer" instance=ExtResource("3_dbhft")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Panel" parent="AcceptRejectContainer/AcceptButton" index="0"]
+visible = false
+
+[node name="Icon" parent="AcceptRejectContainer/AcceptButton/MarginContainer" index="0"]
+texture = ExtResource("5_dbhft")
+
+[node name="RejectButton" parent="AcceptRejectContainer" instance=ExtResource("3_dbhft")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Panel" parent="AcceptRejectContainer/RejectButton" index="0"]
+visible = false
+
+[node name="MarginContainer" parent="AcceptRejectContainer/RejectButton" index="1"]
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Icon" parent="AcceptRejectContainer/RejectButton/MarginContainer" index="0"]
+texture = ExtResource("6_g5tsb")
+
+[node name="Spinner" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_bottom = 50.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="LoadingSpinner" parent="Spinner" instance=ExtResource("5_kt03y")]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_progress = ExtResource("6_jwmhg")
+
+[connection signal="pressed" from="DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="pressed" from="AcceptRejectContainer/AcceptButton" to="." method="_on_accept_button_pressed"]
+[connection signal="pressed" from="AcceptRejectContainer/RejectButton" to="." method="_on_reject_button_pressed"]
+
+[editable path="DeleteButton"]
+[editable path="AcceptRejectContainer/AcceptButton"]
+[editable path="AcceptRejectContainer/RejectButton"]

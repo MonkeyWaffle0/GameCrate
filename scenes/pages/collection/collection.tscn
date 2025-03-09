@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://plfxmfwvtux1"]
+
+[ext_resource type="Script" uid="uid://d2fle78sutenh" path="res://scenes/pages/collection/collection.gd" id="1_lossn"]
+[ext_resource type="PackedScene" uid="uid://52xwphfqp44l" path="res://scenes/components/selection-scroll-container/selection_scroll_container.tscn" id="2_adpk2"]
+[ext_resource type="PackedScene" uid="uid://bopl4iqu6pt33" path="res://scenes/pages/collection/board-game-info-collection/board_game_info_collection.tscn" id="2_xxvtl"]
+[ext_resource type="Texture2D" uid="uid://ckiwheed76727" path="res://asset/icon/collection-grey.svg" id="3_5goms"]
+[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="3_km3cr"]
+
+[node name="Collection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_lossn")
+board_game_info_collection_scene = ExtResource("2_xxvtl")
+
+[node name="EmptyState" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="EmptyState"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+texture = ExtResource("3_5goms")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="EmptyState"]
+layout_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_right = 64
+
+[node name="Label" type="Label" parent="EmptyState/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("3_km3cr")
+theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
+theme_override_font_sizes/font_size = 48
+text = "Games added to your collection will appear here."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="SelectionScrollContainer" parent="." instance=ExtResource("2_adpk2")]
+unique_name_in_owner = true
+layout_mode = 1

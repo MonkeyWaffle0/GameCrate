@@ -22,7 +22,7 @@ public partial class FireBaseConf : Node
         Variant accessToken;
         auth.TryGetValue("accesstoken", out accessToken);
 
-        var googleCredential = GoogleCredential.FromAccessToken((string)accessToken);
+        var googleCredential = GoogleCredential.FromAccessToken((string) accessToken);
 
         db = new FirestoreDbBuilder
         {

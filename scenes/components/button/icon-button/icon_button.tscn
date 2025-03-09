@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://crc7i3to3i23b"]
+
+[ext_resource type="Script" uid="uid://c2pfonv24c6iy" path="res://scenes/components/button/icon-button/icon_button.gd" id="1_uv6uf"]
+[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_k0kso"]
+[ext_resource type="Texture2D" uid="uid://cwsspjrri02vh" path="res://asset/icon/group.svg" id="3_iqg4y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2iql4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e7ron"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_75j4a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_84yk7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrnfg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xp82t"]
+
+[node name="IconButton" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uv6uf")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_k0kso")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("3_iqg4y")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_k0kso")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2iql4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7ron")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_75j4a")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_84yk7")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wrnfg")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xp82t")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
