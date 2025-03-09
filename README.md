@@ -38,10 +38,11 @@ After completing the setup, follow these steps to run the project:
 Here's a brief overview of the project structure:
 
 - **`project.godot`**: The main project file.
-- **`scenes/`**: Contains all the scene files for the game and their directly related scripts.
-- **`script/`**: Holds the generic scripts for business logic.
+- **`addons/`**: The external addons used by the project.
 - **`asset/`**: Contains images, fonts, and other resources.
 - **`resource/`**: Contains saved Godot `.tres` files such as the theme, styles etc.
+- **`scenes/`**: Contains all the scene files for the game and their directly related scripts.
+- **`script/`**: Holds the generic scripts for business logic.
 
 
 Happy coding!
