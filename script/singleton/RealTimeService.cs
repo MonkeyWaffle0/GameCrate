@@ -27,8 +27,9 @@ public partial class RealTimeService : Node
 
     FireBaseConf conf;
     Node gdFireBase;
+    private FirestoreChangeListener sessionListener;
+    private FirestoreChangeListener likeListener;
 
-    private System.Collections.Generic.Dictionary<string, FirestoreChangeListener> likeListeners = new System.Collections.Generic.Dictionary<string, FirestoreChangeListener>();
     public override async void _Ready()
     {
         conf = GetNode<FireBaseConf>("/root/FireBaseConf");
@@ -46,10 +47,13 @@ public partial class RealTimeService : Node
 
     public void ListenToSession(string sessionId)
     {
+        if (sessionListener != null) {
+            sessionListener.StopAsync();
+        }
         GD.Print("Listening to session " + sessionId + "...");
         var sessionCollection = conf.db.Collection("sessions");
         var document = sessionCollection.Document(sessionId);
-        document.Listen(snapshot =>
+        sessionListener = document.Listen(snapshot =>
         {
             GD.Print("Session data changed.");
             if (snapshot.Exists)
@@ -62,8 +66,11 @@ public partial class RealTimeService : Node
             }
         });
 
+        if (likeListener != null) {
+            likeListener.StopAsync();
+        }
         var sessionLikesCollection = conf.db.Collection("sessions/" + sessionId + "/likes");
-        sessionLikesCollection.Listen(snapshot =>
+        likeListener = sessionLikesCollection.Listen(snapshot =>
         {
             var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
                 .ToArray()

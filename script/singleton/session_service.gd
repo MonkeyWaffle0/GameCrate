@@ -10,6 +10,7 @@ var session_collection: FirestoreCollection
 func _ready() -> void:
 	Firebase.Auth.login_succeeded.connect(_on_login)
 	RealTimeService.SessionsChanged.connect(_on_sessions_changed)
+	RealTimeService.LikesChanged.connect(_on_likes_changed)
 
 
 func create_session(session: Session) -> bool:
@@ -68,7 +69,6 @@ func get_games(session: Session) -> Array[BoardGame]:
 
 func listen_to_session(session_id: String) -> void:
 	RealTimeService.ListenToSession(session_id)
-	RealTimeService.LikesChanged.connect(_on_likes_changed)
 
 
 func _on_likes_changed(data: Array[Dictionary]) -> void:

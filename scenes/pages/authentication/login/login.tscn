@@ -52,6 +52,7 @@ theme_override_styles/read_only = ExtResource("3_njwdn")
 theme_override_styles/normal = ExtResource("3_njwdn")
 placeholder_text = "Password"
 max_length = 32
+virtual_keyboard_type = 6
 secret = true
 
 [node name="LoginButton" type="Button" parent="MarginContainer/VBoxContainer"]
