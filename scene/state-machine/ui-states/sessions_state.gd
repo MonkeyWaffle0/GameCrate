@@ -29,7 +29,6 @@ func _on_create_session() -> void:
 
 
 func _on_session_selected(session: Session) -> void:
-	print("in state")
 	AppData.current_session = session
 	state_change_requested.emit(session_details_state)
 
