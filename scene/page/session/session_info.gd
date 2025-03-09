@@ -10,6 +10,7 @@ var session: Session
 
 
 func _ready() -> void:
+	super._ready()
 	date.text = DateUtil.prettify_date(session.date)
 	session_owner.text = session.owner_username
 	if session.owner == AppData.get_user_id():

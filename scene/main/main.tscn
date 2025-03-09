@@ -190,13 +190,14 @@ show_footer = false
 show_back_button = true
 visible_components = [NodePath("../../VBoxContainer/MainContainer/AddFriends")]
 
-[node name="SessionsState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("sessions", "collection_state", "friends_state", "search_state", "create_session_state", "visible_components")]
+[node name="SessionsState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("sessions", "collection_state", "friends_state", "search_state", "create_session_state", "session_details_state", "visible_components")]
 script = ExtResource("24_pruok")
 sessions = NodePath("../../VBoxContainer/MainContainer/Sessions")
 collection_state = NodePath("../CollectionState")
 friends_state = NodePath("../FriendsState")
 search_state = NodePath("../SearchState")
 create_session_state = NodePath("../CreateSessionState")
+session_details_state = NodePath("../SessionDetailsState")
 visible_components = [NodePath("../../VBoxContainer/MainContainer/Sessions")]
 
 [node name="CreateSessionState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("create_session", "sessions_state", "session_details_state", "visible_components")]
@@ -208,8 +209,10 @@ show_footer = false
 show_back_button = true
 visible_components = [NodePath("../../VBoxContainer/MainContainer/CreateSession")]
 
-[node name="SessionDetailsState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("visible_components")]
+[node name="SessionDetailsState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("sessions_state", "session_details", "visible_components")]
 script = ExtResource("28_cleq4")
+sessions_state = NodePath("../SessionsState")
+session_details = NodePath("../../VBoxContainer/MainContainer/SessionDetails")
 show_footer = false
 show_back_button = true
 visible_components = [NodePath("../../VBoxContainer/MainContainer/SessionDetails")]

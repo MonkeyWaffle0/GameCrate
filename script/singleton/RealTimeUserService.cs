@@ -1,5 +1,6 @@
 
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
 using Google.Cloud.Firestore;
@@ -19,6 +20,8 @@ public partial class RealTimeUserService : Node
     public delegate void LikesChangedEventHandler(Variant newData);
     [Signal]
     public delegate void SessionsChangedEventHandler(Variant newData);
+    [Signal]
+    public delegate void CollectionDocumentsReceivedEventHandler(Variant newData);
 
     FireBaseConf conf;
     Node gdFireBase;
@@ -36,7 +39,6 @@ public partial class RealTimeUserService : Node
         GD.Print("Listening to user changes...");
         var userCollection = conf.db.Collection("users");
         var document = userCollection.Document(conf.userId);
-
         var listener = document.Listen(snapshot =>
         {
             GD.Print("User data changed.");
@@ -101,7 +103,7 @@ public partial class RealTimeUserService : Node
         });
     }
 
-    public async void ListenToSession(string sessionId)
+    public void ListenToSession(string sessionId)
     {
         GD.Print("Listening to session " + sessionId + "...");
         var sessionCollection = conf.db.Collection("sessions");
@@ -122,33 +124,30 @@ public partial class RealTimeUserService : Node
         var sessionLikesCollection = conf.db.Collection("sessions/" + sessionId + "/likes");
         sessionLikesCollection.Listen(snapshot =>
         {
-            GD.Print("Likes data changed.");
-            snapshot
-                .ToList()
-                .Where(element => !likeListeners.ContainsKey(element.Id))
-                .ToList()
-                .ForEach(element => likeListeners.Add(element.Id, listenToLikes(sessionId, element.Id)));
+            var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
+                .ToArray()
+                .Select(element =>
+                {
+                    var dic = element.ToDictionary();
+                    dic.Add("id", element.Id);
+                    return DictionaryConverter.ConvertToGodotDictionary(dic);
+                }));
+            CallDeferred("EmitLikesChanged", content);
         });
     }
 
-    private FirestoreChangeListener listenToLikes(string sessionId, string gameId)
+    public async void GetCollectionDocuments(string collectionId)
     {
-        GD.Print("Listening to games likes for game " + gameId + "...");
-        var likesCollectionName = "sessions/" + sessionId + "/likes/" + gameId;
-        var collection = conf.db.Collection(likesCollectionName);
-        return collection.Listen(snapshot =>
-        {
-            var likes = new Godot.Collections.Array<string>();
-            snapshot
-                .ToList()
-                .ForEach(element => likes.Add(element.Id));
-            var content = new Dictionary<string, Variant>
-            {
-                { "id", gameId },
-                { "likes", likes }
-            };
-            CallDeferred("EmitLikesChanged", content);
-        });
+        var collectionRef = conf.db.Collection(collectionId);
+        var snapshot = await collectionRef.GetSnapshotAsync();
+        var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
+                .ToArray()
+                .Select(element =>
+                {
+                    var dic = element.ToDictionary();
+                    return DictionaryConverter.ConvertToGodotDictionary(dic);
+                }));
+        EmitSignal("CollectionDocumentsReceived", content);
     }
 
     private void EmitUserDataChanged(Dictionary dict)

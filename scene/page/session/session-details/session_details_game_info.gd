@@ -1,5 +1,5 @@
 class_name SessionDetailsGameInfo
-extends Control
+extends ScrollElement
 
 
 @export var empty_like_texture: Texture2D
@@ -22,23 +22,23 @@ var is_liked := false:
 func _ready() -> void:
 	board_game_info.board_game = board_game
 	AppData.current_session.likes_changed.connect(_on_likes_changed)
+	_on_likes_changed()
 
 
 func _on_like_button_pressed() -> void:
+	var session := AppData.current_session
 	if is_liked:
-		SessionService.remove_like(AppData.current_session.id, board_game.id)
+		SessionService.remove_like(session.id, session.get_like_by_game_id(board_game.id))
 	else:
-		SessionService.add_like(AppData.current_session.id, board_game.id)
+		var like := Like.new(UUID.random_uuid(), board_game.id, AppData.get_user_id())
+		SessionService.add_like(session.id, like)
 
 
 func _on_likes_changed() -> void:
-	var likes := AppData.current_session.likes
-	if board_game.id not in likes:
-		is_liked = false
-		like_amount.text = "0"
-	else:
-		is_liked = AppData.get_user_id() in likes[board_game.id]
-		like_amount.text = str(len(likes[board_game.id]))
+	var session := AppData.current_session
+	var game_id := board_game.id
+	is_liked = session.is_liked_by_user(game_id)
+	like_amount.text = str(session.get_like_amount(game_id))
 
 
 func update_like_ui() -> void:
