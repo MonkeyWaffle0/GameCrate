@@ -60,6 +60,7 @@ theme_override_styles/read_only = ExtResource("3_p7qrn")
 theme_override_styles/normal = ExtResource("3_p7qrn")
 placeholder_text = "Password"
 max_length = 32
+virtual_keyboard_type = 6
 secret = true
 
 [node name="PasswordConfirm" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_p7qrn")]
@@ -70,6 +71,7 @@ theme_override_styles/read_only = ExtResource("3_p7qrn")
 theme_override_styles/normal = ExtResource("3_p7qrn")
 placeholder_text = "Confirm password"
 max_length = 32
+virtual_keyboard_type = 6
 secret = true
 
 [node name="SignupButton" type="Button" parent="MarginContainer/VBoxContainer"]
