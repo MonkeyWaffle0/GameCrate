@@ -9,7 +9,7 @@ var session_collection: FirestoreCollection
 
 func _ready() -> void:
 	Firebase.Auth.login_succeeded.connect(_on_login)
-	RealTimeUserService.SessionsChanged.connect(_on_sessions_changed)
+	RealTimeService.SessionsChanged.connect(_on_sessions_changed)
 
 
 func create_session(session: Session) -> bool:
@@ -55,19 +55,20 @@ func get_games(session: Session) -> Array[BoardGame]:
 	var games: Dictionary[String, BoardGame] = {}
 	for participant: String in session.participants:
 		var collection_name := "%s/%s/%s" % [AppData.USER_COLLECTION, participant, AppData.GAME_COLLECTION]
-		RealTimeUserService.GetCollectionDocuments(collection_name)
-		RealTimeUserService.CollectionDocumentsReceived.connect(func(data):
+		# Hack using the RealTimeUserService because the gdscript firebase plugin does not support query from a non-root collection.
+		RealTimeService.GetCollectionDocuments(collection_name)
+		RealTimeService.CollectionDocumentsReceived.connect(func(data):
 			for game in data:
 				var bg := BoardGame.from_dict(game)
 				games[bg.id] = bg
 			)
-		await RealTimeUserService.CollectionDocumentsReceived
+		await RealTimeService.CollectionDocumentsReceived
 	return games.values()
 
 
 func listen_to_session(session_id: String) -> void:
-	RealTimeUserService.ListenToSession(session_id)
-	RealTimeUserService.LikesChanged.connect(_on_likes_changed)
+	RealTimeService.ListenToSession(session_id)
+	RealTimeService.LikesChanged.connect(_on_likes_changed)
 
 
 func _on_likes_changed(data: Array[Dictionary]) -> void:

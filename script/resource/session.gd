@@ -58,10 +58,10 @@ static func from_dict(data: Dictionary) -> Session:
 	var session := Session.new(data["id"], data["owner"], data["participants"], data["date"])
 	session.participants_usernames = []
 	for participant: String in session.participants:
-		var user := await UserService.find_user_by_id(participant)
-		session.participants_usernames.append(user.username)
+		var username := await UserService.get_user_username(participant)
+		session.participants_usernames.append(username)
 		if participant == session.owner:
-			session.owner_username = user.username
+			session.owner_username = username
 	return session
 
 
