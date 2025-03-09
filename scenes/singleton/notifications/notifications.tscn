@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://w27f8xpnoolq"]
+
+[ext_resource type="Script" uid="uid://brasanjy5esrh" path="res://scenes/singleton/notifications/notifications.gd" id="1_a7jct"]
+[ext_resource type="PackedScene" uid="uid://dfnv0lngfqvmb" path="res://scenes/singleton/notifications/notification/notification.tscn" id="2_y7lny"]
+
+[node name="Notifications" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_a7jct")
+notification_scene = ExtResource("2_y7lny")

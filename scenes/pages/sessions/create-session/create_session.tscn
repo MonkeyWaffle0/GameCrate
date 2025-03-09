@@ -1,0 +1,179 @@
+[gd_scene load_steps=21 format=3 uid="uid://ygwpmjbpmw37"]
+
+[ext_resource type="Script" uid="uid://cdy23uxssthje" path="res://scenes/pages/sessions/create-session/create_session.gd" id="1_2die3"]
+[ext_resource type="PackedScene" uid="uid://baea2046tegoh" path="res://scenes/components/touchscreen-scroll-container/touchscreen_scroll_container.tscn" id="1_8mqxu"]
+[ext_resource type="PackedScene" uid="uid://bbcil8ae6klyn" path="res://scenes/pages/sessions/create-session/create_session_friend_info.tscn" id="2_fy4i0"]
+[ext_resource type="Texture2D" uid="uid://oi5kkv5bmulp" path="res://asset/icon/date-grey.svg" id="2_om8ly"]
+[ext_resource type="PackedScene" uid="uid://dubkw6fn2rh5c" path="res://addons/DatePickerFiles/CalendarPop/DatePickerPanel.tscn" id="2_yd2mq"]
+[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="4_b2l4r"]
+[ext_resource type="PackedScene" uid="uid://dbngkkrv78khk" path="res://scenes/components/search-bar/search_bar.tscn" id="5_rmhql"]
+[ext_resource type="Texture2D" uid="uid://ds506hcbktcun" path="res://asset/icon/checkmark-white.svg" id="8_ggd3b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dm8su"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o5rpb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dwbca"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_66xfc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dpcgm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1dxtp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0j2fg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yhy1y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kexjj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aqu17"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k053q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6vyw"]
+bg_color = Color(0.129412, 0.545098, 0.396078, 1)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+
+[node name="CreateSession" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2die3")
+create_session_friend_info_scene = ExtResource("2_fy4i0")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="TouchscreenScrollContainer" parent="MarginContainer" instance=ExtResource("1_8mqxu")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TouchscreenScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 64
+
+[node name="DateContainer" type="HBoxContainer" parent="MarginContainer/TouchscreenScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/TouchscreenScrollContainer/VBoxContainer/DateContainer"]
+layout_mode = 2
+texture = ExtResource("2_om8ly")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="DatePickerPanel" parent="MarginContainer/TouchscreenScrollContainer/VBoxContainer/DateContainer" instance=ExtResource("2_yd2mq")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TouchscreenScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="SearchBar" parent="MarginContainer/TouchscreenScrollContainer/VBoxContainer/VBoxContainer" instance=ExtResource("5_rmhql")]
+layout_mode = 2
+placeholder_value = "Search for a specific friend"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TouchscreenScrollContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TouchscreenScrollContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ParticipantsLabel" type="Label" parent="MarginContainer/TouchscreenScrollContainer/VBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_b2l4r")
+theme_override_font_sizes/font_size = 48
+text = "Participants"
+vertical_alignment = 1
+
+[node name="ParticipantsContainer" type="VBoxContainer" parent="MarginContainer/TouchscreenScrollContainer/VBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/TouchscreenScrollContainer/VBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0.698039, 0.698039, 0.698039, 1)
+
+[node name="FriendsContainer" type="VBoxContainer" parent="MarginContainer/TouchscreenScrollContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(164, 164)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="CreateSessionButton" type="Button" parent="MarginContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_b2l4r")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dm8su")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_o5rpb")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_dwbca")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_66xfc")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_dpcgm")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_1dxtp")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_0j2fg")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_yhy1y")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kexjj")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_aqu17")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_k053q")
+
+[node name="Panel" type="Panel" parent="MarginContainer2/CreateSessionButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j6vyw")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/CreateSessionButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/CreateSessionButton/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("8_ggd3b")
+expand_mode = 2
+stretch_mode = 5
+
+[connection signal="text_changed" from="MarginContainer/TouchscreenScrollContainer/VBoxContainer/VBoxContainer/SearchBar" to="." method="_on_search_bar_text_changed"]
+[connection signal="pressed" from="MarginContainer2/CreateSessionButton" to="." method="_on_create_session_button_pressed"]

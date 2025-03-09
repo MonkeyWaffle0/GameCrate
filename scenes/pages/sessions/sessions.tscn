@@ -1,0 +1,145 @@
+[gd_scene load_steps=20 format=3 uid="uid://67bymuye064g"]
+
+[ext_resource type="Script" uid="uid://b2c53uybrc47h" path="res://scenes/pages/sessions/sessions.gd" id="1_mvojb"]
+[ext_resource type="PackedScene" uid="uid://52xwphfqp44l" path="res://scenes/components/selection-scroll-container/selection_scroll_container.tscn" id="2_mr042"]
+[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_ultcm"]
+[ext_resource type="PackedScene" uid="uid://bx7q7o01evllk" path="res://scenes/pages/sessions/upcoming_session_section.tscn" id="3_ewvsi"]
+[ext_resource type="Texture2D" uid="uid://58vkd3whymiv" path="res://asset/icon/add.svg" id="3_wrwci"]
+[ext_resource type="PackedScene" uid="uid://bat3j5ednhcm2" path="res://scenes/pages/sessions/passed_session_section.tscn" id="4_mr042"]
+[ext_resource type="Texture2D" uid="uid://gkvhiw7wkbtl" path="res://asset/icon/session-grey.svg" id="5_mr042"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ewvsi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mr042"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1gdu6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8y058"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4ws40"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gdunf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yv300"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bhmpp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4i4k0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n0cuy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_47e46"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3gmf"]
+bg_color = Color(0.129412, 0.545098, 0.396078, 1)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+
+[node name="Sessions" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mvojb")
+
+[node name="ScrollContainer" parent="." instance=ExtResource("2_mr042")]
+unique_name_in_owner = true
+layout_mode = 1
+single_default_container = false
+containers = Array[PackedScene]([ExtResource("3_ewvsi"), ExtResource("4_mr042")])
+
+[node name="EmptyState" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="EmptyState"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+texture = ExtResource("5_mr042")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="EmptyState"]
+layout_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_right = 64
+
+[node name="Label" type="Label" parent="EmptyState/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_ultcm")
+theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
+theme_override_font_sizes/font_size = 48
+text = "Nothing here yet. Start a session and let the fun begin!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(164, 164)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="CreateSessionButton" type="Button" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_ultcm")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ewvsi")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_mr042")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_1gdu6")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_8y058")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_4ws40")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_gdunf")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_yv300")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_bhmpp")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4i4k0")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_n0cuy")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_47e46")
+
+[node name="Panel" type="Panel" parent="MarginContainer/CreateSessionButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o3gmf")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CreateSessionButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/CreateSessionButton/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_wrwci")
+expand_mode = 2
+stretch_mode = 5
+
+[connection signal="pressed" from="MarginContainer/CreateSessionButton" to="." method="_on_create_session_button_pressed"]

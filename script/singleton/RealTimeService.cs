@@ -154,7 +154,8 @@ public partial class RealTimeService : Node
         });
     }
 
-    private void ListenToSessions() {
+    private void ListenToSessions()
+    {
         GD.Print("Listening to sessions...");
         var sessionsCollection = conf.db.Collection("sessions");
         sessionsCollection

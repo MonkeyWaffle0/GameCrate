@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bx5ptka143dq2"]
+
+[ext_resource type="Texture2D" uid="uid://7smgvrkj5vwu" path="res://asset/icon/circle-green.png" id="1_mvqjn"]
+[ext_resource type="Script" uid="uid://bxnl80ue4xm7n" path="res://scenes/components/loading/loading_spinner.gd" id="2_lda8b"]
+
+[node name="LoadingSpinner" type="TextureProgressBar"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+fill_mode = 4
+texture_progress = ExtResource("1_mvqjn")
+script = ExtResource("2_lda8b")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

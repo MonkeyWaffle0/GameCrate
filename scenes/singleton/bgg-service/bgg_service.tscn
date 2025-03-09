@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bj4p85dkdwcbl"]
+
+[ext_resource type="Script" uid="uid://l6rlwcrbl22y" path="res://scenes/singleton/bgg-service/bgg_service.gd" id="1_rq8i1"]
+
+[node name="BggService" type="Node"]
+script = ExtResource("1_rq8i1")

@@ -20,11 +20,11 @@ config/icon="res://icon.svg"
 Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
 FireBaseConf="*res://script/singleton/FireBaseConf.cs"
 RealTimeService="*res://script/singleton/RealTimeService.cs"
-BggService="*res://scene/singleton/bgg-service/bgg_service.tscn"
+BggService="*res://scenes/singleton/bgg-service/bgg_service.tscn"
 UserService="*res://script/singleton/user_service.gd"
 AppData="*res://script/singleton/app_data.gd"
 Signals="*res://script/singleton/signals.gd"
-Notifications="*res://scene/singleton/notifications/notifications.tscn"
+Notifications="*res://scenes/singleton/notifications/notifications.tscn"
 BoardgameService="*res://script/singleton/boardgame_service.gd"
 FriendService="*res://script/singleton/friend_service.gd"
 SessionService="*res://script/singleton/session_service.gd"
@@ -53,7 +53,7 @@ folder_colors={
 "res://addons/": "orange",
 "res://asset/": "blue",
 "res://resource/": "yellow",
-"res://scene/": "purple",
+"res://scenes/": "purple",
 "res://script/": "teal"
 }
 

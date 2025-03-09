@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3i23biev6rd4"]
+
+[ext_resource type="Script" uid="uid://d2e6p7hndboyn" path="res://scenes/pages/authentication/authentication.gd" id="1_g3sga"]
+[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_yw2hk"]
+[ext_resource type="PackedScene" uid="uid://bksodxgfra0sr" path="res://scenes/components/button/main_button.tscn" id="4_lhbhh"]
+[ext_resource type="PackedScene" uid="uid://cfxe4e06s1xb6" path="res://scenes/components/button/secondary_button.tscn" id="5_jyig0"]
+
+[node name="Authentication" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g3sga")
+
+[node name="Panel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_yw2hk")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 64
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_yw2hk")
+theme_override_font_sizes/font_size = 128
+text = "Welcome to GameCrate !"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Signup" parent="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer" instance=ExtResource("4_lhbhh")]
+layout_mode = 2
+text = "Signup"
+
+[node name="Login" parent="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer" instance=ExtResource("5_jyig0")]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.129412, 0.545098, 0.396078, 1)
+text = "Login"
+
+[node name="AuthInformation" type="Label" parent="MarginContainer/VBoxContainer2"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme = ExtResource("2_yw2hk")
+theme_override_font_sizes/font_size = 32
+text = "authentication information"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/Signup" to="." method="_on_signup_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/Login" to="." method="_on_login_pressed"]
