@@ -1,21 +1,23 @@
 
 using System.Linq;
-using System.Threading.Tasks;
 using Godot;
-using Godot.Collections;
 using Google.Cloud.Firestore;
 
 
-public partial class RealTimeUserService : Node
+/// <summary>
+/// Service that provides real time updates of the Firestore database. Done in C# since it's not supported
+/// by the gdscript Firebase plugin.
+/// </summary>
+public partial class RealTimeService : Node
 {
     [Signal]
-    public delegate void UserDataChangedEventHandler(Dictionary newData);
+    public delegate void UserDataChangedEventHandler(Variant newData);
     [Signal]
     public delegate void GamesOwnedChangedEventHandler(Variant newData);
     [Signal]
     public delegate void FriendshipsChangedEventHandler(Variant newData);
     [Signal]
-    public delegate void SessionChangedEventHandler(Dictionary newData);
+    public delegate void SessionChangedEventHandler(Variant newData);
     [Signal]
     public delegate void LikesChangedEventHandler(Variant newData);
     [Signal]
@@ -36,71 +38,10 @@ public partial class RealTimeUserService : Node
 
     private async void OnFirebaseConfigured()
     {
-        GD.Print("Listening to user changes...");
-        var userCollection = conf.db.Collection("users");
-        var document = userCollection.Document(conf.userId);
-        var listener = document.Listen(snapshot =>
-        {
-            GD.Print("User data changed.");
-            if (snapshot.Exists)
-            {
-                CallDeferred("EmitUserDataChanged", DictionaryConverter.ConvertToGodotDictionary(snapshot.ToDictionary()));
-            }
-            else
-            {
-                GD.Print("Document does not exist.");
-            }
-        });
-
-        GD.Print("Listening to games changes...");
-        var gamesCollection = conf.db.Collection("users/" + conf.userId + "/games");
-        gamesCollection.Listen(snapshot =>
-        {
-            GD.Print("Game collection data changed.");
-            var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
-                .ToArray()
-                .Select(element => DictionaryConverter.ConvertToGodotDictionary(element.ToDictionary())));
-
-            CallDeferred("EmitGamesOwnedChanged", content);
-        });
-
-        GD.Print("Listening to friendships...");
-        var friendsCollection = conf.db.Collection("friendships");
-        friendsCollection
-            .WhereArrayContains("participants", conf.userId)
-            .Listen(snapshot =>
-        {
-            GD.Print("Friendships data changed.");
-            var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
-                .ToArray()
-                .Select(element =>
-                {
-                    var dic = element.ToDictionary();
-                    dic.Add("id", element.Id);
-                    return DictionaryConverter.ConvertToGodotDictionary(dic);
-                }));
-
-            CallDeferred("EmitFriendshipsChanged", content);
-        });
-
-        GD.Print("Listening to sessions...");
-        var sessionsCollection = conf.db.Collection("sessions");
-        sessionsCollection
-            .WhereArrayContains("participants", conf.userId)
-            .Listen(snapshot =>
-        {
-            GD.Print("Sessions data changed.");
-            var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
-                .ToArray()
-                .Select(element =>
-                {
-                    var dic = element.ToDictionary();
-                    dic.Add("id", element.Id);
-                    return DictionaryConverter.ConvertToGodotDictionary(dic);
-                }));
-
-            CallDeferred("EmitSessionsChanged", content);
-        });
+        ListenToUser();
+        ListenToGames();
+        ListenToFriendships();
+        ListenToSessions();
     }
 
     public void ListenToSession(string sessionId)
@@ -113,7 +54,7 @@ public partial class RealTimeUserService : Node
             GD.Print("Session data changed.");
             if (snapshot.Exists)
             {
-                CallDeferred("EmitSessionChanged", DictionaryConverter.ConvertToGodotDictionary(snapshot.ToDictionary()));
+                CallDeferred("Emit", "SessionChanged", DictionaryConverter.ConvertToGodotDictionary(snapshot.ToDictionary()));
             }
             else
             {
@@ -132,7 +73,7 @@ public partial class RealTimeUserService : Node
                     dic.Add("id", element.Id);
                     return DictionaryConverter.ConvertToGodotDictionary(dic);
                 }));
-            CallDeferred("EmitLikesChanged", content);
+            CallDeferred("Emit", "LikesChanged", content);
         });
     }
 
@@ -150,33 +91,87 @@ public partial class RealTimeUserService : Node
         EmitSignal("CollectionDocumentsReceived", content);
     }
 
-    private void EmitUserDataChanged(Dictionary dict)
+    // EmitSignal must be wrapped because it can't be called directly with Calldeferred.
+    private void Emit(string signalName, Variant data)
     {
-        EmitSignal("UserDataChanged", dict);
+        EmitSignal(signalName, data);
     }
 
-    private void EmitGamesOwnedChanged(Variant data)
+
+    private void ListenToUser()
     {
-        EmitSignal("GamesOwnedChanged", data);
+        GD.Print("Listening to user changes...");
+        var userCollection = conf.db.Collection("users");
+        var document = userCollection.Document(conf.userId);
+        var listener = document.Listen(snapshot =>
+        {
+            GD.Print("User data changed.");
+            if (snapshot.Exists)
+            {
+                CallDeferred("Emit", "UserDataChanged", DictionaryConverter.ConvertToGodotDictionary(snapshot.ToDictionary()));
+            }
+            else
+            {
+                GD.Print("Document does not exist.");
+            }
+        });
     }
 
-    private void EmitFriendshipsChanged(Variant data)
+    private void ListenToGames()
     {
-        EmitSignal("FriendshipsChanged", data);
+        GD.Print("Listening to games changes...");
+        var gamesCollection = conf.db.Collection("users/" + conf.userId + "/games");
+        gamesCollection.Listen(snapshot =>
+        {
+            GD.Print("Game collection data changed.");
+            var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
+                .ToArray()
+                .Select(element => DictionaryConverter.ConvertToGodotDictionary(element.ToDictionary())));
+
+            CallDeferred("Emit", "GamesOwnedChanged", content);
+        });
     }
 
-    private void EmitSessionsChanged(Variant data)
+    private void ListenToFriendships()
     {
-        EmitSignal("SessionsChanged", data);
+        GD.Print("Listening to friendships...");
+        var friendsCollection = conf.db.Collection("friendships");
+        friendsCollection
+            .WhereArrayContains("participants", conf.userId)
+            .Listen(snapshot =>
+        {
+            GD.Print("Friendships data changed.");
+            var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
+                .ToArray()
+                .Select(element =>
+                {
+                    var dic = element.ToDictionary();
+                    dic.Add("id", element.Id);
+                    return DictionaryConverter.ConvertToGodotDictionary(dic);
+                }));
+
+            CallDeferred("Emit", "FriendshipsChanged", content);
+        });
     }
 
-    private void EmitSessionChanged(Variant data)
-    {
-        EmitSignal("SessionChanged", data);
-    }
+    private void ListenToSessions() {
+        GD.Print("Listening to sessions...");
+        var sessionsCollection = conf.db.Collection("sessions");
+        sessionsCollection
+            .WhereArrayContains("participants", conf.userId)
+            .Listen(snapshot =>
+        {
+            GD.Print("Sessions data changed.");
+            var content = new Godot.Collections.Array<Godot.Collections.Dictionary<string, Variant>>(snapshot
+                .ToArray()
+                .Select(element =>
+                {
+                    var dic = element.ToDictionary();
+                    dic.Add("id", element.Id);
+                    return DictionaryConverter.ConvertToGodotDictionary(dic);
+                }));
 
-    private void EmitLikesChanged(Variant data)
-    {
-        EmitSignal("LikesChanged", data);
+            CallDeferred("Emit", "SessionsChanged", content);
+        });
     }
 }

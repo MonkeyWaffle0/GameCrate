@@ -6,7 +6,7 @@ var game_collection: FirestoreCollection
 
 func _ready() -> void:
 	Firebase.Auth.login_succeeded.connect(_on_login)
-	RealTimeUserService.GamesOwnedChanged.connect(_on_games_changed)
+	RealTimeService.GamesOwnedChanged.connect(_on_games_changed)
 
 
 func add_game(board_game: BoardGame) -> void:

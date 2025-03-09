@@ -8,7 +8,7 @@ var friendship_collection: FirestoreCollection
 
 func _ready() -> void:
 	Firebase.Auth.login_succeeded.connect(_on_login)
-	RealTimeUserService.FriendshipsChanged.connect(_on_friendships_changed)
+	RealTimeService.FriendshipsChanged.connect(_on_friendships_changed)
 
 
 func create_friendship(other_user: UserSearchData) -> bool:

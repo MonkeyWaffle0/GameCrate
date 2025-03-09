@@ -34,8 +34,8 @@ static func from_dict(data: Dictionary) -> Friendship:
 	var user_id: String = Firebase.Auth.auth["localid"]
 	var friendship := Friendship.new(data["id"], data["sender"], data["receiver"], string_to_status(data["status"]))
 	var other_user_id := friendship.sender if friendship.sender != user_id else friendship.receiver
-	var user_search_data := await UserService.find_user_by_id(other_user_id)
-	friendship.other_username = user_search_data.username
+	var username := await UserService.get_user_username(other_user_id)
+	friendship.other_username = username
 	return friendship
 
 
