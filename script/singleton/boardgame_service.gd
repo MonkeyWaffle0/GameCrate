@@ -22,9 +22,10 @@ func remove_game(board_game: BoardGame) -> void:
 
 
 func connect_signals() -> void:
-	game_collection.update_doc_error.connect(_show_error_notification)
-	game_collection.get_doc_error.connect(_show_error_notification)
-	game_collection.update_doc_success.connect(_show_success_notification)
+	if not game_collection.update_doc_error.has_connections():
+		game_collection.update_doc_error.connect(_show_error_notification)
+		game_collection.get_doc_error.connect(_show_error_notification)
+		game_collection.update_doc_success.connect(_show_success_notification)
 
 
 func _on_login(auth: Dictionary) -> void:
