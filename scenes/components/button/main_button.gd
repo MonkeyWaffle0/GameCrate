@@ -7,6 +7,12 @@ signal pressed
 
 @onready var button: Button = %Button
 
+var disabled := false:
+	set(value):
+		disabled = value
+		if button:
+			button.disabled = disabled
+
 
 func _ready() -> void:
 	button.text = text
