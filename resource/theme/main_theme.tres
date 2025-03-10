@@ -40,10 +40,12 @@ bg_color = Color(0.121569, 0.121569, 0.121569, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mrs83"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66ldn"]
-bg_color = Color(0.0823529, 0.0823529, 0.0823529, 1)
-border_width_top = 2
-border_width_bottom = 2
+bg_color = Color(0, 0.0131836, 0.0351563, 1)
 border_color = Color(0.698039, 0.698039, 0.698039, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
 
 [resource]
 AccentLabel/base_type = &"Label"

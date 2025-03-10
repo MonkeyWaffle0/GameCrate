@@ -1,26 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://bksodxgfra0sr"]
+[gd_scene load_steps=6 format=3 uid="uid://bksodxgfra0sr"]
 
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_fg0ix"]
 [ext_resource type="Script" uid="uid://b66negnwudlxd" path="res://scenes/components/button/main_button.gd" id="1_u2kes"]
 [ext_resource type="StyleBox" uid="uid://dso5t8vb0fre" path="res://resource/theme/style-box/empty_style_box.tres" id="2_6k5xj"]
+[ext_resource type="StyleBox" uid="uid://ivv6hvmh2uqy" path="res://resource/theme/style-box/main_button_texture.tres" id="2_q45i2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1soea"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
-
-[sub_resource type="Gradient" id="Gradient_1soea"]
-colors = PackedColorArray(0.4375, 0.360294, 0.108088, 1, 1, 0.823529, 0.247059, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_6k5xj"]
-gradient = SubResource("Gradient_1soea")
-fill = 1
-fill_from = Vector2(1, 0)
-fill_to = Vector2(0, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u2kes"]
-texture = SubResource("GradientTexture2D_6k5xj")
 
 [node name="MainButton" type="Control"]
 custom_minimum_size = Vector2(0, 128)
@@ -43,14 +32,13 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1soea")
 
 [node name="Panel" type="Panel" parent="Panel2"]
-clip_children = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_u2kes")
+theme_override_styles/panel = ExtResource("2_q45i2")
 
 [node name="Button" type="Button" parent="."]
 unique_name_in_owner = true
