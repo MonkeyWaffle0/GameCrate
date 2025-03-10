@@ -3,16 +3,10 @@
 [ext_resource type="Script" uid="uid://cxichoaukbidu" path="res://scenes/pages/search/board-game-info-search/board_game_info_search.gd" id="1_d0o3p"]
 [ext_resource type="PackedScene" uid="uid://xn0nhcleo38w" path="res://scenes/components/board-game/board_game_info.tscn" id="1_ye5co"]
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_7tma8"]
+[ext_resource type="StyleBox" uid="uid://bbok46bb2hr11" path="res://resource/theme/style-box/list_element_panel.tres" id="2_umll2"]
 [ext_resource type="PackedScene" uid="uid://crc7i3to3i23b" path="res://scenes/components/button/icon-button/icon_button.tscn" id="4_8lu27"]
 [ext_resource type="Texture2D" uid="uid://58vkd3whymiv" path="res://asset/icon/add.svg" id="5_845rr"]
 [ext_resource type="StyleBox" uid="uid://ivv6hvmh2uqy" path="res://resource/theme/style-box/main_button_texture.tres" id="5_g4np5"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yehug"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
 
 [node name="BoardGameInfoSearch" type="Control" node_paths=PackedStringArray("buttons", "invisible_button")]
 custom_minimum_size = Vector2(256, 256)
@@ -35,7 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_yehug")
+theme_override_styles/panel = ExtResource("2_umll2")
 
 [node name="BoardGameInfo" parent="Panel" instance=ExtResource("1_ye5co")]
 unique_name_in_owner = true
