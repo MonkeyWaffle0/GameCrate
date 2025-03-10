@@ -4,7 +4,7 @@ extends Control
 
 signal pressed
 
-const SELECTED_COLOR = Color("218b65")
+const SELECTED_COLOR = Color("ffffff")
 const UNSELECTED_COLOR = Color("b2b2b2")
 
 @export var type: Enums.Page
