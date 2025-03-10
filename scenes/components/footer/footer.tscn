@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bccpbvyeyi1dl" path="res://asset/icon/group-green.svg" id="9_7tmiy"]
 
 [node name="Footer" type="Control"]
-custom_minimum_size = Vector2(0, 128)
+custom_minimum_size = Vector2(0, 160)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,6 +38,15 @@ layout_mode = 2
 selected_icon = ExtResource("3_arpna")
 unselected_icon = ExtResource("3_01cr1")
 
+[node name="MarginContainer" parent="Container/SearchButton/VBoxContainer" index="0"]
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 0
+
+[node name="Label" parent="Container/SearchButton/VBoxContainer/MarginContainer2" index="0"]
+theme_override_font_sizes/font_size = 32
+
 [node name="CollectionButton" parent="Container" instance=ExtResource("2_8arri")]
 unique_name_in_owner = true
 layout_mode = 2
@@ -46,10 +55,13 @@ selected_icon = ExtResource("5_h5gyj")
 unselected_icon = ExtResource("4_sjqr0")
 
 [node name="MarginContainer" parent="Container/CollectionButton/VBoxContainer" index="0"]
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 16
+
+[node name="Label" parent="Container/CollectionButton/VBoxContainer/MarginContainer2" index="0"]
+theme_override_font_sizes/font_size = 32
 
 [node name="FriendsButton" parent="Container" instance=ExtResource("2_8arri")]
 unique_name_in_owner = true
@@ -59,9 +71,13 @@ selected_icon = ExtResource("9_7tmiy")
 unselected_icon = ExtResource("6_rchbg")
 
 [node name="MarginContainer" parent="Container/FriendsButton/VBoxContainer" index="0"]
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" parent="Container/FriendsButton/VBoxContainer/MarginContainer2" index="0"]
+theme_override_font_sizes/font_size = 32
 
 [node name="SessionsButton" parent="Container" instance=ExtResource("2_8arri")]
 unique_name_in_owner = true
@@ -71,13 +87,20 @@ selected_icon = ExtResource("7_16ciq")
 unselected_icon = ExtResource("5_fxifo")
 
 [node name="MarginContainer" parent="Container/SessionsButton/VBoxContainer" index="0"]
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = -8
+
+[node name="Label" parent="Container/SessionsButton/VBoxContainer/MarginContainer2" index="0"]
+theme_override_font_sizes/font_size = 32
 
 [connection signal="pressed" from="Container/SearchButton" to="." method="_on_search_button_pressed"]
 [connection signal="pressed" from="Container/CollectionButton" to="." method="_on_collection_button_pressed"]
 [connection signal="pressed" from="Container/FriendsButton" to="." method="_on_friends_button_pressed"]
 [connection signal="pressed" from="Container/SessionsButton" to="." method="_on_sessions_button_pressed"]
 
+[editable path="Container/SearchButton"]
 [editable path="Container/CollectionButton"]
 [editable path="Container/FriendsButton"]
 [editable path="Container/SessionsButton"]

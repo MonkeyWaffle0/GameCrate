@@ -1,15 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://jg21jfbf44ti"]
+[gd_scene load_steps=6 format=3 uid="uid://jg21jfbf44ti"]
 
-[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_kerny"]
 [ext_resource type="Script" uid="uid://6tep52qg1fgq" path="res://scenes/components/background/animated_background.gd" id="1_kxsv4"]
 [ext_resource type="Texture2D" uid="uid://1gxq5kkabcfx" path="res://asset/icon/Crate.png" id="2_01q5l"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kxsv4"]
+[sub_resource type="Gradient" id="Gradient_knwhc"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.356877, 0.702602, 1)
+colors = PackedColorArray(0, 0.0352941, 0.0941176, 1, 0.0650558, 0.0685652, 0.103255, 1, 0.17519, 0.12489, 0.118723, 1, 0.3125, 0.195114, 0.138008, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xxv55"]
+gradient = SubResource("Gradient_knwhc")
+fill_from = Vector2(0.166667, 1)
+fill_to = Vector2(0.752137, 0)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sswkp"]
 particle_flag_disable_z = true
-emission_shape_offset = Vector3(1400, 1200, 0)
+emission_shape_offset = Vector3(600, 2400, 0)
 emission_shape = 3
-emission_box_extents = Vector3(1, 1400, 1)
-direction = Vector3(-1, 0, 0)
+emission_box_extents = Vector3(800, 1, 1)
+direction = Vector3(0, -1, 0)
 spread = 0.0
 initial_velocity_min = 360.0
 initial_velocity_max = 792.0
@@ -26,21 +35,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kxsv4")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_kerny")
-theme_type_variation = &"BackgroundPanel"
+texture = SubResource("GradientTexture2D_xxv55")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-modulate = Color(0.129412, 0.545098, 0.396078, 0.168627)
+modulate = Color(1, 0.823529, 0.247059, 0.0941176)
 position = Vector2(2, 7)
 amount = 64
 texture = ExtResource("2_01q5l")
 lifetime = 10.0
 preprocess = 3.0
-process_material = SubResource("ParticleProcessMaterial_kxsv4")
+process_material = SubResource("ParticleProcessMaterial_sswkp")

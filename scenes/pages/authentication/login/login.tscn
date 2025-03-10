@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbrm223kmu468"]
+[gd_scene load_steps=6 format=3 uid="uid://dbrm223kmu468"]
 
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_5u8th"]
 [ext_resource type="Script" uid="uid://3rmkqa165drm" path="res://scenes/pages/authentication/login/login.gd" id="1_ecdtb"]
 [ext_resource type="PackedScene" uid="uid://bi681m1oapw3i" path="res://scenes/components/text/line_edit.tscn" id="2_ecdtb"]
-[ext_resource type="StyleBox" uid="uid://fl8vrpp1qhqo" path="res://resource/theme/style-box/lineedit_panel.tres" id="3_njwdn"]
+[ext_resource type="StyleBox" uid="uid://bnutowcrnvr4u" path="res://resource/theme/style-box/line_edit_empty.tres" id="3_pkxps"]
+[ext_resource type="PackedScene" uid="uid://bksodxgfra0sr" path="res://scenes/components/button/main_button.tscn" id="4_pkxps"]
 
 [node name="Login" type="Control"]
 layout_mode = 3
@@ -38,29 +39,26 @@ theme_override_constants/separation = 32
 [node name="Email" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_ecdtb")]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_styles/focus = ExtResource("3_njwdn")
-theme_override_styles/read_only = ExtResource("3_njwdn")
-theme_override_styles/normal = ExtResource("3_njwdn")
+theme_override_styles/focus = ExtResource("3_pkxps")
+theme_override_styles/read_only = ExtResource("3_pkxps")
+theme_override_styles/normal = ExtResource("3_pkxps")
 placeholder_text = "Email"
 max_length = 64
 
 [node name="Password" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_ecdtb")]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_styles/focus = ExtResource("3_njwdn")
-theme_override_styles/read_only = ExtResource("3_njwdn")
-theme_override_styles/normal = ExtResource("3_njwdn")
+theme_override_styles/focus = ExtResource("3_pkxps")
+theme_override_styles/read_only = ExtResource("3_pkxps")
+theme_override_styles/normal = ExtResource("3_pkxps")
 placeholder_text = "Password"
 max_length = 32
 virtual_keyboard_type = 6
 secret = true
 
-[node name="LoginButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="LoginButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_pkxps")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 128)
 layout_mode = 2
-theme = ExtResource("1_5u8th")
-theme_type_variation = &"MainButton"
 text = "Login"
 
 [node name="AuthInformation" type="Label" parent="MarginContainer/VBoxContainer"]

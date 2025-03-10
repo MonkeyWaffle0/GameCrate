@@ -8,7 +8,7 @@ const USERNAME_TOO_SHORT_MESSAGE := "Username must be at least 3 characters."
 const USERNAME_ALREADY_USED_MESSAGE := "Username is already used."
 
 @onready var username: LineEdit = %Username
-@onready var continue_button: Button = %ContinueButton
+@onready var continue_button: Control = %ContinueButton
 @onready var auth_information: Label = %AuthInformation
 
 

@@ -4,7 +4,7 @@ extends Control
 
 const LOGIN_ERROR_MESSAGE := "Login failed: %s"
 
-@onready var login_button: Button = %LoginButton
+@onready var login_button: Control = %LoginButton
 @onready var email: LineEdit = %Email
 @onready var password: LineEdit = %Password
 @onready var auth_information: Label = %AuthInformation
