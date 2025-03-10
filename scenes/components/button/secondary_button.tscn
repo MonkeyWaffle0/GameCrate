@@ -11,5 +11,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 4
 theme = ExtResource("1_1ln4a")
+theme_type_variation = &"SecondaryButton"
 theme_override_font_sizes/font_size = 48
 text = "button"

@@ -5,7 +5,7 @@ extends Control
 const SIGNUP_ERROR_MESSAGE := "Signup failed: %s"
 const PASSWORDS_DONT_MATCH_MESSAGE := "Passwords don't match."
 
-@onready var signup_button: Button = %SignupButton
+@onready var signup_button: Control = %SignupButton
 @onready var email: LineEdit = %Email
 @onready var password: LineEdit = %Password
 @onready var password_confirm: LineEdit = %PasswordConfirm

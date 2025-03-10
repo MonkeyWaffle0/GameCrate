@@ -123,6 +123,7 @@ script = ExtResource("3_rupdd")
 collection_state = NodePath("../CollectionState")
 friends_state = NodePath("../FriendsState")
 sessions_state = NodePath("../SessionsState")
+show_animated_background = true
 visible_components = [NodePath("../../VBoxContainer/MainContainer/Search")]
 
 [node name="CollectionState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("collection", "search_state", "friends_state", "sessions_state", "visible_components")]
@@ -131,6 +132,7 @@ collection = NodePath("../../VBoxContainer/MainContainer/Collection")
 search_state = NodePath("../SearchState")
 friends_state = NodePath("../FriendsState")
 sessions_state = NodePath("../SessionsState")
+show_animated_background = true
 visible_components = [NodePath("../../VBoxContainer/MainContainer/Collection")]
 
 [node name="FriendsState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("friends", "search_state", "collection_state", "add_friends_state", "sessions_state", "visible_components")]
@@ -140,6 +142,7 @@ search_state = NodePath("../SearchState")
 collection_state = NodePath("../CollectionState")
 add_friends_state = NodePath("../AddFriendsState")
 sessions_state = NodePath("../SessionsState")
+show_animated_background = true
 visible_components = [NodePath("../../VBoxContainer/MainContainer/Friends")]
 
 [node name="AuthenticationState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("authentication", "signup_state", "login_state", "search_state", "first_login_state", "visible_components")]
@@ -188,6 +191,7 @@ script = ExtResource("22_mafln")
 friends_state = NodePath("../FriendsState")
 show_footer = false
 show_back_button = true
+show_animated_background = true
 visible_components = [NodePath("../../VBoxContainer/MainContainer/AddFriends")]
 
 [node name="SessionsState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("sessions", "collection_state", "friends_state", "search_state", "create_session_state", "session_details_state", "visible_components")]
@@ -198,6 +202,7 @@ friends_state = NodePath("../FriendsState")
 search_state = NodePath("../SearchState")
 create_session_state = NodePath("../CreateSessionState")
 session_details_state = NodePath("../SessionDetailsState")
+show_animated_background = true
 visible_components = [NodePath("../../VBoxContainer/MainContainer/Sessions")]
 
 [node name="CreateSessionState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("create_session", "sessions_state", "session_details_state", "visible_components")]
@@ -207,6 +212,7 @@ sessions_state = NodePath("../SessionsState")
 session_details_state = NodePath("../SessionDetailsState")
 show_footer = false
 show_back_button = true
+show_animated_background = true
 visible_components = [NodePath("../../VBoxContainer/MainContainer/CreateSession")]
 
 [node name="SessionDetailsState" type="Node" parent="UI/StateMachine" node_paths=PackedStringArray("sessions_state", "session_details", "visible_components")]
@@ -215,4 +221,5 @@ sessions_state = NodePath("../SessionsState")
 session_details = NodePath("../../VBoxContainer/MainContainer/SessionDetails")
 show_footer = false
 show_back_button = true
+show_animated_background = true
 visible_components = [NodePath("../../VBoxContainer/MainContainer/SessionDetails")]
