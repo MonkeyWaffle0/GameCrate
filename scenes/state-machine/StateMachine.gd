@@ -12,18 +12,19 @@ var current_state: BaseState
 
 func _ready() -> void:
 	for child in get_children():
-		child.origin = origin
 		child.state_change_requested.connect(change_state)
 	change_state(initial_state)
 
 
 func change_state(new_state: BaseState) -> void:
 	if current_state:
+		current_state.cleanup()
 		current_state.exit()
 
 	var previous_state = current_state
 
 	current_state = new_state
+	current_state.init()
 	current_state.enter()
 	state_changed.emit(previous_state, new_state)
 

@@ -1,5 +1,5 @@
 class_name Login
-extends Control
+extends StateMachineComponent
 
 
 const LOGIN_ERROR_MESSAGE := "Login failed: %s"

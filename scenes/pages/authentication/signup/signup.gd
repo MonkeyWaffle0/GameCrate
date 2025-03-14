@@ -1,5 +1,5 @@
 class_name Signup
-extends Control
+extends StateMachineComponent
 
 
 const SIGNUP_ERROR_MESSAGE := "Signup failed: %s"

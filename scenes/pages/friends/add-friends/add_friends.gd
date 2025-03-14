@@ -1,5 +1,5 @@
 class_name AddFriends
-extends Control
+extends StateMachineComponent
 
 
 @export var add_friend_info_scene: PackedScene

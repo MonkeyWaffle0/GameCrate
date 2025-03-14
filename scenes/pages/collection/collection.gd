@@ -1,11 +1,11 @@
 class_name Collection
-extends Control
+extends StateMachineComponent
 
 
 @export var board_game_info_collection_scene: PackedScene
 
 @onready var selection_scroll_container: SelectionScrollContainer = %SelectionScrollContainer
-@onready var empty_state: VBoxContainer = $EmptyState
+@onready var empty_state: VBoxContainer = %EmptyState
 
 
 func _ready() -> void:
