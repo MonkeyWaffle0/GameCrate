@@ -1,5 +1,5 @@
 class_name SessionSection
-extends VBoxContainer
+extends Control
 
 
 signal session_selected(session: Session)
@@ -10,10 +10,22 @@ enum Type { UPCOMING, PASSED }
 @export var session_info_scene: PackedScene
 
 @onready var container: VBoxContainer = %Container
+@onready var empty_state: VBoxContainer = %EmptyState
 
 
 func _ready() -> void:
 	AppData.user_data.sessions_changed.connect(_on_sessions_changed)
+
+
+func enable(is_enabled: bool) -> void:
+	visible = is_enabled
+	if is_enabled:
+		if not AppData.user_data.sessions_changed.is_connected(_on_sessions_changed):
+			AppData.user_data.sessions_changed.connect(_on_sessions_changed)
+		_on_sessions_changed()
+	else:
+		if AppData.user_data.sessions_changed.is_connected(_on_sessions_changed):
+			AppData.user_data.sessions_changed.disconnect(_on_sessions_changed)
 
 
 func add_element(session: Session) -> void:
@@ -36,6 +48,10 @@ func _on_sessions_changed() -> void:
 	var sessions := AppData.user_data.sessions
 	if type == Type.PASSED:
 		var passed_sessions := sessions.filter(func(sess: Session) -> bool: return DateUtil.is_date_before_today(sess.date))
+		if passed_sessions.is_empty():
+			empty_state.show()
+			return
+		empty_state.hide()
 		for session: Session in passed_sessions:
 			if not already_exists(session):
 				add_element(session)
@@ -45,15 +61,16 @@ func _on_sessions_changed() -> void:
 
 	elif type == Type.UPCOMING:
 		var upcoming_sessions := sessions.filter(func(sess: Session) -> bool: return !DateUtil.is_date_before_today(sess.date))
+		if upcoming_sessions.is_empty():
+			empty_state.show()
+			return
+		empty_state.hide()
 		for session: Session in upcoming_sessions:
 			if not already_exists(session):
 				add_element(session)
 		for child: SessionInfo in container.get_children():
 			if is_not_in(child.session, upcoming_sessions):
 				child.queue_free()
-
-	await get_tree().process_frame
-	visible = container.get_child_count() != 0
 
 
 func already_exists(session: Session) -> bool:
@@ -77,7 +94,7 @@ func is_received_friendship(user_id: String, friendship: Friendship) -> bool:
 
 func is_friend(friendship: Friendship) -> bool:
 	return friendship.status == Friendship.Status.ACCEPTED
-	
+
 
 func _on_session_selected(session_info: SessionInfo) -> void:
 	session_selected.emit(session_info.session)

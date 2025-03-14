@@ -8,12 +8,10 @@ extends BaseState
 
 
 func enter() -> void:
-	super.enter()
 	Firebase.Auth.login_succeeded.connect(_on_login_succeeded)
 
 
 func exit() -> void:
-	super.exit()
 	Firebase.Auth.login_succeeded.disconnect(_on_login_succeeded)
 
 

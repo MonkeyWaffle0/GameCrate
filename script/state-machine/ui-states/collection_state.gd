@@ -10,13 +10,11 @@ extends BaseState
 
 
 func enter() -> void:
-	super.enter()
 	AppData.footer.footer_changed.connect(_on_footer_changed)
 	collection.load_collection()
 
 
 func exit() -> void:
-	super.exit()
 	AppData.footer.footer_changed.disconnect(_on_footer_changed)
 
 

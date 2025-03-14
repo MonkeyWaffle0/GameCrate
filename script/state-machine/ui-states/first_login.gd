@@ -7,12 +7,10 @@ extends BaseState
 
 
 func enter() -> void:
-	super.enter()
 	first_login.username_saved.connect(_on_username_saved)
 
 
 func exit() -> void:
-	super.exit()
 	first_login.username_saved.disconnect(_on_username_saved)
 
 
