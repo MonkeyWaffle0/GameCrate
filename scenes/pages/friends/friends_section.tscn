@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dfcfm3j1kylc7"]
 
-[ext_resource type="Script" uid="uid://dq4e31m5pptxo" path="res://scenes/pages/friends/add-friends/section_with_label.gd" id="1_spho4"]
+[ext_resource type="Script" uid="uid://dq4e31m5pptxo" path="res://scenes/pages/friends/friends_section.gd" id="1_spho4"]
 [ext_resource type="PackedScene" uid="uid://41rsfctjfyrb" path="res://scenes/pages/friends/friend-info/action_friend_info.tscn" id="2_p4ax1"]
 [ext_resource type="Texture2D" uid="uid://bnqhgj7knhwwp" path="res://asset/icon/group-grey.svg" id="3_kd8ju"]
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="4_5q36o"]

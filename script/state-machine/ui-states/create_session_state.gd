@@ -8,14 +8,12 @@ extends BaseState
 
 
 func enter() -> void:
-	super.enter()
 	create_session.fill()
 	create_session.session_created.connect(_on_session_created)
 	AppData.header.back_pressed.connect(_on_back_pressed)
 
 
 func exit() -> void:
-	super.exit()
 	AppData.header.back_pressed.disconnect(_on_back_pressed)
 
 

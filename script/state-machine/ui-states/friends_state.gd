@@ -10,13 +10,11 @@ extends BaseState
 
 
 func enter() -> void:
-	super.enter()
 	AppData.footer.footer_changed.connect(_on_footer_changed)
 	friends.add_friends_pressed.connect(_on_add_friends)
 
 
 func exit() -> void:
-	super.exit()
 	AppData.footer.footer_changed.disconnect(_on_footer_changed)
 	friends.add_friends_pressed.disconnect(_on_add_friends)
 

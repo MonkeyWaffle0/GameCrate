@@ -10,7 +10,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2xbtb"]
 
 [node name="SessionInfo" type="Control" node_paths=PackedStringArray("invisible_button")]
-custom_minimum_size = Vector2(0, 200)
+custom_minimum_size = Vector2(0, 256)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -8,13 +8,11 @@ extends BaseState
 
 
 func enter() -> void:
-	super.enter()
 	AppData.footer.do_selection(Enums.Page.SEARCH)
 	AppData.footer.footer_changed.connect(_on_footer_changed)
 
 
 func exit() -> void:
-	super.exit()
 	AppData.footer.footer_changed.disconnect(_on_footer_changed)
 
 

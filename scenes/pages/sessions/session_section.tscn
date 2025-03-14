@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://bx7q7o01evllk"]
+
+[ext_resource type="Script" uid="uid://dpfldhnlvm8qs" path="res://scenes/pages/sessions/session_section.gd" id="1_06foh"]
+[ext_resource type="PackedScene" uid="uid://n4v6lawsjoqp" path="res://scenes/pages/sessions/session_info.tscn" id="2_b5ua6"]
+[ext_resource type="Texture2D" uid="uid://gkvhiw7wkbtl" path="res://asset/icon/session-grey.svg" id="3_ske0b"]
+[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="4_64sff"]
+
+[node name="SessionSection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06foh")
+session_info_scene = ExtResource("2_b5ua6")
+metadata/_edit_use_anchors_ = true
+
+[node name="Container" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_top = 99.0
+offset_right = 1080.0
+offset_bottom = 1920.0
+size_flags_vertical = 3
+theme_override_constants/separation = 32
+
+[node name="EmptyState" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="EmptyState"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+texture = ExtResource("3_ske0b")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="EmptyState"]
+layout_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_right = 64
+
+[node name="Label" type="Label" parent="EmptyState/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("4_64sff")
+theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
+theme_override_font_sizes/font_size = 48
+text = "Nothing here yet. Start a session and let the fun begin!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

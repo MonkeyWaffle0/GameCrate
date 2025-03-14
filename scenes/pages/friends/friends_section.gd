@@ -22,7 +22,8 @@ func add_element(friendship: Friendship) -> void:
 func enable(is_enabled: bool) -> void:
 	visible = is_enabled
 	if is_enabled:
-		AppData.user_data.friendships_changed.connect(_on_friendships_changed)
+		if not AppData.user_data.friendships_changed.is_connected(_on_friendships_changed):
+			AppData.user_data.friendships_changed.connect(_on_friendships_changed)
 		_on_friendships_changed()
 	else:
 		if AppData.user_data.friendships_changed.is_connected(_on_friendships_changed):
@@ -80,9 +81,6 @@ func _on_friendships_changed() -> void:
 		for child: ActionFriendInfo in container.get_children():
 			if is_not_in(child.friendship, friends):
 				child.queue_free()
-
-	await get_tree().process_frame
-	visible = container.get_child_count() != 0
 
 
 func already_exists(friendship: Friendship) -> bool:
