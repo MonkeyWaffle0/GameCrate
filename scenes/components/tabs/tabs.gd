@@ -24,6 +24,14 @@ func _ready() -> void:
 		tab_container.call_deferred("add_child", button)
 
 
+## Can be used to manually select a tab from outside of the tabs component
+func select_tab(tab_name: String) -> void:
+	for tab_button: Button in tab_container.get_children():
+		if tab_button.text == tab_name:
+			_on_tab_button_pressed(tab_button, tab_name)
+			return
+
+
 func _on_tab_button_pressed(button: Button, tab_name: String) -> void:
 	for tab_button in tab_container.get_children():
 		if tab_button == button:

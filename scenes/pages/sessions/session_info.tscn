@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://n4v6lawsjoqp"]
+[gd_scene load_steps=9 format=3 uid="uid://n4v6lawsjoqp"]
 
 [ext_resource type="Script" uid="uid://bmblivoq7itwy" path="res://scenes/pages/sessions/session_info.gd" id="1_beku2"]
+[ext_resource type="PackedScene" uid="uid://7fhj4gnagia" path="res://scenes/components/panel/list_item_panel.tscn" id="2_gukih"]
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="2_oxadf"]
 [ext_resource type="Texture2D" uid="uid://dyn1rfaow5i1w" path="res://asset/icon/crown-grey.svg" id="3_ner0x"]
 [ext_resource type="Texture2D" uid="uid://bnqhgj7knhwwp" path="res://asset/icon/group-grey.svg" id="4_ner0x"]
@@ -20,18 +21,10 @@ grow_vertical = 2
 script = ExtResource("1_beku2")
 invisible_button = NodePath("InvisibleButton")
 
-[node name="PanelContainer" type="Panel" parent="."]
+[node name="ListItemPanel" parent="." instance=ExtResource("2_gukih")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme = ExtResource("2_oxadf")
-theme_type_variation = &"ListItemPanel"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ListItemPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,24 +32,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ListItemPanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_right = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ListItemPanel/HBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ListItemPanel/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="Date" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Date" type="Label" parent="ListItemPanel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -65,38 +56,38 @@ theme_override_font_sizes/font_size = 48
 text = "Wednesday, 3 March"
 text_overrun_behavior = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ListItemPanel/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ListItemPanel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="ListItemPanel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 texture = ExtResource("3_ner0x")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="SessionOwner" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
+[node name="SessionOwner" type="Label" parent="ListItemPanel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
 theme_override_font_sizes/font_size = 32
 text = "MonkeyWaffle (you)"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="ListItemPanel/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureRect" type="TextureRect" parent="ListItemPanel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 texture = ExtResource("4_ner0x")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Participants" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="Participants" type="Label" parent="ListItemPanel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2

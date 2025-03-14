@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://7fhj4gnagia"]
+
+[ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_fhx2b"]
+[ext_resource type="StyleBox" uid="uid://miepyrmrtaqa" path="res://resource/theme/style-box/list_item_stylebox.tres" id="2_2dhxi"]
+
+[node name="ListItemPanel" type="Panel"]
+clip_children = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_fhx2b")
+theme_type_variation = &"ListItemPanel"
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_fhx2b")
+theme_override_styles/panel = ExtResource("2_2dhxi")
