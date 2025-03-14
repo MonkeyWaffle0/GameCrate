@@ -1,14 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://4gd3dnllj4c7"]
+[gd_scene load_steps=20 format=3 uid="uid://4gd3dnllj4c7"]
 
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_nhjic"]
 [ext_resource type="Script" uid="uid://cxmt2d07awdm6" path="res://scenes/pages/friends/friends.gd" id="1_yfedp"]
 [ext_resource type="Texture2D" uid="uid://58vkd3whymiv" path="res://asset/icon/add.svg" id="2_i4gkm"]
 [ext_resource type="PackedScene" uid="uid://41rsfctjfyrb" path="res://scenes/pages/friends/friend-info/action_friend_info.tscn" id="2_j61nd"]
-[ext_resource type="PackedScene" uid="uid://52xwphfqp44l" path="res://scenes/components/selection-scroll-container/selection_scroll_container.tscn" id="2_sx5sa"]
-[ext_resource type="PackedScene" uid="uid://dfcfm3j1kylc7" path="res://scenes/pages/friends/add-friends/current_friends.tscn" id="3_j61nd"]
-[ext_resource type="PackedScene" uid="uid://booyw4u1dsjow" path="res://scenes/pages/friends/add-friends/received_requests.tscn" id="4_t3yvm"]
-[ext_resource type="PackedScene" uid="uid://b2m3i5nu0vir0" path="res://scenes/pages/friends/add-friends/sent_requests.tscn" id="5_y8x88"]
-[ext_resource type="Texture2D" uid="uid://bnqhgj7knhwwp" path="res://asset/icon/group-grey.svg" id="7_t3yvm"]
+[ext_resource type="PackedScene" uid="uid://dfcfm3j1kylc7" path="res://scenes/pages/friends/friends_section.tscn" id="3_j61nd"]
+[ext_resource type="PackedScene" uid="uid://d236scnejofdd" path="res://scenes/components/tabs/tabs.tscn" id="3_lue3i"]
+[ext_resource type="StyleBox" uid="uid://ivv6hvmh2uqy" path="res://resource/theme/style-box/main_button_texture.tres" id="6_geym2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i4gkm"]
 
@@ -32,8 +30,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pkxux"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nhjic"]
-bg_color = Color(0.129412, 0.545098, 0.396078, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6w6cf"]
 corner_radius_top_left = 64
 corner_radius_top_right = 64
 corner_radius_bottom_right = 64
@@ -49,44 +46,43 @@ grow_vertical = 2
 script = ExtResource("1_yfedp")
 action_friend_info_scene = ExtResource("2_j61nd")
 
-[node name="ScrollContainer" parent="." instance=ExtResource("2_sx5sa")]
-unique_name_in_owner = true
-layout_mode = 1
-single_default_container = false
-containers = Array[PackedScene]([ExtResource("3_j61nd"), ExtResource("4_t3yvm"), ExtResource("5_y8x88")])
-
-[node name="EmptyState" type="VBoxContainer" parent="."]
-unique_name_in_owner = true
+[node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 32
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="EmptyState"]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-texture = ExtResource("7_t3yvm")
-expand_mode = 2
-stretch_mode = 5
-
-[node name="MarginContainer" type="MarginContainer" parent="EmptyState"]
-layout_mode = 2
 theme_override_constants/margin_left = 64
 theme_override_constants/margin_right = 64
 
-[node name="Label" type="Label" parent="EmptyState/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
-theme = ExtResource("1_nhjic")
-theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
-theme_override_font_sizes/font_size = 48
-text = "Your friends list is empty. Invite someone to join your adventure!"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
+theme_override_constants/separation = 64
+
+[node name="Tabs" parent="MarginContainer2/VBoxContainer" instance=ExtResource("3_lue3i")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+tabs_names = Array[String](["Friends", "Received", "Sent"])
+
+[node name="FriendsSection" parent="MarginContainer2/VBoxContainer" instance=ExtResource("3_j61nd")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SentSection" parent="MarginContainer2/VBoxContainer" instance=ExtResource("3_j61nd")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+type = 0
+
+[node name="ReceivedSection" parent="MarginContainer2/VBoxContainer" instance=ExtResource("3_j61nd")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+type = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(164, 164)
@@ -118,14 +114,25 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_y8x88")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_atr8h")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_pkxux")
 
-[node name="Panel" type="Panel" parent="MarginContainer/AddFriendButton"]
+[node name="Panel2" type="Panel" parent="MarginContainer/AddFriendButton"]
+clip_children = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_nhjic")
+theme = ExtResource("1_nhjic")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6w6cf")
+
+[node name="Panel" type="Panel" parent="MarginContainer/AddFriendButton/Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("6_geym2")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/AddFriendButton"]
 layout_mode = 1

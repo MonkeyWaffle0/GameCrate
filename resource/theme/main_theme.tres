@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=21 format=3 uid="uid://cbq3hxgptt55t"]
+[gd_resource type="Theme" load_steps=22 format=3 uid="uid://cbq3hxgptt55t"]
 
 [ext_resource type="StyleBox" uid="uid://cgxbgvmx0jgfp" path="res://resource/theme/style-box/secondary_button.tres" id="1_0d45i"]
 [ext_resource type="StyleBox" uid="uid://43i3y02wdsyg" path="res://resource/theme/style-box/background.tres" id="1_u7cbh"]
@@ -6,6 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://bnutowcrnvr4u" path="res://resource/theme/style-box/line_edit_empty.tres" id="4_2ckmg"]
 [ext_resource type="StyleBox" uid="uid://cwgyabrwaxx4h" path="res://resource/theme/style-box/text_edit.tres" id="4_3j2mn"]
 [ext_resource type="StyleBox" uid="uid://biv7cnokc4eru" path="res://resource/theme/style-box/panel.tres" id="4_qo11d"]
+[ext_resource type="StyleBox" uid="uid://btnrds4nwamy1" path="res://resource/theme/style-box/tab_button.tres" id="7_akwmr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2epre"]
 bg_color = Color(0.129412, 0.545098, 0.396078, 1)
@@ -99,5 +100,17 @@ SecondaryButton/styles/normal = ExtResource("1_0d45i")
 SecondaryButton/styles/normal_mirrored = ExtResource("1_0d45i")
 SecondaryButton/styles/pressed = ExtResource("1_0d45i")
 SecondaryButton/styles/pressed_mirrored = ExtResource("1_0d45i")
+TabButton/base_type = &"Button"
+TabButton/styles/disabled = ExtResource("7_akwmr")
+TabButton/styles/disabled_mirrored = ExtResource("7_akwmr")
+TabButton/styles/focus = ExtResource("7_akwmr")
+TabButton/styles/hover = ExtResource("7_akwmr")
+TabButton/styles/hover_mirrored = ExtResource("7_akwmr")
+TabButton/styles/hover_pressed = ExtResource("7_akwmr")
+TabButton/styles/hover_pressed_mirrored = ExtResource("7_akwmr")
+TabButton/styles/normal = ExtResource("7_akwmr")
+TabButton/styles/normal_mirrored = ExtResource("7_akwmr")
+TabButton/styles/pressed = ExtResource("7_akwmr")
+TabButton/styles/pressed_mirrored = ExtResource("7_akwmr")
 TextEdit/font_sizes/font_size = 24
 TextEdit/styles/normal = ExtResource("4_3j2mn")

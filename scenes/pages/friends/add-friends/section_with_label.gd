@@ -1,5 +1,5 @@
 class_name FriendsSection
-extends VBoxContainer
+extends Control
 
 
 enum Type { SENT, RECEIVED, FRIENDS }
@@ -8,16 +8,25 @@ enum Type { SENT, RECEIVED, FRIENDS }
 @export var action_friend_info_scene: PackedScene
 
 @onready var container: VBoxContainer = %Container
-
-
-func _ready() -> void:
-	AppData.user_data.friendships_changed.connect(_on_friendships_changed)
+@onready var friends_empty_state: VBoxContainer = %FriendsEmptyState
+@onready var received_empty_state: VBoxContainer = %ReceivedEmptyState
+@onready var sent_empty_state: VBoxContainer = %SentEmptyState
 
 
 func add_element(friendship: Friendship) -> void:
 	var action_friend_info := action_friend_info_scene.instantiate() as ActionFriendInfo
 	action_friend_info.friendship = friendship
 	container.call_deferred("add_child", action_friend_info)
+
+
+func enable(is_enabled: bool) -> void:
+	visible = is_enabled
+	if is_enabled:
+		AppData.user_data.friendships_changed.connect(_on_friendships_changed)
+		_on_friendships_changed()
+	else:
+		if AppData.user_data.friendships_changed.is_connected(_on_friendships_changed):
+			AppData.user_data.friendships_changed.disconnect(_on_friendships_changed)
 
 
 func clear() -> void:
@@ -31,10 +40,14 @@ func get_element_count() -> int:
 
 func _on_friendships_changed() -> void:
 	var friendships := AppData.user_data.friendships
-	var user_id: String = Firebase.Auth.auth["localid"]
+	var user_id := AppData.get_user_id()
 
 	if type == Type.SENT:
 		var sent_friendships := friendships.filter(func(frd: Friendship) -> bool: return is_sent_friendship(user_id, frd))
+		if sent_friendships.is_empty():
+			sent_empty_state.show()
+			return
+		sent_empty_state.hide()
 		for friendship: Friendship in sent_friendships:
 			if not already_exists(friendship):
 				add_element(friendship)
@@ -44,6 +57,10 @@ func _on_friendships_changed() -> void:
 
 	elif type == Type.RECEIVED:
 		var received_friendships := friendships.filter(func(frd: Friendship) -> bool: return is_received_friendship(user_id, frd))
+		if received_friendships.is_empty():
+			received_empty_state.show()
+			return
+		received_empty_state.hide()
 		for friendship: Friendship in received_friendships:
 			if not already_exists(friendship):
 				add_element(friendship)
@@ -53,6 +70,10 @@ func _on_friendships_changed() -> void:
 
 	elif type == Type.FRIENDS:
 		var friends := friendships.filter(func(frd: Friendship) -> bool: return is_friend(frd))
+		if friends.is_empty():
+			friends_empty_state.show()
+			return
+		friends_empty_state.hide()
 		for friendship: Friendship in friends:
 			if not already_exists(friendship):
 				add_element(friendship)

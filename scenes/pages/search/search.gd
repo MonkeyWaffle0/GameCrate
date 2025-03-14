@@ -1,5 +1,5 @@
 class_name Search
-extends Control
+extends StateMachineComponent
 
 
 @export var board_game_info_search_scene: PackedScene

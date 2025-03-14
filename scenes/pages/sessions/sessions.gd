@@ -1,5 +1,5 @@
 class_name Sessions
-extends Control
+extends StateMachineComponent
 
 
 signal create_session_pressed

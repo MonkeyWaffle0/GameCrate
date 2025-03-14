@@ -1,5 +1,5 @@
 class_name SessionDetails
-extends Control
+extends StateMachineComponent
 
 
 @export var session_details_game_info_scene: PackedScene

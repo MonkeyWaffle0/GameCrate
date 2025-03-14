@@ -1,5 +1,5 @@
 class_name Authentication
-extends Control
+extends StateMachineComponent
 
 
 signal signup_pressed

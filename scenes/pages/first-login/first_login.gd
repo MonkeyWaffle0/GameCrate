@@ -1,5 +1,5 @@
 class_name FirstLogin
-extends Control
+extends StateMachineComponent
 
 
 signal username_saved

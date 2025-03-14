@@ -10,33 +10,48 @@ signal state_change_requested(new_state: BaseState)
 @export var show_animated_background := false
 @export var visible_components: Array[Node] = []
 
-var origin: Node
 
-
-func enter() -> void:
+## Not meant to be overriden. Always called when state is entered
+func init() -> void:
 	AppData.footer.visible = show_footer
 	AppData.header.visible = show_header
 	AppData.header.show_back_button(show_back_button)
-	%AnimatedBackground.visible = show_animated_background
+	AppData.animated_background.visible = show_animated_background
 	for component in visible_components:
 		component.show()
+		component.enter()
 
 
-func exit() -> void:
+## Not meant to be overriden. Always called when state is exited
+func cleanup() -> void:
 	AppData.footer.visible = !show_footer
 	AppData.header.visible = !show_header
 	AppData.animated_background.visible = !show_animated_background
 	for component in visible_components:
 		component.hide()
+		component.exit()
 
 
+## Can be overriden to add code when entering state
+func enter() -> void:
+	pass
+
+
+## Can be overriden to add code when exiting state
+func exit() -> void:
+	pass
+
+
+## Called for each input on the current state
 func input(_event: InputEvent) -> BaseState:
 	return null
 
 
+## Called for each process frame on the current state
 func process(_delta: float) -> BaseState:
 	return null
 
 
+## Called for each physics process frame on the current state
 func physics_process(_delta: float) -> BaseState:
 	return null
