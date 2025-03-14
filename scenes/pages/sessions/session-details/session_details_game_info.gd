@@ -44,7 +44,7 @@ func _on_likes_changed() -> void:
 func update_like_ui() -> void:
 	if is_liked:
 		like_button.set_icon(full_like_texture)
-		like_amount.add_theme_color_override("front_color", liked_color)
+		like_amount.add_theme_color_override("font_color", liked_color)
 	else:
 		like_button.set_icon(empty_like_texture)
-		like_amount.add_theme_color_override("front_color", empty_color)
+		like_amount.add_theme_color_override("font_color", empty_color)

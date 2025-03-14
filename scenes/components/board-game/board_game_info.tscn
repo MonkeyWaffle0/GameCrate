@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://xn0nhcleo38w"]
+[gd_scene load_steps=9 format=3 uid="uid://xn0nhcleo38w"]
 
 [ext_resource type="Theme" uid="uid://cbq3hxgptt55t" path="res://resource/theme/main_theme.tres" id="1_68bdq"]
 [ext_resource type="Script" uid="uid://dpjh6i1wb0wtd" path="res://scenes/components/board-game/board_game_info.gd" id="1_ykoav"]
-[ext_resource type="StyleBox" uid="uid://miepyrmrtaqa" path="res://resource/theme/style-box/list_item_stylebox.tres" id="3_40rh3"]
 [ext_resource type="PackedScene" uid="uid://wd3kxbq4ny8o" path="res://scenes/components/image/url_texture_rect.tscn" id="3_ek4ff"]
 [ext_resource type="Texture2D" uid="uid://cwsspjrri02vh" path="res://asset/icon/group.svg" id="4_w1ekr"]
 [ext_resource type="Texture2D" uid="uid://dru823wbge6rq" path="res://asset/icon/time.svg" id="4_wpryl"]
@@ -27,18 +26,7 @@ grow_vertical = 2
 size_flags_vertical = 4
 script = ExtResource("1_ykoav")
 
-[node name="PanelContainer" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme = ExtResource("1_68bdq")
-theme_override_styles/panel = ExtResource("3_40rh3")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,7 +35,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 15
 
-[node name="UrlTextureRect" parent="PanelContainer/HBoxContainer" instance=ExtResource("3_ek4ff")]
+[node name="UrlTextureRect" parent="HBoxContainer" instance=ExtResource("3_ek4ff")]
 unique_name_in_owner = true
 clip_children = 2
 custom_minimum_size = Vector2(256, 256)
@@ -57,7 +45,7 @@ size_flags_vertical = 4
 expand_mode = 5
 stretch_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 16
@@ -65,16 +53,16 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 64
 
-[node name="GameName" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="GameName" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -83,31 +71,31 @@ theme_override_font_sizes/font_size = 48
 text = "Name"
 text_overrun_behavior = 3
 
-[node name="Year" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Year" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.823529, 0.823529, 0.823529, 1)
 theme_override_font_sizes/font_size = 32
 text = "2008"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer3"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer3"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer3/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer3/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("4_w1ekr")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Players" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer3"]
+[node name="Players" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_68bdq")
@@ -115,41 +103,41 @@ theme_override_colors/font_color = Color(0.823529, 0.823529, 0.823529, 1)
 theme_override_font_sizes/font_size = 32
 text = "2-4"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("4_wpryl")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Playtime" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+[node name="Playtime" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.823529, 0.823529, 0.823529, 1)
 theme_override_font_sizes/font_size = 32
 text = "30 min"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 texture = ExtResource("5_owifb")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Weight" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
+[node name="Weight" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.823529, 0.823529, 0.823529, 1)
 theme_override_font_sizes/font_size = 32
 text = "4.56"
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer"]
+[node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

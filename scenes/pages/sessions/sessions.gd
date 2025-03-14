@@ -12,10 +12,12 @@ signal session_selected(session: Session)
 
 func _ready() -> void:
 	tabs.tab_selected.connect(_on_tab_selected)
+	upcoming_session_section.session_selected.connect(_on_session_selected)
+	previous_session_section.session_selected.connect(_on_session_selected)
 
 
 func enter() -> void:
-	change_tab("Upcoming")
+	tabs.select_tab("Upcoming")
 
 
 func change_tab(tab_name: String) -> void:

@@ -17,7 +17,7 @@ func _ready() -> void:
 
 
 func enter() -> void:
-	change_tab("Friends")
+	tabs.select_tab("Friends")
 
 
 func change_tab(tab_name: String) -> void:

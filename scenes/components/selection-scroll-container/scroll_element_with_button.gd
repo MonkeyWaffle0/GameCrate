@@ -19,7 +19,7 @@ func _ready() -> void:
 		board_game_info.board_game = board_game
 	has_been_initialized = true
 	initial_x = buttons.position.x
-	buttons.position.x += buttons_width
+	buttons.position.x += buttons_width + 1
 
 
 func set_selected(value: bool) -> void:
@@ -37,7 +37,7 @@ func slide_in() -> void:
 
 func slide_out() -> void:
 	reset_tween()
-	tween.tween_property(buttons, "position:x", initial_x + buttons_width, 0.2)
+	tween.tween_property(buttons, "position:x", initial_x + buttons_width + 1, 0.2)
 
 
 func reset_tween() -> void:
