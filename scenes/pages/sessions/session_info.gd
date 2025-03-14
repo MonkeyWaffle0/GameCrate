@@ -15,10 +15,12 @@ func _ready() -> void:
 	session_owner.text = session.owner_username
 	if session.owner == AppData.get_user_id():
 		session_owner.text += " (you)"
-	var other_usernames := session.participants_usernames.filter(func(username: String): return username != AppData.user_data.username)
+	var participants_except_owner := session.participants_usernames.filter(func(username: String): return username != session.owner_username)
 	var result := ""
-	for i: int in range(other_usernames.size()):
-		result += str(other_usernames[i])
-		if i < other_usernames.size() - 1:
+	for i: int in range(participants_except_owner.size()):
+		result += str(participants_except_owner[i])
+		if participants_except_owner[i] == AppData.user_data.username:
+			result += " (you)"
+		if i < participants_except_owner.size() - 1:
 			result += ", "
 	participants.text = result
