@@ -29,9 +29,10 @@ Follow these steps to set up the project:
 
 After completing the setup, follow these steps to run the project:
 
-1. Open Godot and load the project by selecting the project directory.
-2. Once the project is open, press the **Play** button in the Godot editor to run the project.
-3. Enjoy developing or testing the app!
+1. Setup a Firebase firestore project and add the .env file at the root of the project.
+2. Open Godot and load the project by selecting the project directory.
+3. Once the project is open, press the **Play** button in the Godot editor to run the project.
+4. Enjoy developing or testing the app!
 
 ## Project Structure
 
